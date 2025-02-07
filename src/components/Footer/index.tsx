@@ -13,7 +13,7 @@ const DmFooter: React.FC = () => {
       className={classNames(styles.footer)}
       style={{ textAlign: 'center' }}
     >
-      ©2025 Vite template by{' '}
+      ©2025 DM Productivity by{' '}
       <a target="_blank" href="https://github.com/minh711">
         minh711 (dm711)
       </a>

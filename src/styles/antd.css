@@ -18,20 +18,19 @@
   background-color: var(--background-1);
 }
 .anticon.anticon-right,
-.anticon.anticon-left
-{
+.anticon.anticon-left {
   color: var(--text);
 }
 
 /* Menu */
-.ant-menu-light, 
-.ant-menu-light>.ant-menu {
+.ant-menu-light,
+.ant-menu-light > .ant-menu {
   background-color: var(--background-1) !important;
 }
-.ant-menu-light .ant-menu-item, 
-.ant-menu-light>.ant-menu .ant-menu-item, 
-.ant-menu-light .ant-menu-submenu-title, 
-.ant-menu-light>.ant-menu .ant-menu-submenu-title {
+.ant-menu-light .ant-menu-item,
+.ant-menu-light > .ant-menu .ant-menu-item,
+.ant-menu-light .ant-menu-submenu-title,
+.ant-menu-light > .ant-menu .ant-menu-submenu-title {
   color: var(--text);
 }
 .ant-menu-item-active {
@@ -42,9 +41,9 @@
   color: var(--color-primary) !important;
 }
 .ant-menu-item:active {
-  background-color: var(--background-1) !important; 
+  background-color: var(--background-1) !important;
 }
-.ant-menu-light .ant-menu-item-selected, 
+.ant-menu-light .ant-menu-item-selected,
 .ant-menu-light > .ant-menu .ant-menu-item-selected {
   background-color: var(--background-1);
   color: var(--color-primary);
@@ -81,8 +80,8 @@
 .ant-dropdown-menu {
   background-color: var(--background-1) !important;
 }
-.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item, 
-.ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-item, 
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item,
+.ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-item,
 .ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-submenu-title,
 .ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-submenu-title {
   color: var(--text);
@@ -92,7 +91,7 @@
 .ant-select-selector {
   background: var(--background-1) !important;
   color: var(--text) !important;
-} 
+}
 .ant-select-open .ant-select-selector span {
   color: var(--text) !important;
 }
@@ -141,6 +140,9 @@
   background-color: var(--background-1);
   color: var(--text);
 }
+.ant-btn-color-default:hover {
+  background-color: var(--background-1) !important;
+}
 
 /* Card */
 .ant-card {
@@ -158,7 +160,7 @@
   background-origin: var(--background-1) !important;
 }
 .ant-tooltip-inner {
-  color: var(--text) !important; 
+  color: var(--text) !important;
   background-color: var(--background-1) !important;
   opacity: 0.9;
 }

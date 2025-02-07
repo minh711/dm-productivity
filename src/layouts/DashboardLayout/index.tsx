@@ -1,16 +1,12 @@
-// src/components/DashboardLayout/DashboardLayout.tsx
-import React, { ReactNode } from 'react';
+import { HOME_PATH, routeTitles } from '../../constants';
+import { HomeOutlined, BorderOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import DmFooter from '../../components/Footer';
 import DmHeader from '../../components/Header';
 import DmSider from '../../components/Sider';
-import DmFooter from '../../components/Footer';
-import {
-  HomeOutlined,
-  AppstoreAddOutlined,
-  BorderOutlined,
-} from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import { HOME_PATH, routeTitles } from '../../constants';
+import React, { ReactNode } from 'react';
 
 const { Content } = Layout;
 
@@ -19,18 +15,23 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const dashboardMenuItems = [
     {
       key: 'home',
       icon: <HomeOutlined />,
-      label: routeTitles[HOME_PATH],
+      label: t(routeTitles[HOME_PATH]),
       onClick: () => navigate(HOME_PATH),
     },
     {
       key: 'group',
-      icon: <BorderOutlined />,
+      icon: (
+        <span role="img" aria-label="grape">
+          🍇
+        </span>
+      ),
       label: 'Group',
       children: [
         {
