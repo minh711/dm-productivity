@@ -1,64 +1,21 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
-import {
-  HomeOutlined,
-  AppstoreAddOutlined,
-  BorderOutlined,
-} from '@ant-design/icons';
+import { AppstoreAddOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 // import { useTranslation } from 'react-i18next';
-import { HOME_PATH, roles, routeTitles } from '../../../constants';
-import useSession from '../../../hooks/useSession';
+import { HOME_PATH } from '../../constants';
+import useSession from '../../hooks/useSession';
 
 const { Sider } = Layout;
 
-const DashboardSider: React.FC = () => {
+const DmSider: React.FC<any> = ({ menuItems }) => {
   // const { t } = useTranslation();
 
   const { role } = useSession();
 
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
-
-  const adminMenuItems = [
-    {
-      key: 'home',
-      icon: <HomeOutlined />,
-      label: routeTitles[HOME_PATH],
-      onClick: () => navigate(HOME_PATH),
-    },
-    {
-      key: 'group',
-      icon: <BorderOutlined />,
-      label: 'Group',
-      children: [
-        {
-          key: 'group.member1',
-          icon: <BorderOutlined />,
-          label: 'Member 1',
-          onClick: () => navigate(HOME_PATH),
-        },
-        {
-          key: 'group.member2',
-          icon: <BorderOutlined />,
-          label: 'Member 2',
-          onClick: () => navigate(HOME_PATH),
-        },
-      ],
-    },
-  ];
-
-  let menuItems: any = [];
-
-  switch (role) {
-    case roles.ADMIN:
-      menuItems = adminMenuItems;
-      break;
-    default:
-      menuItems = [];
-      break;
-  }
 
   return (
     <Sider
@@ -97,4 +54,4 @@ const DashboardSider: React.FC = () => {
   );
 };
 
-export default DashboardSider;
+export default DmSider;

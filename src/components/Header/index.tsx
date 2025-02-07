@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './style.module.css';
 // import { useTranslation } from 'react-i18next';
-import { routeTitles } from '../../../constants';
-import useSession from '../../../hooks/useSession';
+import { routeTitles } from '../../constants';
+import useSession from '../../hooks/useSession';
 
 const { Header } = Layout;
 
-const DashboardHeader: React.FC = () => {
+const DmHeader: React.FC = () => {
   // const { t, i18n } = useTranslation();
 
   // const [selectedLanguage, setSelectedLanguage] = useState<string>(() => {
@@ -53,4 +53,4 @@ const DashboardHeader: React.FC = () => {
   );
 };
 
-export default DashboardHeader;
+export default DmHeader;

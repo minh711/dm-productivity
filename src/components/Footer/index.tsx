@@ -7,7 +7,7 @@ import styles from './style.module.css';
 
 const { Footer } = Layout;
 
-const DashboardFooter: React.FC = () => {
+const DmFooter: React.FC = () => {
   return (
     <Footer
       className={classNames(styles.footer)}
@@ -21,4 +21,4 @@ const DashboardFooter: React.FC = () => {
   );
 };
 
-export default DashboardFooter;
+export default DmFooter;
