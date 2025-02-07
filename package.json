@@ -1,5 +1,5 @@
 {
-  "name": "vite-template",
+  "name": "dm-productivity",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,12 +12,12 @@
   "dependencies": {
     "antd": "^5.23.3",
     "axios": "^1.7.9",
+    "dm-productivity": "file:",
     "i18next": "^24.2.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.4.0",
-    "react-router-dom": "^7.1.5",
-    "vite-template": "file:"
+    "react-router-dom": "^7.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
