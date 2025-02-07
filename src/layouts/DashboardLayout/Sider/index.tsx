@@ -71,7 +71,6 @@ const DashboardSider: React.FC = () => {
         boxShadow: '4px 0 8px rgba(0, 0, 0, 0.1)',
         userSelect: 'none',
       }}
-      theme="light"
     >
       <div
         className="logo"

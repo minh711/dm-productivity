@@ -1,0 +1,183 @@
+/* Layout */
+.ant-layout {
+  background-color: var(--background-2);
+  color: var(--text);
+}
+.ant-layout-content {
+  color: var(--text);
+}
+.ant-layout-header {
+  color: var(--text);
+}
+
+/* Sider */
+.ant-layout-sider {
+  background-color: var(--background-1);
+}
+.ant-layout-sider .ant-layout-sider-trigger {
+  background-color: var(--background-1);
+}
+.anticon.anticon-right,
+.anticon.anticon-left
+{
+  color: var(--text);
+}
+
+/* Menu */
+.ant-menu-light, 
+.ant-menu-light>.ant-menu {
+  background-color: var(--background-1) !important;
+}
+.ant-menu-light .ant-menu-item, 
+.ant-menu-light>.ant-menu .ant-menu-item, 
+.ant-menu-light .ant-menu-submenu-title, 
+.ant-menu-light>.ant-menu .ant-menu-submenu-title {
+  color: var(--text);
+}
+.ant-menu-item-active {
+  background-color: var(--background-1);
+  color: var(--color-primary);
+}
+.ant-menu-item:hover {
+  color: var(--color-primary) !important;
+}
+.ant-menu-item:active {
+  background-color: var(--background-1) !important; 
+}
+.ant-menu-light .ant-menu-item-selected, 
+.ant-menu-light > .ant-menu .ant-menu-item-selected {
+  background-color: var(--background-1);
+  color: var(--color-primary);
+}
+.ant-menu-submenu-selected {
+  background-color: var(--background-1);
+  color: var(--color-primary);
+}
+.ant-menu-submenu-selected:hover {
+  background-color: var(--background-1);
+  color: var(--color-primary);
+}
+.ant-menu-submenu-selected::after {
+  background-color: var(--background-1);
+  border-bottom-color: var(--color-primary);
+}
+.ant-menu-item.wrap {
+  height: auto !important;
+  line-height: normal !important;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.ant-menu-item.wrap .ant-menu-title-content {
+  min-height: auto !important;
+  white-space: normal !important;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Dropdown */
+.ant-dropdown-trigger {
+  background-color: var(--background-1);
+}
+.ant-dropdown-menu {
+  background-color: var(--background-1) !important;
+}
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item, 
+.ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-item, 
+.ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-submenu-title,
+.ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-submenu-title {
+  color: var(--text);
+}
+
+/* Select */
+.ant-select-selector {
+  background: var(--background-1) !important;
+  color: var(--text) !important;
+} 
+.ant-select-open .ant-select-selector span {
+  color: var(--text) !important;
+}
+.ant-select-dropdown {
+  background: var(--background-1);
+}
+.ant-select-item-option-content {
+  color: var(--text);
+}
+.ant-select-item-option-selected {
+  background-color: var(--background-2) !important;
+}
+.ant-select-item {
+  background: var(--background-1);
+}
+.ant-select-arrow {
+  color: var(--text) !important;
+  opacity: 0.6;
+}
+
+/* Table */
+.ant-table-thead .ant-table-cell {
+  color: var(--text) !important;
+  background-color: var(--table-head-cell) !important;
+  user-select: none;
+}
+.ant-table-tbody .ant-table-cell {
+  color: var(--text) !important;
+  background-color: var(--table-body-cell) !important;
+}
+.ant-pagination-item {
+  background-color: var(--table-body-cell) !important;
+}
+.ant-table-column-sorter-inner {
+  color: var(--text-muted);
+}
+.ant-table {
+  background-color: var(--table-border) !important;
+}
+.ant-table-cell {
+  border-color: var(--table-border) !important;
+}
+
+/* Buttons */
+.ant-btn-color-default {
+  background-color: var(--background-1);
+  color: var(--text);
+}
+
+/* Card */
+.ant-card {
+  background-color: var(--card-background);
+}
+
+/* Tool tip */
+.ant-tooltip {
+  color: var(--color-primary);
+}
+.ant-tooltip-arrow {
+  --antd-arrow-background-color: var(--background-1) !important;
+}
+.ant-tooltip-content {
+  background-origin: var(--background-1) !important;
+}
+.ant-tooltip-inner {
+  color: var(--text) !important; 
+  background-color: var(--background-1) !important;
+  opacity: 0.9;
+}
+
+/* Notification */
+.ant-notification {
+  background-color: var(--background-1) !important;
+  color: var(--text);
+}
+.ant-notification-notice-wrapper {
+  background-color: var(--background-1) !important;
+  color: var(--text);
+}
+.ant-notification-notice-message {
+  color: var(--text) !important;
+}
+.ant-notification-notice-description {
+  color: var(--text) !important;
+}
+.ant-notification-notice-close {
+  color: var(--text) !important;
+}

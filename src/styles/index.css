@@ -1,3 +1,31 @@
+:root {
+  --text: rgba(0, 0, 0, 0.88);
+  --text-white: #fff;
+  --text-muted: rgba(0, 0, 0, 0.24);
+  --background-1: #fff;
+  --background-2: #e6fffb;
+  --card-background: rgba(255, 255, 255, 0.48);
+  --table-head-cell: #fafafa;
+  --table-body-cell: #fff;
+  --table-border: #f0f0f0;
+  --color-primary: #1677ff;
+  --color-danger: #ff4d4f;
+}
+
+body.dark-mode {
+  --text: #fff;
+  --text-white: rgba(0, 0, 0, 0.88);
+  --text-muted: rgba(255, 255, 255, 0.24);
+  --background-1: #111d2c;
+  --background-2: #112a45;
+  --card-background: rgba(17, 29, 44, 0.48);
+  --table-head-cell: #111d2c;
+  --table-body-cell: #112a45;
+  --table-border: #111d2c;
+  --color-primary: #1677ff;
+  --color-danger: #ff4d4f;
+}
+
 * {
   margin: 0;
   padding: 0;
