@@ -1,5 +1,6 @@
 export interface LogType {
   id: string;
+  order?: number;
   name: string;
   description: string;
   totalDuration: number;

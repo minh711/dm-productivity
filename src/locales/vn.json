@@ -8,6 +8,12 @@
   "home": "Trang chủ",
   "daily-log": {
     "title": "Sổ theo dõi hàng ngày",
-    "description": "Bằng chứng không thể chối cãi về năng suất – hoặc sự lười biếng của bạn."
+    "dashboard": {
+      "title": "Tổng quan"
+    },
+    "description": "Bằng chứng không thể chối cãi về năng suất – hoặc sự lười biếng của bạn.",
+    "log-type-category": {
+      "title": "Phân loại & Hạng mục công việc"
+    }
   }
 }

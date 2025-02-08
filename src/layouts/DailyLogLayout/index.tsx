@@ -1,4 +1,10 @@
-import { DAILY_LOG_PATH, HOME_PATH, routeTitles } from '../../constants';
+import {
+  DAILY_LOG_PATH,
+  HOME_PATH,
+  LOG_CATEGORY_PATH,
+  LOG_TYPE_AND_CATEGORY_PATH,
+  routeTitles,
+} from '../../constants';
 import { HomeOutlined, BorderOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -23,45 +29,23 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       key: 'dashboard',
       icon: (
         <span role="img" aria-label="dashboard">
-          📰
-        </span>
-      ),
-      label: t(routeTitles[DAILY_LOG_PATH]),
-      onClick: () => navigate(DAILY_LOG_PATH),
-    },
-    {
-      key: 'daily-log',
-      icon: (
-        <span role="img" aria-label="daily-log">
           📝
         </span>
       ),
       label: t(routeTitles[DAILY_LOG_PATH]),
       onClick: () => navigate(DAILY_LOG_PATH),
     },
-    // {
-    //   key: 'group',
-    //   icon: (
-    //     <span role="img" aria-label="grape">
-    //       🍇
-    //     </span>
-    //   ),
-    //   label: 'Group',
-    //   children: [
-    //     {
-    //       key: 'group.member1',
-    //       icon: <BorderOutlined />,
-    //       label: 'Member 1',
-    //       onClick: () => navigate(HOME_PATH),
-    //     },
-    //     {
-    //       key: 'group.member2',
-    //       icon: <BorderOutlined />,
-    //       label: 'Member 2',
-    //       onClick: () => navigate(HOME_PATH),
-    //     },
-    //   ],
-    // },
+    {
+      key: 'log-type-category',
+      icon: (
+        <span role="img" aria-label="log-type-category">
+          🎹
+        </span>
+      ),
+      className: 'wrap',
+      label: t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH]),
+      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+    },
   ];
 
   return (

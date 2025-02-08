@@ -14,6 +14,7 @@ export class LogRepository {
   static add(log: Log): void {
     const key = this.getStorageKey(log.date);
     const logs = this.get(log.date);
+    log.order ||= 0;
     logs.push(log);
     localStorage.setItem(key, JSON.stringify(logs));
   }

@@ -8,6 +8,12 @@
   "home": "Home",
   "daily-log": {
     "title": "Daily Log",
-    "description": "Undeniable proof of productivity – or your laziness."
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "description": "Undeniable proof of productivity – or your laziness.",
+    "log-type-category": {
+      "title": "Log Type & Category"
+    }
   }
 }

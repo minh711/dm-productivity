@@ -103,7 +103,7 @@ const DmHeader: React.FC = () => {
   useEffect(() => {
     const currentPath = location.pathname;
     setCurrentPageTitle(routeTitles[currentPath] || '');
-  }, []);
+  }, [location.pathname]); // Need location.pathname here to refresh in some case
 
   return (
     <Header className={classNames(styles.header)}>
@@ -135,7 +135,14 @@ const DmHeader: React.FC = () => {
                   📝 {t(routeTitles[DAILY_LOG_PATH])}
                 </Button>
               </Tooltip>
-
+              <Tooltip title="Nơi thư giãn...">
+                <Button
+                  className={styles.iconButton}
+                  onClick={() => navigate(DAILY_LOG_PATH)}
+                >
+                  🖼️ Phòng trưng bày
+                </Button>
+              </Tooltip>
               <Tooltip title="Development in process...">
                 <Button
                   className={styles.iconButton}

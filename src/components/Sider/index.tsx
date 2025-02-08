@@ -45,10 +45,11 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
         <span
           style={{
             fontSize: collapsed ? '18px' : '24px',
+            fontWeight: 'bold',
             transition: 'font-size 0.3s ease',
           }}
         >
-          🍇
+          🍇 {collapsed ? '' : ' DM Pro'}
         </span>
       </div>
       <Menu theme="light" mode="inline" items={menuItems} />
