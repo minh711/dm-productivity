@@ -20,14 +20,14 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
 
   const menuItems = [
     {
-      key: 'home',
+      key: 'dashboard',
       icon: (
-        <span role="img" aria-label="home">
-          🏠
+        <span role="img" aria-label="dashboard">
+          📰
         </span>
       ),
-      label: t(routeTitles[HOME_PATH]),
-      onClick: () => navigate(HOME_PATH),
+      label: t(routeTitles[DAILY_LOG_PATH]),
+      onClick: () => navigate(DAILY_LOG_PATH),
     },
     {
       key: 'daily-log',
