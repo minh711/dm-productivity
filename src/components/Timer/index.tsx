@@ -6,12 +6,6 @@ const Timer = ({ duration = 10 }) => {
   const [timeLeft, setTimeLeft] = useState(duration);
   const [progress, setProgress] = useState(100); // Start full, decrease over time
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [isClient, setIsClient] = useState(false); // Track if it's client-side
-
-  // This ensures notifications are only requested client-side
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const requestNotificationPermission = () => {
     if (Notification.permission !== 'granted') {
@@ -34,13 +28,13 @@ const Timer = ({ duration = 10 }) => {
         setProgress(((timeLeft - 1) / duration) * 100); // Update progress
       }, 1000);
       return () => clearTimeout(timer);
-    } else if (timeLeft === 0 && isTimerActive && isClient) {
-      // Show notification when the timer is up, ensuring it only runs client-side
+    } else if (timeLeft === 0 && isTimerActive) {
+      // Show notification when the timer is up
       if (Notification.permission === 'granted') {
         new Notification('Time is up!');
       }
     }
-  }, [timeLeft, duration, isTimerActive, isClient]);
+  }, [timeLeft, duration, isTimerActive]);
 
   const data = [{ name: 'Burn', value: progress }]; // Chart updates every second
 
