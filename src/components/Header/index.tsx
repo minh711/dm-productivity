@@ -191,7 +191,7 @@ const DmHeader: React.FC = () => {
               },
             ],
           }}
-          trigger={['hover']}
+          trigger={['click']}
           className={(styles.appDropdown, 'me-sm')}
           placement="bottomRight"
         >
