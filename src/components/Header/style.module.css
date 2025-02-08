@@ -11,6 +11,9 @@
   flex: 1;
   margin-left: 16px;
   font-size: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .appIconsContainer {
@@ -20,12 +23,13 @@
 }
 
 .appDropdown {
-  display: none;
+  display: inline-block;
 }
 
 .iconGroup {
   display: flex;
-  gap: 16px;
+  gap: 12px;
+  align-items: center;
 }
 
 .iconButton {
@@ -35,7 +39,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 1280px) {
   .dropDownLabel {
     display: none;
   }
@@ -46,5 +50,15 @@
 
   .appDropdown {
     display: inline-block;
+  }
+} */
+
+@media (max-width: 780px) {
+  .dropDownLabel {
+    display: none;
+  }
+
+  .iconGroup {
+    display: none;
   }
 }

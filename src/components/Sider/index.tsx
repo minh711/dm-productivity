@@ -42,12 +42,14 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
         }}
         onClick={() => navigate(HOME_PATH)}
       >
-        <AppstoreAddOutlined
+        <span
           style={{
             fontSize: collapsed ? '18px' : '24px',
             transition: 'font-size 0.3s ease',
           }}
-        />
+        >
+          🍇
+        </span>
       </div>
       <Menu theme="light" mode="inline" items={menuItems} />
     </Sider>

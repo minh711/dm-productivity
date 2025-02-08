@@ -1,0 +1,40 @@
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes jump-sequence {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.2em);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.ani-breathing {
+  animation: breathe 3s infinite ease-in-out;
+}
+
+.ani-jump-text {
+  white-space: nowrap;
+}
+
+.ani-jump-text span {
+  display: inline-block;
+  animation: jump-sequence 1s ease-in-out infinite;
+  animation-delay: calc(var(--index) * 0.1s);
+}

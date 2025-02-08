@@ -69,8 +69,13 @@
 .ant-menu-item.wrap .ant-menu-title-content {
   min-height: auto !important;
   white-space: normal !important;
+  min-width: 160px !important;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+.ant-menu-inline-collapsed .ant-menu-item.wrap {
+  height: 40px !important;
+  display: flex;
 }
 
 /* Dropdown */

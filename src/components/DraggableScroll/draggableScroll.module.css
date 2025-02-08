@@ -1,0 +1,18 @@
+.draggableScroll {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  cursor: grab;
+  user-select: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.draggableScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.dragging {
+  cursor: grabbing;
+}

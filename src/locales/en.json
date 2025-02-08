@@ -4,5 +4,10 @@
   "settings": "Settings",
   "darkMode": "Dark mode",
   "selectLanguage": "Language",
-  "home": "Home"
+  "explores": "Explores:",
+  "home": "Home",
+  "daily-log": {
+    "title": "Daily Log",
+    "description": "Undeniable proof of productivity – or your laziness."
+  }
 }

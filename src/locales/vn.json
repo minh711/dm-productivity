@@ -4,5 +4,10 @@
   "settings": "Tùy chỉnh",
   "darkMode": "Chế độ ban đêm",
   "selectLanguage": "Ngôn ngữ",
-  "home": "Trang chủ"
+  "explores": "Khám phá các ứng dụng:",
+  "home": "Trang chủ",
+  "daily-log": {
+    "title": "Sổ theo dõi hàng ngày",
+    "description": "Bằng chứng không thể chối cãi về năng suất – hoặc sự lười biếng của bạn."
+  }
 }

@@ -1,10 +1,6 @@
 import { DAILY_LOG_PATH, HOME_PATH, routeTitles } from '../../constants';
-import {
-  HomeOutlined,
-  BorderOutlined,
-  InfoCircleOutlined,
-} from '@ant-design/icons';
-import { Layout, Tooltip } from 'antd';
+import { HomeOutlined, BorderOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import DmFooter from '../../components/Footer';
@@ -14,15 +10,15 @@ import React, { ReactNode } from 'react';
 
 const { Content } = Layout;
 
-interface DashboardLayoutProps {
+interface DailyLogLayoutProps {
   children?: ReactNode;
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const dashboardMenuItems = [
+  const menuItems = [
     {
       key: 'home',
       icon: (
@@ -41,7 +37,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
         </span>
       ),
       label: t(routeTitles[DAILY_LOG_PATH]),
-      className: 'wrap',
       onClick: () => navigate(DAILY_LOG_PATH),
     },
     // {
@@ -71,7 +66,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <DmSider menuItems={dashboardMenuItems} />
+      <DmSider menuItems={menuItems} />
       <Layout>
         <DmHeader />
         <Content className="p-m">
@@ -83,4 +78,4 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   );
 };
 
-export default DashboardLayout;
+export default DailyLogLayout;

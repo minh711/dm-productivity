@@ -7,6 +7,7 @@ import {
   MenuProps,
   Select,
   Switch,
+  Tooltip,
 } from 'antd';
 import {
   AppstoreOutlined,
@@ -19,7 +20,8 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './style.module.css';
 import { useTranslation } from 'react-i18next';
-import { routeTitles } from '../../constants';
+import { DAILY_LOG_PATH, routeTitles } from '../../constants';
+import DraggableScroll from '../DraggableScroll';
 
 const { Header } = Layout;
 const { Option } = Select;
@@ -105,61 +107,98 @@ const DmHeader: React.FC = () => {
 
   return (
     <Header className={classNames(styles.header)}>
-      <div className={classNames(styles.title)}>
+      <div className={classNames(styles.title, 'font-serif font-bold')}>
         {t(currentPageTitle).toUpperCase()}
       </div>
       <div className={classNames('d-flex align-items-center')}>
         <div className={(styles.appIconsContainer, 'me-sm')}>
-          <Dropdown
-            menu={{
-              items: [
-                {
-                  key: 'app1',
-                  icon: <AppstoreOutlined />,
-                  label: t('App 1'),
-                  onClick: () => navigate('/app1'),
-                },
-                {
-                  key: 'app2',
-                  icon: <MessageOutlined />,
-                  label: t('App 2'),
-                  onClick: () => navigate('/app2'),
-                },
-                {
-                  key: 'app3',
-                  icon: <BellOutlined />,
-                  label: t('App 3'),
-                  onClick: () => navigate('/app3'),
-                },
-              ],
-            }}
-            trigger={['click']}
-            className={styles.appDropdown}
-            placement="bottomRight"
-          >
-            <Button>
-              <AppstoreOutlined />
-            </Button>
-          </Dropdown>
+          <DraggableScroll maxWidth="40vw">
+            <div className={styles.iconGroup}>
+              <div className="font-bold font-16 text-highlight ani-jump-text">
+                {t('explores')
+                  .split('')
+                  .map((char, index) => (
+                    <span
+                      key={index}
+                      style={{ '--index': index } as React.CSSProperties}
+                    >
+                      {char === ' ' ? '\u00A0' : char}
+                    </span>
+                  ))}
+              </div>
 
-          <div className={styles.iconGroup}>
-            <Button
-              className={styles.iconButton}
-              icon={<AppstoreOutlined />}
-              onClick={() => navigate('/app1')}
-            />
-            <Button
-              className={styles.iconButton}
-              icon={<MessageOutlined />}
-              onClick={() => navigate('/app2')}
-            />
-            <Button
-              className={styles.iconButton}
-              icon={<BellOutlined />}
-              onClick={() => navigate('/app3')}
-            />
-          </div>
+              <Tooltip title={t('daily-log.description')}>
+                <Button
+                  className={styles.iconButton}
+                  onClick={() => navigate(DAILY_LOG_PATH)}
+                >
+                  📝 {t(routeTitles[DAILY_LOG_PATH])}
+                </Button>
+              </Tooltip>
+
+              <Tooltip title="Development in process...">
+                <Button
+                  className={styles.iconButton}
+                  onClick={() => navigate(DAILY_LOG_PATH)}
+                >
+                  💣 More...
+                </Button>
+              </Tooltip>
+            </div>
+          </DraggableScroll>
         </div>
+
+        <Dropdown
+          menu={{
+            items: [
+              {
+                key: 'daily-log',
+                icon: (
+                  <span
+                    role="img"
+                    aria-label="daily-log"
+                    style={{ width: '32px', fontSize: '24px' }}
+                  >
+                    📝
+                  </span>
+                ),
+                label: (
+                  <div>
+                    <h3>{t(routeTitles[DAILY_LOG_PATH])}</h3>
+                    <div>{t('daily-log.description')}</div>
+                  </div>
+                ),
+                onClick: () => navigate(DAILY_LOG_PATH),
+              },
+              {
+                key: 'more',
+                icon: (
+                  <span
+                    role="img"
+                    aria-label="more"
+                    style={{ width: '32px', fontSize: '24px' }}
+                  >
+                    💣
+                  </span>
+                ),
+                label: (
+                  <div>
+                    <h3>More...</h3>
+                    <div>Development in process...</div>
+                  </div>
+                ),
+                onClick: () => navigate(DAILY_LOG_PATH),
+              },
+            ],
+          }}
+          trigger={['hover']}
+          className={(styles.appDropdown, 'me-sm')}
+          placement="bottomRight"
+        >
+          <Button>
+            <AppstoreOutlined />
+          </Button>
+        </Dropdown>
 
         <Dropdown
           className={classNames('pointer')}
