@@ -46,60 +46,36 @@ const AppIcons = () => {
               📝 {t(routeTitles[DAILY_LOG_PATH])}
             </Button>
           </Tooltip>
+          <Tooltip title="Development in process...">
+            <Button
+              className={styles.iconButton}
+              onClick={() => navigate(DAILY_LOG_PATH)}
+            >
+              🌱 Lập kế hoạch
+            </Button>
+          </Tooltip>
+          <Tooltip title="Development in process...">
+            <Button
+              className={styles.iconButton}
+              onClick={() => navigate(DAILY_LOG_PATH)}
+            >
+              💵 Tài chính
+            </Button>
+          </Tooltip>
+          <Tooltip title="Development in process...">
+            <Button
+              className={styles.iconButton}
+              onClick={() => navigate(DAILY_LOG_PATH)}
+            >
+              💻 Thiết kế phần mềm
+            </Button>
+          </Tooltip>
           <Tooltip title="Nơi thư giãn...">
             <Button
               className={styles.iconButton}
               onClick={() => navigate(DAILY_LOG_PATH)}
             >
               🖼️ Phòng trưng bày
-            </Button>
-          </Tooltip>
-          <Tooltip title="Development in process...">
-            <Button
-              className={styles.iconButton}
-              onClick={() => navigate(DAILY_LOG_PATH)}
-            >
-              💣 More...
-            </Button>
-          </Tooltip>
-          <Tooltip title="Development in process...">
-            <Button
-              className={styles.iconButton}
-              onClick={() => navigate(DAILY_LOG_PATH)}
-            >
-              💣 More...
-            </Button>
-          </Tooltip>
-          <Tooltip title="Development in process...">
-            <Button
-              className={styles.iconButton}
-              onClick={() => navigate(DAILY_LOG_PATH)}
-            >
-              💣 More...
-            </Button>
-          </Tooltip>
-          <Tooltip title="Development in process...">
-            <Button
-              className={styles.iconButton}
-              onClick={() => navigate(DAILY_LOG_PATH)}
-            >
-              💣 More...
-            </Button>
-          </Tooltip>
-          <Tooltip title="Development in process...">
-            <Button
-              className={styles.iconButton}
-              onClick={() => navigate(DAILY_LOG_PATH)}
-            >
-              💣 More...
-            </Button>
-          </Tooltip>
-          <Tooltip title="Development in process...">
-            <Button
-              className={styles.iconButton}
-              onClick={() => navigate(DAILY_LOG_PATH)}
-            >
-              💣 More...
             </Button>
           </Tooltip>
         </div>

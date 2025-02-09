@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, DatePicker, ColorPicker, Row, Col } from 'antd';
-import { LogType } from '../../../../api/models';
 import { v4 as uuidv4 } from 'uuid';
-import { LogTypeRepository } from '../../../../api/repositories/logTypeRepository';
 import dayjs from 'dayjs';
-import DmColorPicker from '../../../../components/DmColorPicker';
 import { useTranslation } from 'react-i18next';
+import { LogType } from '../../../../../api/models';
+import { LogTypeRepository } from '../../../../../api/repositories/logTypeRepository';
+import DmColorPicker from '../../../../../components/DmColorPicker';
 
 interface AddLogTypeModalProps {
   open: boolean;

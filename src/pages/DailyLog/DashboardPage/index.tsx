@@ -12,6 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { DeleteOutlined } from '@ant-design/icons';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import Timer from '../../../components/Timer';
 import { useTranslation } from 'react-i18next';
@@ -75,6 +76,13 @@ const DashboardPage = () => {
     {
       title: 'Ghi chú',
       dataIndex: 'note',
+    },
+    {
+      title: '',
+      dataIndex: 'actions',
+      align: 'center',
+      width: 20,
+      render: (_, record) => <DeleteOutlined />,
     },
   ];
 
@@ -167,7 +175,7 @@ const DashboardPage = () => {
           <Card bordered={false} style={{ height: '100%' }}>
             <h2>Thống kê</h2>
 
-            <Tabs defaultActiveKey="chart">
+            <Tabs defaultActiveKey="chart" type="card">
               <TabPane tab="Biểu đồ" key="chart">
                 <Card
                   className="d-flex justify-content-center align-item-center"
@@ -178,13 +186,14 @@ const DashboardPage = () => {
                       paddingLeft: 20,
                       paddingRight: 20,
                       overflowX: 'auto',
-                      height: 640,
+                      height: 620,
                     }}
                   >
-                    <ResponsiveContainer width={800} height={600}>
+                    <ResponsiveContainer width={740} height={600}>
                       <BarChart
                         data={data}
                         margin={{ left: 0, top: 40, bottom: 40 }}
+                        barCategoryGap={5}
                       >
                         <text
                           x="50%"

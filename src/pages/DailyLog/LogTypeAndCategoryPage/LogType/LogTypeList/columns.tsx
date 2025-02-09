@@ -1,8 +1,10 @@
 import { TableColumnsType } from 'antd';
-import { LogType } from '../../../../api/models';
 import dayjs from 'dayjs';
+import { LogType } from '../../../../../api/models';
 
-export const logTypeColumns: TableColumnsType<LogType> = [
+export const logTypeColumns = (
+  onNameClick: (logType: LogType) => void
+): TableColumnsType<LogType> => [
   {
     title: 'name',
     dataIndex: 'name',
@@ -15,7 +17,9 @@ export const logTypeColumns: TableColumnsType<LogType> = [
             padding: '4px 16px',
             borderRadius: '16px',
             backgroundColor: record.color,
+            cursor: 'pointer',
           }}
+          onClick={() => onNameClick(record)}
         >
           {record.name}
         </div>
