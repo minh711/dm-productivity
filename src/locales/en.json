@@ -13,7 +13,18 @@
     },
     "description": "Undeniable proof of productivity – or your laziness.",
     "log-type-category": {
-      "title": "Log Type & Category"
+      "title": "Log Type & Category",
+      "log-type": {
+        "title": "Log Type",
+        "add-new": "Add new",
+        "add-new-modal-title": "Add new log type",
+        "filter": "Filter ▼"
+      },
+      "log-category": {
+        "title": "Log Category",
+        "add-new": "Add new",
+        "filter": "Filter ▼"
+      }
     }
   }
 }

@@ -6,6 +6,7 @@ export interface Log {
   order?: number;
   date: Date;
   duration: number;
+  description: string;
   logTypeId?: string;
   logCategoryId?: string;
   logType?: LogType;

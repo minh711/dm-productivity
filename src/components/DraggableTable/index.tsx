@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
+import { HolderOutlined } from '@ant-design/icons';
 import type { DragEndEvent } from '@dnd-kit/core';
+import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import {
   DndContext,
   PointerSensor,
@@ -14,13 +16,34 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Table } from 'antd';
+import { Button, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 
 interface DraggableTableProps<T> {
   dataSource: T[];
   columns: TableColumnsType<T>;
 }
+
+interface RowContextProps {
+  setActivatorNodeRef?: (element: HTMLElement | null) => void;
+  listeners?: SyntheticListenerMap;
+}
+
+const RowContext = React.createContext<RowContextProps>({});
+
+const DragHandle: React.FC = () => {
+  const { setActivatorNodeRef, listeners } = useContext(RowContext);
+  return (
+    <Button
+      type="text"
+      size="small"
+      icon={<HolderOutlined />}
+      style={{ cursor: 'move' }}
+      ref={setActivatorNodeRef}
+      {...listeners}
+    />
+  );
+};
 
 const Row = <T extends { key: string }>({
   'data-row-key': rowKey,
@@ -31,29 +54,28 @@ const Row = <T extends { key: string }>({
     attributes,
     listeners,
     setNodeRef,
+    setActivatorNodeRef,
     transform,
     transition,
     isDragging,
-  } = useSortable({
-    id: rowKey,
-  });
+  } = useSortable({ id: rowKey });
 
   const rowStyle: React.CSSProperties = {
     ...style,
     transform: CSS.Translate.toString(transform),
     transition,
-    cursor: 'move',
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
   };
 
+  const contextValue = useMemo<RowContextProps>(
+    () => ({ setActivatorNodeRef, listeners }),
+    [setActivatorNodeRef, listeners]
+  );
+
   return (
-    <tr
-      {...props}
-      ref={setNodeRef}
-      style={rowStyle}
-      {...attributes}
-      {...listeners}
-    />
+    <RowContext.Provider value={contextValue}>
+      <tr {...props} ref={setNodeRef} style={rowStyle} {...attributes} />
+    </RowContext.Provider>
   );
 };
 
@@ -65,9 +87,7 @@ const DraggableTable = <T extends { key: string }>({
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 1,
-      },
+      activationConstraint: { distance: 1 },
     })
   );
 
@@ -81,6 +101,15 @@ const DraggableTable = <T extends { key: string }>({
     }
   };
 
+  const updatedColumns = [
+    {
+      key: 'sort',
+      width: 20,
+      render: () => <DragHandle />,
+    },
+    ...columns,
+  ];
+
   return (
     <DndContext
       sensors={sensors}
@@ -92,11 +121,9 @@ const DraggableTable = <T extends { key: string }>({
         strategy={verticalListSortingStrategy}
       >
         <Table<T>
-          components={{
-            body: { row: Row },
-          }}
+          components={{ body: { row: Row } }}
           rowKey="key"
-          columns={columns}
+          columns={updatedColumns}
           dataSource={data}
         />
       </SortableContext>

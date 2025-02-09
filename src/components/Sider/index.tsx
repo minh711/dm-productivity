@@ -47,6 +47,7 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
             fontSize: collapsed ? '18px' : '24px',
             fontWeight: 'bold',
             transition: 'font-size 0.3s ease',
+            textWrap: 'nowrap',
           }}
         >
           🍇 {collapsed ? '' : ' DM Pro'}

@@ -33,7 +33,6 @@
 .ant-menu-light > .ant-menu .ant-menu-submenu-title {
   color: var(--text);
   font-weight: bold;
-  font-family: 'Merriweather', serif;
 }
 .ant-menu-item-active {
   background-color: var(--background-1);
@@ -140,6 +139,7 @@
 }
 .ant-table-cell {
   border-color: var(--table-border) !important;
+  padding: 8px !important;
 }
 
 /* Buttons */
@@ -189,4 +189,9 @@
 }
 .ant-notification-notice-close {
   color: var(--text) !important;
+}
+
+/* Forms */
+.ant-color-picker-trigger .ant-color-picker-color-block {
+  width: 100% !important;
 }

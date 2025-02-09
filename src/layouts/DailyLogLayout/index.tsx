@@ -46,6 +46,28 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       label: t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH]),
       onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
     },
+    {
+      key: 'chart',
+      icon: (
+        <span role="img" aria-label="chart">
+          📊
+        </span>
+      ),
+      className: 'wrap',
+      label: 'Biểu đồ',
+      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+    },
+    {
+      key: 'calendar',
+      icon: (
+        <span role="img" aria-label="calendar">
+          📅
+        </span>
+      ),
+      className: 'wrap',
+      label: 'Lịch',
+      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+    },
   ];
 
   return (

@@ -46,4 +46,5 @@ h3,
 h4,
 h5 {
   color: var(--text);
+  margin-bottom: 0.6em;
 }

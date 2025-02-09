@@ -13,7 +13,18 @@
     },
     "description": "Bằng chứng không thể chối cãi về năng suất – hoặc sự lười biếng của bạn.",
     "log-type-category": {
-      "title": "Phân loại & Hạng mục công việc"
+      "title": "Phân loại & Hạng mục công việc",
+      "log-type": {
+        "title": "Phân loại",
+        "add-new": "Thêm phân loại mới",
+        "add-new-modal-title": "Thêm phân loại mới",
+        "filter": "Bộ lọc ▼"
+      },
+      "log-category": {
+        "title": "Hạng mục",
+        "add-new": "Thêm hạng mục mới",
+        "filter": "Bộ lọc ▼"
+      }
     }
   }
 }
