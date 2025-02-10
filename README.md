@@ -1,5 +1,7 @@
 # 🏗️ Vite template
 
+👉 Access [here](https://github.com/minh711/vite_template).
+
 Made by [**minh711**](https://github.com/minh711) (can also be called [**dm711**](https://github.com/minh711)).
 
 ## 🪴 How to use this template
