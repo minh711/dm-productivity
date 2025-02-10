@@ -1,42 +1,38 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 
 let mainWindow;
 
 app.whenReady().then(async () => {
   // Dynamically import the electron-store module (since it's an ES module)
-  const Store = (await import('electron-store')).default;
+  const { default: Store } = await import('electron-store');
 
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,
     webPreferences: {
-      nodeIntegration: true,
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true, // Ensure context isolation is enabled for security
+      nodeIntegration: false, // Disable nodeIntegration for renderer security
     },
   });
 
   mainWindow.setMenuBarVisibility(false);
   mainWindow.loadURL('http://localhost:7329'); // Vite dev server
 
-  // Test - Create stores for settings, logs, and user data
-  const settingsStore = new Store({ name: 'settings' });
-  const logsStore = new Store({ name: 'logs' });
-  const userStore = new Store({ name: 'user-data' });
+  // Initialize stores
+  const logTypesStore = new Store({ name: 'logTypes' });
 
-  // Add data to each store
-  settingsStore.set('theme', 'dark');
-  settingsStore.set('language', 'en');
-  settingsStore.set('notificationsEnabled', true);
+  logTypesStore.set('logTypes', []);
 
-  logsStore.set('lastLogin', '2025-02-10');
-  logsStore.set('errorLogs', [
-    'Error: Something went wrong',
-    'Warning: Low memory',
-  ]);
+  // IPC Handlers for electron-store operations
+  ipcMain.handle('store:get', (event, key, defaultValue) => {
+    return new Store().get(key, defaultValue);
+  });
 
-  userStore.set('username', 'john_doe');
-  userStore.set('email', 'john.doe@example.com');
-  userStore.set('preferences', { theme: 'dark', language: 'en' });
+  ipcMain.handle('store:set', (event, key, value) => {
+    new Store().set(key, value);
+  });
 });
 
 app.on('window-all-closed', () => {
@@ -51,7 +47,9 @@ app.on('activate', () => {
       width: 1280,
       height: 720,
       webPreferences: {
-        nodeIntegration: true,
+        preload: path.join(__dirname, 'preload.js'),
+        contextIsolation: true,
+        nodeIntegration: false,
       },
     });
     mainWindow.loadURL('http://localhost:7329');

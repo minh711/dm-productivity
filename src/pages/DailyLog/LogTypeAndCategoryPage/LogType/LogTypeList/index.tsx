@@ -14,7 +14,12 @@ const LogTypeList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setLogTypes(LogTypeRepository.getAll());
+    const fetchLogTypes = async () => {
+      const logTypes = await LogTypeRepository.getAll();
+      setLogTypes(logTypes);
+    };
+
+    fetchLogTypes();
   }, []);
 
   const handleAddNew = () => setIsModalOpen(true);
@@ -29,16 +34,16 @@ const LogTypeList = () => {
   };
 
   const handleUpdate = (updatedLogType: LogType) => {
-    if (LogTypeRepository.update(updatedLogType)) {
-      setLogTypes(LogTypeRepository.getAll());
-    }
-    setEditingLogType(null);
+    // if (LogTypeRepository.update(updatedLogType)) {
+    //   setLogTypes(LogTypeRepository.getAll());
+    // }
+    // setEditingLogType(null);
   };
 
   const handleDelete = (logTypeId: string) => {
-    LogTypeRepository.delete(logTypeId);
-    setLogTypes(LogTypeRepository.getAll());
-    setEditingLogType(null);
+    // LogTypeRepository.delete(logTypeId);
+    // setLogTypes(LogTypeRepository.getAll());
+    // setEditingLogType(null);
   };
 
   return (
