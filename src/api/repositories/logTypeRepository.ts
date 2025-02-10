@@ -4,9 +4,7 @@ export class LogTypeRepository {
   private static storageKey = 'logTypes';
 
   static async getAll(): Promise<LogType[]> {
-    console.log('HERE');
     const logTypes = await window.electron.get(this.storageKey, []);
-    console.log('LOG: ', logTypes);
     return logTypes as LogType[];
   }
 
