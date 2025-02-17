@@ -1,17 +1,16 @@
 import { LogType } from '../models';
 
 export class LogTypeRepository {
-  private static storageKey = 'logTypes';
+  private static storeName = 'logTypes';
 
   static async getAll(): Promise<LogType[]> {
-    const logTypes = await window.electron.get(this.storageKey, []);
-    return logTypes as LogType[];
+    return (await window.electron.get(this.storeName, [])) as LogType[];
   }
 
   static async add(logType: LogType): Promise<void> {
     const logTypes = await this.getAll();
     logTypes.push(logType);
-    await window.electron.set(this.storageKey, logTypes);
+    await window.electron.set(this.storeName, logTypes);
   }
 
   static async update(updatedLogType: LogType): Promise<boolean> {
@@ -21,7 +20,7 @@ export class LogTypeRepository {
     if (index === -1) return false;
 
     logTypes[index] = updatedLogType;
-    await window.electron.set(this.storageKey, logTypes);
+    await window.electron.set(this.storeName, logTypes);
     return true;
   }
 
@@ -33,7 +32,7 @@ export class LogTypeRepository {
 
     if (filteredLogTypes.length === logTypes.length) return false;
 
-    await window.electron.set(this.storageKey, filteredLogTypes);
+    await window.electron.set(this.storeName, filteredLogTypes);
     return true;
   }
 }

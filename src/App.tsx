@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { routes } from './routes';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFoundPage from './pages/NotFoundPage';
+import * as electron from 'electron';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {

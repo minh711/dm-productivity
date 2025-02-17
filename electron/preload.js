@@ -1,7 +1,9 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('electron', {
-  get: (key, defaultValue) =>
-    ipcRenderer.invoke('store:get', key, defaultValue),
-  set: (key, value) => ipcRenderer.invoke('store:set', key, value),
+  get: (storeName, defaultValue) =>
+    ipcRenderer.invoke('store:get', storeName, defaultValue),
+  set: (storeName, value) => ipcRenderer.invoke('store:set', storeName, value),
+  selectFile: () => ipcRenderer.invoke('select-file'),
+  getFilePath: (fileName) => ipcRenderer.invoke('get-file-path', fileName),
 });

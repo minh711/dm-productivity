@@ -1,8 +1,10 @@
 declare global {
   interface Window {
     electron: {
-      get: (key: string, defaultValue?: any) => Promise<any>;
-      set: (key: string, value: any) => Promise<void>;
+      get: (storeName: string, defaultValue?: any) => Promise<any>;
+      set: (storeName: string, value: any) => Promise<void>;
+      selectFile: () => Promise<string | null>;
+      getFilePath: (fileName: string) => Promise<string | null>;
     };
   }
 }

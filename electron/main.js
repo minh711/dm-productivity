@@ -1,10 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const fs = require('fs').promises;
 const path = require('path');
 
 let mainWindow;
 
 app.whenReady().then(async () => {
-  // Dynamically import the electron-store module (since it's an ES module)
   const { default: Store } = await import('electron-store');
 
   mainWindow = new BrowserWindow({
@@ -12,26 +12,69 @@ app.whenReady().then(async () => {
     height: 720,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      contextIsolation: true, // Ensure context isolation is enabled for security
-      nodeIntegration: false, // Disable nodeIntegration for renderer security
+      contextIsolation: true,
+      nodeIntegration: false,
     },
   });
 
   mainWindow.setMenuBarVisibility(false);
-  mainWindow.loadURL('http://localhost:7329'); // Vite dev server
+
+  // mainWindow.loadURL('http://localhost:7329');
+  mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+
+  const storePath = path.join(__dirname, 'stores');
 
   // Initialize stores
-  const logTypesStore = new Store({ name: 'logTypes' });
-
-  logTypesStore.set('logTypes', []);
+  const stores = {
+    logTypes: new Store({ name: 'logTypes', cwd: storePath }),
+    logCategories: new Store({ name: 'logCategories', cwd: storePath }),
+  };
+  stores.logTypes.set([], []);
+  stores.logCategories.set([], []);
 
   // IPC Handlers for electron-store operations
-  ipcMain.handle('store:get', (event, key, defaultValue) => {
-    return new Store().get(key, defaultValue);
+  ipcMain.handle('store:get', (event, storeName, defaultValue) => {
+    const store = stores[storeName];
+    return store ? store.get(storeName, defaultValue) : defaultValue;
   });
 
-  ipcMain.handle('store:set', (event, key, value) => {
-    new Store().set(key, value);
+  ipcMain.handle('store:set', (event, storeName, value) => {
+    const store = stores[storeName];
+    if (store) {
+      store.set(storeName, value);
+    }
+  });
+
+  ipcMain.handle('select-file', async () => {
+    const result = await dialog.showOpenDialog({
+      properties: ['openFile'],
+    });
+
+    if (result.filePaths.length > 0) {
+      const selectedFilePath = result.filePaths[0];
+
+      const appFolder = path.join(__dirname, 'files');
+      console.log(appFolder);
+      const fileName = path.basename(selectedFilePath);
+      const destinationPath = path.join(appFolder, fileName);
+
+      await fs.mkdir(appFolder, { recursive: true });
+      await fs.copyFile(selectedFilePath, destinationPath);
+
+      return destinationPath;
+    }
+
+    return null;
+  });
+
+  ipcMain.handle('get-file-path', async (event, fileName) => {
+    const fs = require('fs');
+
+    const filePath = path.join(__dirname, 'files', fileName);
+    const fileBuffer = fs.readFileSync(filePath);
+    const base64Data = fileBuffer.toString('base64');
+
+    return base64Data;
   });
 });
 
@@ -52,6 +95,8 @@ app.on('activate', () => {
         nodeIntegration: false,
       },
     });
-    mainWindow.loadURL('http://localhost:7329');
+
+    // mainWindow.loadURL('http://localhost:7329');
+    mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
   }
 });
