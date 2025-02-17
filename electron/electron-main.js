@@ -7,22 +7,13 @@ let mainWindow;
 app.whenReady().then(async () => {
   const { default: Store } = await import('electron-store');
 
-  mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 720,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      contextIsolation: true,
-      nodeIntegration: false,
-    },
-  });
+  const storePath = path.join(app.getPath('userData'), 'stores');
 
-  mainWindow.setMenuBarVisibility(false);
-
-  // mainWindow.loadURL('http://localhost:7329');
-  mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-
-  const storePath = path.join(__dirname, 'stores');
+  try {
+    await fs.mkdir(storePath, { recursive: true });
+  } catch (error) {
+    console.error('Error creating store directory:', error);
+  }
 
   // Initialize stores
   const stores = {
@@ -53,8 +44,7 @@ app.whenReady().then(async () => {
     if (result.filePaths.length > 0) {
       const selectedFilePath = result.filePaths[0];
 
-      const appFolder = path.join(__dirname, 'files');
-      console.log(appFolder);
+      const appFolder = path.join(app.getPath('userData'), 'files');
       const fileName = path.basename(selectedFilePath);
       const destinationPath = path.join(appFolder, fileName);
 
@@ -70,12 +60,30 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-file-path', async (event, fileName) => {
     const fs = require('fs');
 
-    const filePath = path.join(__dirname, 'files', fileName);
+    const filePath = path.join(app.getPath('userData'), 'files', fileName);
     const fileBuffer = fs.readFileSync(filePath);
     const base64Data = fileBuffer.toString('base64');
 
     return base64Data;
   });
+
+  mainWindow = new BrowserWindow({
+    width: 1280,
+    height: 720,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      // preload: './dist/preload.js',
+      contextIsolation: true,
+      nodeIntegration: false,
+    },
+  });
+
+  mainWindow.setMenuBarVisibility(false);
+
+  // mainWindow.loadURL('http://localhost:7329');
+  // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+  // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+  mainWindow.loadFile('./dist/index.html');
 });
 
 app.on('window-all-closed', () => {
@@ -91,12 +99,15 @@ app.on('activate', () => {
       height: 720,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
+        // preload: './dist/preload.js',
         contextIsolation: true,
         nodeIntegration: false,
       },
     });
 
     // mainWindow.loadURL('http://localhost:7329');
-    mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+    // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+    // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+    mainWindow.loadFile('./dist/index.html');
   }
 });

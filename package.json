@@ -2,7 +2,7 @@
   "name": "dm-productivity",
   "private": true,
   "version": "0.0.0",
-  "main": "electron/main.js",
+  "main": "electron/electron-main.js",
   "scripts": {
     "start:electron": "concurrently \"vite\" \"wait-on http://localhost:7329 && electron .\"",
     "build:electron": "electron-builder",
@@ -10,6 +10,21 @@
     "dev": "vite",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.yourcompany.dmproductivity",
+    "productName": "DM Productivity",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    }
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -40,6 +55,7 @@
     "concurrently": "^9.1.2",
     "electron": "^34.2.0",
     "electron-builder": "^25.1.8",
+    "electron-vite": "^3.0.0",
     "eslint": "^9.17.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
