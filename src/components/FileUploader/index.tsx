@@ -4,7 +4,7 @@ const FileUploader: React.FC = () => {
   const [fileBase64, setFileBase64] = useState<string | null>(null); // To store Base64 data
 
   const handleFileSelect = async () => {
-    const selectedFilePath = await window.electron.selectFile();
+    const selectedFilePath = await window.electron.uploadFile();
     if (selectedFilePath) {
       // You could potentially call another function here to process the file
       alert(`File selected: ${selectedFilePath}`);
@@ -14,10 +14,9 @@ const FileUploader: React.FC = () => {
   };
 
   const fetchFileBase64 = async (fileName: string) => {
-    const base64Data = await window.electron.getFilePath(fileName); // Get the Base64 data
+    const base64Data = await window.electron.getFile(fileName); // Get the Base64 data
     if (base64Data) {
       setFileBase64(base64Data); // Store Base64 data
-      
     } else {
       alert('File not found');
     }

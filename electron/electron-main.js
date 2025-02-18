@@ -5,17 +5,15 @@ const path = require('path');
 let mainWindow;
 
 app.whenReady().then(async () => {
+  // Initialize stores
   const { default: Store } = await import('electron-store');
-
-  const storePath = path.join(app.getPath('userData'), 'stores');
-
+  const storePath = path.join(app.getPath('userData'), 'data', 'stores');
   try {
     await fs.mkdir(storePath, { recursive: true });
   } catch (error) {
     console.error('Error creating store directory:', error);
   }
 
-  // Initialize stores
   const stores = {
     logTypes: new Store({ name: 'logTypes', cwd: storePath }),
     logCategories: new Store({ name: 'logCategories', cwd: storePath }),
@@ -36,7 +34,7 @@ app.whenReady().then(async () => {
     }
   });
 
-  ipcMain.handle('select-file', async () => {
+  ipcMain.handle('upload-file', async () => {
     const result = await dialog.showOpenDialog({
       properties: ['openFile'],
     });
@@ -44,7 +42,7 @@ app.whenReady().then(async () => {
     if (result.filePaths.length > 0) {
       const selectedFilePath = result.filePaths[0];
 
-      const appFolder = path.join(app.getPath('userData'), 'files');
+      const appFolder = path.join(app.getPath('userData'), 'data', 'files');
       const fileName = path.basename(selectedFilePath);
       const destinationPath = path.join(appFolder, fileName);
 
@@ -57,10 +55,15 @@ app.whenReady().then(async () => {
     return null;
   });
 
-  ipcMain.handle('get-file-path', async (event, fileName) => {
+  ipcMain.handle('get-file', async (event, fileName) => {
     const fs = require('fs');
 
-    const filePath = path.join(app.getPath('userData'), 'files', fileName);
+    const filePath = path.join(
+      app.getPath('userData'),
+      'data',
+      'files',
+      fileName
+    );
     const fileBuffer = fs.readFileSync(filePath);
     const base64Data = fileBuffer.toString('base64');
 
@@ -72,7 +75,6 @@ app.whenReady().then(async () => {
     height: 720,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
-      // preload: './dist/preload.js',
       contextIsolation: true,
       nodeIntegration: false,
     },
@@ -80,10 +82,11 @@ app.whenReady().then(async () => {
 
   mainWindow.setMenuBarVisibility(false);
 
-  // mainWindow.loadURL('http://localhost:7329');
-  // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-  // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-  mainWindow.loadFile('./dist/index.html');
+  // Dev mode
+  mainWindow.loadURL('http://localhost:7329');
+
+  // Production mode
+  // mainWindow.loadFile('./dist/index.html');
 });
 
 app.on('window-all-closed', () => {
@@ -105,9 +108,10 @@ app.on('activate', () => {
       },
     });
 
-    // mainWindow.loadURL('http://localhost:7329');
-    // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-    // mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-    mainWindow.loadFile('./dist/index.html');
+    // Dev mode
+    mainWindow.loadURL('http://localhost:7329');
+
+    // Production mode
+    // mainWindow.loadFile('./dist/index.html');
   }
 });
