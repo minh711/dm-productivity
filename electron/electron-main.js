@@ -17,9 +17,11 @@ app.whenReady().then(async () => {
   const stores = {
     logTypes: new Store({ name: 'logTypes', cwd: storePath }),
     logCategories: new Store({ name: 'logCategories', cwd: storePath }),
+    settings: new Store({ name: 'settings', cwd: storePath }),
   };
   stores.logTypes.set([], []);
   stores.logCategories.set([], []);
+  stores.settings.set([], []);
 
   // IPC Handlers for electron-store operations
   ipcMain.handle('store:get', (event, storeName, defaultValue) => {

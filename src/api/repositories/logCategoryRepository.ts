@@ -1,21 +1,20 @@
 import { LogCategory } from '../models';
 
 export class LogCategoryRepository {
-  private static storageKey = 'logCategories';
+  private static storeName = 'logCategories';
 
-  static getAll(): LogCategory[] {
-    const categoriesJson = localStorage.getItem(this.storageKey);
-    return categoriesJson ? JSON.parse(categoriesJson) : [];
+  static async getAll(): Promise<LogCategory[]> {
+    return (await window.electron.get(this.storeName, [])) as LogCategory[];
   }
 
-  static add(logCategory: LogCategory): void {
-    const categories = this.getAll();
+  static async add(logCategory: LogCategory): Promise<void> {
+    const categories = await this.getAll();
     categories.push(logCategory);
-    localStorage.setItem(this.storageKey, JSON.stringify(categories));
+    await window.electron.set(this.storeName, categories);
   }
 
-  static update(updatedLogCategory: LogCategory): boolean {
-    const categories = this.getAll();
+  static async update(updatedLogCategory: LogCategory): Promise<boolean> {
+    const categories = await this.getAll();
     const index = categories.findIndex(
       (category) => category.id === updatedLogCategory.id
     );
@@ -23,19 +22,19 @@ export class LogCategoryRepository {
     if (index === -1) return false;
 
     categories[index] = updatedLogCategory;
-    localStorage.setItem(this.storageKey, JSON.stringify(categories));
+    await window.electron.set(this.storeName, categories);
     return true;
   }
 
-  static delete(logCategoryId: string): boolean {
-    const categories = this.getAll();
+  static async delete(logCategoryId: string): Promise<boolean> {
+    const categories = await this.getAll();
     const filteredCategories = categories.filter(
       (category) => category.id !== logCategoryId
     );
 
     if (filteredCategories.length === categories.length) return false;
 
-    localStorage.setItem(this.storageKey, JSON.stringify(filteredCategories));
+    await window.electron.set(this.storeName, filteredCategories);
     return true;
   }
 }

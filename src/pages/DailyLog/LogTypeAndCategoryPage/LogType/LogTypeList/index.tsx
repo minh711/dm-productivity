@@ -33,17 +33,20 @@ const LogTypeList = () => {
     setEditingLogType(logType);
   };
 
-  const handleUpdate = (updatedLogType: LogType) => {
-    // if (LogTypeRepository.update(updatedLogType)) {
-    //   setLogTypes(LogTypeRepository.getAll());
-    // }
-    // setEditingLogType(null);
+  const handleUpdate = async (updatedLogType: LogType) => {
+    const success = await LogTypeRepository.update(updatedLogType);
+    if (success) {
+      const updatedLogType = await LogTypeRepository.getAll();
+      setLogTypes(updatedLogType);
+    }
+    setEditingLogType(null);
   };
 
-  const handleDelete = (logTypeId: string) => {
-    // LogTypeRepository.delete(logTypeId);
-    // setLogTypes(LogTypeRepository.getAll());
-    // setEditingLogType(null);
+  const handleDelete = async (logTypeId: string) => {
+    await LogTypeRepository.delete(logTypeId);
+    const updatedLogType = await LogTypeRepository.getAll();
+    setLogTypes(updatedLogType);
+    setEditingLogType(null);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ColorPicker, ColorPickerProps, Divider, Row, Col, theme } from 'antd';
 import { cyan, generate, green, presetPalettes, red } from '@ant-design/colors';
 
@@ -25,6 +25,10 @@ const DmColorPicker: React.FC<DmColorPickerProps> = ({
 }) => {
   const { token } = theme.useToken();
   const [selectedColor, setSelectedColor] = useState(value || '#FFFFFF');
+
+  useEffect(() => {
+    setSelectedColor(value || '#FFFFFF');
+  }, [value]);
 
   const presets = genPresets({
     primary: generate(token.colorPrimary),

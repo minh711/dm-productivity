@@ -3,8 +3,8 @@ import { Button, Row, Table } from 'antd';
 import { logCategoryColumns } from './columns';
 import AddLogCategoryModal from '../AddLogCategoryModal';
 import { useTranslation } from 'react-i18next';
-import { LogCategory } from '../../../../../api/models';
 import { LogCategoryRepository } from '../../../../../api/repositories/logCategoryRepository';
+import { LogCategory } from '../../../../../api/models';
 import EditLogCategoryModal from '../EditLogCategoryModal';
 
 const LogCategoryList = () => {
@@ -14,7 +14,12 @@ const LogCategoryList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setLogCategories(LogCategoryRepository.getAll());
+    const fetchLogCategories = async () => {
+      const categories = await LogCategoryRepository.getAll();
+      setLogCategories(categories);
+    };
+
+    fetchLogCategories();
   }, []);
 
   const handleAddNew = () => setIsModalOpen(true);
@@ -29,16 +34,19 @@ const LogCategoryList = () => {
     setEditingLogCategory(logCategory);
   };
 
-  const handleUpdate = (updatedLogCategory: LogCategory) => {
-    if (LogCategoryRepository.update(updatedLogCategory)) {
-      setLogCategories(LogCategoryRepository.getAll());
+  const handleUpdate = async (updatedLogCategory: LogCategory) => {
+    const success = await LogCategoryRepository.update(updatedLogCategory);
+    if (success) {
+      const updatedCategories = await LogCategoryRepository.getAll();
+      setLogCategories(updatedCategories);
     }
     setEditingLogCategory(null);
   };
 
-  const handleDelete = (logCategoryId: string) => {
-    LogCategoryRepository.delete(logCategoryId);
-    setLogCategories(LogCategoryRepository.getAll());
+  const handleDelete = async (logCategoryId: string) => {
+    await LogCategoryRepository.delete(logCategoryId);
+    const updatedCategories = await LogCategoryRepository.getAll();
+    setLogCategories(updatedCategories);
     setEditingLogCategory(null);
   };
 

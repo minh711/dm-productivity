@@ -1,44 +1,37 @@
 import { Log } from '../models';
 
 export class LogRepository {
-  private static getStorageKey(date: Date): string {
-    return date.toISOString().slice(0, 7); // "yyyy-mm"
+  private static storeName = 'logs';
+
+  static async getAll(): Promise<Log[]> {
+    return (await window.electron.get(this.storeName, [])) as Log[];
   }
 
-  static get(date: Date): Log[] {
-    const key = this.getStorageKey(date);
-    const logsJson = localStorage.getItem(key);
-    return logsJson ? JSON.parse(logsJson) : [];
-  }
-
-  static add(log: Log): void {
-    const key = this.getStorageKey(log.date);
-    const logs = this.get(log.date);
+  static async add(log: Log): Promise<void> {
+    const logs = await this.getAll();
     log.order ||= 0;
     logs.push(log);
-    localStorage.setItem(key, JSON.stringify(logs));
+    await window.electron.set(this.storeName, logs);
   }
 
-  static update(updatedLog: Log): boolean {
-    const key = this.getStorageKey(updatedLog.date);
-    const logs = this.get(updatedLog.date);
+  static async update(updatedLog: Log): Promise<boolean> {
+    const logs = await this.getAll();
     const index = logs.findIndex((log) => log.id === updatedLog.id);
 
     if (index === -1) return false;
 
     logs[index] = updatedLog;
-    localStorage.setItem(key, JSON.stringify(logs));
+    await window.electron.set(this.storeName, logs);
     return true;
   }
 
-  static delete(logId: string, date: Date): boolean {
-    const key = this.getStorageKey(date);
-    const logs = this.get(date);
+  static async delete(logId: string): Promise<boolean> {
+    const logs = await this.getAll();
     const filteredLogs = logs.filter((log) => log.id !== logId);
 
     if (filteredLogs.length === logs.length) return false;
 
-    localStorage.setItem(key, JSON.stringify(filteredLogs));
+    await window.electron.set(this.storeName, filteredLogs);
     return true;
   }
 }

@@ -12,6 +12,7 @@ import {
 import dayjs from 'dayjs';
 import { LogCategory } from '../../../../../api/models';
 import { LogCategoryRepository } from '../../../../../api/repositories/logCategoryRepository';
+import DmColorPicker from '../../../../../components/DmColorPicker';
 
 interface EditLogCategoryModalProps {
   open: boolean;
@@ -88,6 +89,14 @@ const EditLogCategoryModal: React.FC<EditLogCategoryModalProps> = ({
           <Col span={20}>
             <Form.Item name="name" label="Name" rules={[{ required: true }]}>
               <Input />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="color" label="Color">
+              <DmColorPicker
+                style={{ width: '100%' }}
+                value={form.getFieldValue('color')}
+              />
             </Form.Item>
           </Col>
         </Row>

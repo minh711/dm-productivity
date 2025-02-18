@@ -12,6 +12,7 @@ import {
 import dayjs from 'dayjs';
 import { LogType } from '../../../../../api/models';
 import { LogTypeRepository } from '../../../../../api/repositories/logTypeRepository';
+import DmColorPicker from '../../../../../components/DmColorPicker';
 
 interface EditLogTypeModalProps {
   open: boolean;
@@ -86,6 +87,14 @@ const EditLogTypeModal: React.FC<EditLogTypeModalProps> = ({
           <Col span={20}>
             <Form.Item name="name" label="Name" rules={[{ required: true }]}>
               <Input />
+            </Form.Item>
+          </Col>
+          <Col span={4}>
+            <Form.Item name="color" label="Color">
+              <DmColorPicker
+                style={{ width: '100%' }}
+                value={form.getFieldValue('color')}
+              />
             </Form.Item>
           </Col>
         </Row>

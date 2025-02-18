@@ -20,6 +20,7 @@ import styles from './style.module.css';
 import { useTranslation } from 'react-i18next';
 import { DAILY_LOG_PATH, routeTitles } from '../../constants';
 import AppIcons from './AppIcons';
+import { AppSettingsRepository } from '../../api/repositories/appSettingsRepository';
 
 const { Header } = Layout;
 const { Option } = Select;
@@ -28,17 +29,24 @@ const DmHeader: React.FC = () => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  const [selectedLanguage, setSelectedLanguage] = useState<string>(() => {
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
-    i18n.changeLanguage(savedLanguage);
-    return savedLanguage;
-  });
+  const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
 
-  const handleLanguageChange = (lang: string) => {
+  useEffect(() => {
+    const fetchLanguage = async () => {
+      const savedLanguage =
+        (await AppSettingsRepository.getSettings())?.selectedLanguage ?? 'en';
+      i18n.changeLanguage(savedLanguage);
+      setSelectedLanguage(savedLanguage);
+    };
+    fetchLanguage();
+  }, []);
+
+  const handleLanguageChange = async (lang: string) => {
+    const currentSettings = await AppSettingsRepository.getSettings();
+    const updatedSettings = { ...currentSettings, selectedLanguage: lang };
+    await AppSettingsRepository.setSettings(updatedSettings);
     setSelectedLanguage(lang);
-    localStorage.setItem('selectedLanguage', lang);
     i18n.changeLanguage(lang);
-    console.log(`Language changed to: ${lang}`);
   };
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -83,7 +91,7 @@ const DmHeader: React.FC = () => {
         <div onClick={(e) => e?.stopPropagation()}>
           <div className={classNames('mb-sm')}>{t('selectLanguage')}</div>
           <Select
-            defaultValue={localStorage.getItem('selectedLanguage') || 'en'}
+            value={selectedLanguage}
             style={{ width: '100%' }}
             onChange={handleLanguageChange}
             onClick={(e) => e?.stopPropagation()}
