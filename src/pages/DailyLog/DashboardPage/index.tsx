@@ -177,51 +177,57 @@ const DashboardPage = () => {
 
             <Tabs defaultActiveKey="chart" type="card">
               <TabPane tab="Biểu đồ" key="chart">
-                <Card
-                  className="d-flex justify-content-center align-item-center"
-                  style={{ overflowX: 'auto' }}
-                >
-                  <div
-                    style={{
-                      paddingLeft: 20,
-                      paddingRight: 20,
-                      overflowX: 'auto',
-                      height: 620,
-                    }}
-                  >
-                    <ResponsiveContainer width={740} height={600}>
-                      <BarChart
-                        data={data}
-                        margin={{ left: 0, top: 40, bottom: 40 }}
-                        barCategoryGap={5}
-                      >
-                        <text
-                          x="50%"
-                          y="20"
-                          textAnchor="middle"
-                          fontSize="16"
-                          fontWeight="bold"
-                        >
-                          Thống kê trong tháng này
-                        </text>
-                        <CartesianGrid strokeDasharray="2 2" />
-                        <XAxis
-                          dataKey="date"
-                          angle={-90}
-                          textAnchor="end"
-                          interval={0}
-                          tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
-                        />
-                        <YAxis
-                          width={20}
-                          tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
-                        />
-                        <Tooltip />
-                        <Bar dataKey="categoryA" stackId="a" fill="#8884d8" />
-                        <Bar dataKey="categoryB" stackId="a" fill="#82ca9d" />
-                        <Bar dataKey="categoryC" stackId="a" fill="#ffc658" />
-                      </BarChart>
-                    </ResponsiveContainer>
+                <Card>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
+                      <div>
+                        <ResponsiveContainer width={840} height={600}>
+                          <BarChart
+                            data={data}
+                            margin={{ left: -24, top: 80, bottom: 60 }}
+                            barCategoryGap={5}
+                          >
+                            <text
+                              x="50%"
+                              y="48"
+                              textAnchor="middle"
+                              fontSize="16"
+                              fontWeight="bold"
+                            >
+                              Thống kê tháng này
+                            </text>
+                            <CartesianGrid strokeDasharray="2 2" />
+                            <XAxis
+                              dataKey="date"
+                              angle={-90}
+                              textAnchor="end"
+                              interval={0}
+                              tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
+                            />
+                            <YAxis
+                              width={50}
+                              tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
+                            />
+                            <Tooltip />
+                            <Bar
+                              dataKey="categoryA"
+                              stackId="a"
+                              fill="#8884d8"
+                            />
+                            <Bar
+                              dataKey="categoryB"
+                              stackId="a"
+                              fill="#82ca9d"
+                            />
+                            <Bar
+                              dataKey="categoryC"
+                              stackId="a"
+                              fill="#ffc658"
+                            />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                    </div>
                   </div>
                 </Card>
               </TabPane>
