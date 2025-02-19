@@ -98,10 +98,10 @@ app.whenReady().then(async () => {
   mainWindow.setMenuBarVisibility(false);
 
   // Dev mode
-  mainWindow.loadURL('http://localhost:7329');
+  // mainWindow.loadURL('http://localhost:7329');
 
   // Production mode
-  // mainWindow.loadFile('./dist/index.html');
+  mainWindow.loadFile('./dist/index.html');
 });
 
 app.on('window-all-closed', () => {
@@ -117,16 +117,15 @@ app.on('activate', () => {
       height: 720,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
-        // preload: './dist/preload.js',
         contextIsolation: true,
         nodeIntegration: false,
       },
     });
 
     // Dev mode
-    mainWindow.loadURL('http://localhost:7329');
+    // mainWindow.loadURL('http://localhost:7329');
 
     // Production mode
-    // mainWindow.loadFile('./dist/index.html');
+    mainWindow.loadFile('./dist/index.html');
   }
 });

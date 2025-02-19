@@ -48,7 +48,7 @@ const AddLogTypeModal: React.FC<AddLogTypeModalProps> = ({
         totalDuration: Number(values.totalDuration),
         createdAt: values.createdAt.toDate(),
         finishedAt: values.finishedAt ? values.finishedAt.toDate() : undefined,
-        color: values.color || '#FFD700',
+        color: values.color || '#b6b6b6',
       };
 
       LogTypeRepository.add(newLogType);
