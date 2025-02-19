@@ -1,4 +1,9 @@
-import { DAILY_LOG_PATH, HOME_PATH, routeTitles } from '../../constants';
+import {
+  DAILY_LOG_PATH,
+  HOME_PATH,
+  MUSICAL_PATH,
+  routeTitles,
+} from '../../constants';
 import {
   HomeOutlined,
   BorderOutlined,
@@ -43,6 +48,17 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       label: t(routeTitles[DAILY_LOG_PATH]),
       className: 'wrap',
       onClick: () => navigate(DAILY_LOG_PATH),
+    },
+    {
+      key: 'musical',
+      icon: (
+        <span role="img" aria-label="musical">
+          🎼
+        </span>
+      ),
+      label: t(routeTitles[MUSICAL_PATH]),
+      className: 'wrap',
+      onClick: () => navigate(MUSICAL_PATH),
     },
     // {
     //   key: 'group',

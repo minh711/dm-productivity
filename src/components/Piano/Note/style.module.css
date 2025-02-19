@@ -1,0 +1,53 @@
+.note {
+  border: 1px solid #000;
+  transition: height 0.2s, box-shadow 0.2s;
+}
+
+.note.isEdit:hover {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
+  height: 164px;
+  z-index: 1;
+  cursor: pointer;
+}
+.noteBlack.isEdit:hover {
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 1);
+  height: 94px;
+  cursor: pointer;
+}
+
+.note.pressed {
+  background-color: rgb(171, 224, 248);
+}
+.noteBlack.pressed {
+  background-color: rgb(38, 127, 187);
+}
+
+.noteWhite {
+  width: 24px;
+  height: 160px;
+  background-color: #fff;
+  border: 1px solid #000;
+  position: relative;
+}
+.noteBlack {
+  width: 14px;
+  height: 90px;
+  background-color: #000;
+  border: 1px solid #000;
+  position: relative;
+  z-index: 2;
+}
+
+.pitch {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  user-select: none;
+  font-weight: 400;
+}
+.noteBlack .pitch {
+  color: #fff;
+  text-shadow: 0 0 4px #000;
+  font-size: 0.6em;
+}

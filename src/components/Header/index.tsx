@@ -30,39 +30,40 @@ const DmHeader: React.FC = () => {
   const navigate = useNavigate();
 
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchLanguage = async () => {
-      const savedLanguage =
-        (await AppSettingsRepository.getSettings())?.selectedLanguage ?? 'en';
+    const fetchSettings = async () => {
+      const settings = await AppSettingsRepository.getSettings();
+      const savedLanguage = settings?.selectedLanguage ?? 'en';
+      const savedDarkMode = settings?.isDarkMode ?? false;
+
       i18n.changeLanguage(savedLanguage);
       setSelectedLanguage(savedLanguage);
+      setIsDarkMode(savedDarkMode);
+      document.body.classList.toggle('dark-mode', savedDarkMode);
     };
-    fetchLanguage();
+
+    fetchSettings();
   }, []);
 
   const handleLanguageChange = async (lang: string) => {
     const currentSettings = await AppSettingsRepository.getSettings();
     const updatedSettings = { ...currentSettings, selectedLanguage: lang };
     await AppSettingsRepository.setSettings(updatedSettings);
+
     setSelectedLanguage(lang);
     i18n.changeLanguage(lang);
   };
 
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const savedDarkMode = localStorage.getItem('isDarkMode');
-    return savedDarkMode === 'true';
-  });
-
-  const toggleDarkMode = (checked: boolean) => {
+  const toggleDarkMode = async (checked: boolean) => {
     setIsDarkMode(checked);
     document.body.classList.toggle('dark-mode', checked);
-    localStorage.setItem('isDarkMode', checked.toString());
-  };
 
-  useEffect(() => {
-    document.body.classList.toggle('dark-mode', isDarkMode);
-  }, [isDarkMode]);
+    const currentSettings = await AppSettingsRepository.getSettings();
+    const updatedSettings = { ...currentSettings, isDarkMode: checked };
+    await AppSettingsRepository.setSettings(updatedSettings);
+  };
 
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);

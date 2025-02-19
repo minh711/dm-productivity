@@ -3,6 +3,7 @@ import {
   HOME_PATH,
   LOG_CATEGORY_PATH,
   LOG_TYPE_AND_CATEGORY_PATH,
+  MUSICAL_PATH,
   roles,
 } from '../constants';
 import DailyLogLayout from '../layouts/DailyLogLayout';
@@ -10,6 +11,7 @@ import DashboardLayout from '../layouts/DashboardLayout';
 import { default as DailyLogDashboardPage } from '../pages/DailyLog/DashboardPage';
 import LogTypePage from '../pages/DailyLog/LogTypeAndCategoryPage';
 import HomePage from '../pages/HomePage';
+import MusicalDashboardPage from '../pages/Musical/DashboardPage';
 
 export const routes = [
   {
@@ -29,6 +31,13 @@ export const routes = [
   {
     path: LOG_TYPE_AND_CATEGORY_PATH,
     component: LogTypePage,
+    roles: [],
+    isProtected: false,
+    layout: DailyLogLayout,
+  },
+  {
+    path: MUSICAL_PATH,
+    component: MusicalDashboardPage,
     roles: [],
     isProtected: false,
     layout: DailyLogLayout,
