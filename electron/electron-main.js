@@ -14,26 +14,39 @@ app.whenReady().then(async () => {
     console.error('Error creating store directory:', error);
   }
 
-  const stores = {
-    logTypes: new Store({ name: 'logTypes', cwd: storePath }),
-    logCategories: new Store({ name: 'logCategories', cwd: storePath }),
-    settings: new Store({ name: 'settings', cwd: storePath }),
-  };
-  stores.logTypes.set([], []);
-  stores.logCategories.set([], []);
-  stores.settings.set([], []);
-
   // IPC Handlers for electron-store operations
-  ipcMain.handle('store:get', (event, storeName, defaultValue) => {
-    const store = stores[storeName];
-    return store ? store.get(storeName, defaultValue) : defaultValue;
+  ipcMain.handle('store:get', async (event, storeName, defaultValue) => {
+    const { default: Store } = await import('electron-store');
+    const storeFilePath = path.join(storePath, `${storeName}.json`);
+
+    try {
+      await fs.access(storeFilePath); // Check if store file exists
+    } catch {
+      new Store({ name: storeName, cwd: storePath }).set(
+        storeName,
+        defaultValue
+      );
+    }
+
+    const store = new Store({ name: storeName, cwd: storePath });
+    return store.get(storeName, defaultValue);
   });
 
-  ipcMain.handle('store:set', (event, storeName, value) => {
-    const store = stores[storeName];
-    if (store) {
-      store.set(storeName, value);
+  ipcMain.handle('store:set', async (event, storeName, value) => {
+    const { default: Store } = await import('electron-store');
+    const storeFilePath = path.join(storePath, `${storeName}.json`);
+
+    try {
+      await fs.access(storeFilePath); // Check if store file exists
+    } catch {
+      new Store({ name: storeName, cwd: storePath }).set(
+        storeName,
+        defaultValue
+      );
     }
+
+    const store = new Store({ name: storeName, cwd: storePath });
+    store.set(storeName, value);
   });
 
   ipcMain.handle('upload-file', async () => {
