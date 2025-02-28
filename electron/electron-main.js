@@ -98,10 +98,10 @@ app.whenReady().then(async () => {
   mainWindow.setMenuBarVisibility(false);
 
   // Dev mode
-  // mainWindow.loadURL('http://localhost:7329');
+  mainWindow.loadURL('http://localhost:7329');
 
   // Production mode
-  mainWindow.loadFile('./dist/index.html');
+  // mainWindow.loadFile('./dist/index.html');
 });
 
 app.on('window-all-closed', () => {
@@ -123,9 +123,9 @@ app.on('activate', () => {
     });
 
     // Dev mode
-    // mainWindow.loadURL('http://localhost:7329');
+    mainWindow.loadURL('http://localhost:7329');
 
     // Production mode
-    mainWindow.loadFile('./dist/index.html');
+    // mainWindow.loadFile('./dist/index.html');
   }
 });
