@@ -16,12 +16,13 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Button, Table } from 'antd';
+import { Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 
 interface DraggableTableProps<T> {
   dataSource: T[];
   columns: TableColumnsType<T>;
+  onSortEnd?: (newData: T[]) => void;
 }
 
 interface RowContextProps {
@@ -34,14 +35,9 @@ const RowContext = React.createContext<RowContextProps>({});
 const DragHandle: React.FC = () => {
   const { setActivatorNodeRef, listeners } = useContext(RowContext);
   return (
-    <Button
-      type="text"
-      size="small"
-      icon={<HolderOutlined />}
-      style={{ cursor: 'move' }}
-      ref={setActivatorNodeRef}
-      {...listeners}
-    />
+    <span style={{ cursor: 'move' }} ref={setActivatorNodeRef} {...listeners}>
+      <HolderOutlined />
+    </span>
   );
 };
 
@@ -82,8 +78,9 @@ const Row = <T extends { key: string }>({
 const DraggableTable = <T extends { key: string }>({
   dataSource,
   columns,
+  onSortEnd,
 }: DraggableTableProps<T>) => {
-  const [data, setData] = useState(dataSource);
+  const data = dataSource;
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -93,11 +90,11 @@ const DraggableTable = <T extends { key: string }>({
 
   const onDragEnd = ({ active, over }: DragEndEvent) => {
     if (active.id !== over?.id) {
-      setData((prev) => {
-        const activeIndex = prev.findIndex((i) => i.key === active.id);
-        const overIndex = prev.findIndex((i) => i.key === over?.id);
-        return arrayMove(prev, activeIndex, overIndex);
-      });
+      const activeIndex = data.findIndex((i) => i.key === active.id);
+      const overIndex = data.findIndex((i) => i.key === over?.id);
+      const newData = arrayMove(data, activeIndex, overIndex);
+      console.log('Updated order:', newData);
+      onSortEnd?.(newData); // Notify parent to update state
     }
   };
 
@@ -125,6 +122,7 @@ const DraggableTable = <T extends { key: string }>({
           rowKey="key"
           columns={updatedColumns}
           dataSource={data}
+          pagination={false}
         />
       </SortableContext>
     </DndContext>

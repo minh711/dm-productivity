@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Dropdown,
-  Layout,
-  Menu,
-  MenuProps,
-  Select,
-  Switch,
-  Tooltip,
-} from 'antd';
+import { Button, Tooltip } from 'antd';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 

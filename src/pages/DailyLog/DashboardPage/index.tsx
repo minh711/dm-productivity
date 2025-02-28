@@ -61,22 +61,42 @@ const DashboardPage = () => {
   return (
     <>
       <Row gutter={[16, 16]} align="stretch">
-        <Col span={12}>
+        <Col lg={6} md={24}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <h2>Đồng hồ bấm giờ</h2>
+            <Timer />
+          </Card>
+        </Col>
+
+        <Col lg={6} md={24}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <h2>Chỉ tiêu hôm nay</h2>
+          </Card>
+        </Col>
+
+        <Col lg={12} md={24}>
           <Card bordered={false} style={{ height: '100%' }}>
             <h2>Công việc hôm nay</h2>
 
             <TodayLog />
           </Card>
         </Col>
-        <Col span={6}>
+
+        <Col span={10}>
           <Card bordered={false} style={{ height: '100%' }}>
-            <h2>Chỉ tiêu hôm nay</h2>
-          </Card>
-        </Col>
-        <Col span={6}>
-          <Card bordered={false} style={{ height: '100%' }}>
-            <h2>Đồng hồ bấm giờ</h2>
-            <Timer />
+            <h2>Kế hoạch sắp tới</h2>
+
+            <Card className="d-flex justify-content-center align-item-center">
+              <div style={{ height: 600 }}>
+                <Calendar
+                  localizer={localizer}
+                  events={events}
+                  startAccessor="start"
+                  endAccessor="end"
+                  defaultView="month"
+                />
+              </div>
+            </Card>
           </Card>
         </Col>
 
@@ -144,23 +164,6 @@ const DashboardPage = () => {
                 <DashboardCalendar />
               </TabPane>
             </Tabs>
-          </Card>
-        </Col>
-        <Col span={10}>
-          <Card bordered={false} style={{ height: '100%' }}>
-            <h2>Kế hoạch sắp tới</h2>
-
-            <Card className="d-flex justify-content-center align-item-center">
-              <div style={{ height: 600 }}>
-                <Calendar
-                  localizer={localizer}
-                  events={events}
-                  startAccessor="start"
-                  endAccessor="end"
-                  defaultView="month"
-                />
-              </div>
-            </Card>
           </Card>
         </Col>
       </Row>
