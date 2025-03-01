@@ -108,9 +108,16 @@ const DmHeader: React.FC = () => {
   const [currentPageTitle, setCurrentPageTitle] = useState<string>('');
 
   useEffect(() => {
-    const currentPath = location.pathname;
-    setCurrentPageTitle(routeTitles[currentPath] || '');
-  }, [location.pathname]); // Need location.pathname here to refresh in some case
+    const updateTitle = () => {
+      const currentPath = window.location.hash.replace('#', '') || '/';
+      setCurrentPageTitle(routeTitles[currentPath] || '');
+    };
+
+    updateTitle();
+
+    window.addEventListener('hashchange', updateTitle);
+    return () => window.removeEventListener('hashchange', updateTitle);
+  }, []);
 
   return (
     <Header className={classNames(styles.header)}>

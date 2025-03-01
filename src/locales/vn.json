@@ -28,6 +28,12 @@
     }
   },
   "musical": {
-    "tittle": "Musical"
+    "tittle": "Âm nhạc",
+    "song": {
+      "title": "Bài hát"
+    },
+    "section": {
+      "title": "Phân đoạn"
+    }
   }
 }

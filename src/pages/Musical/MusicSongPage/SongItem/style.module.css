@@ -1,0 +1,26 @@
+.songCover {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+.songCover img {
+  height: 240px !important;
+  object-fit: cover;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 8px 8px 0 0;
+  transition: transform 0.2s ease-out;
+  animation: songCoverZoom 0.4s ease-out;
+}
+.songCover:hover img {
+  transform: scale(1.1);
+}
+
+@keyframes songCoverZoom {
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    transform: scale(1);
+  }
+}

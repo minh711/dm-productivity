@@ -3,6 +3,8 @@ import {
   HOME_PATH,
   LOG_CATEGORY_PATH,
   LOG_TYPE_AND_CATEGORY_PATH,
+  MUSIC_SECTION_PATH,
+  MUSIC_SONG_PATH,
   MUSICAL_PATH,
   routeTitles,
 } from '../../constants';
@@ -35,6 +37,26 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
       ),
       label: t(routeTitles[MUSICAL_PATH]),
       onClick: () => navigate(MUSICAL_PATH),
+    },
+    {
+      key: 'song',
+      icon: (
+        <span role="img" aria-label="song">
+          🎼
+        </span>
+      ),
+      label: t(routeTitles[MUSIC_SONG_PATH]),
+      onClick: () => navigate(MUSIC_SONG_PATH),
+    },
+    {
+      key: 'section',
+      icon: (
+        <span role="img" aria-label="section">
+          🎹
+        </span>
+      ),
+      label: t(routeTitles[MUSIC_SECTION_PATH]),
+      onClick: () => navigate(MUSIC_SECTION_PATH),
     },
   ];
 

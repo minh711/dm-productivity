@@ -3,15 +3,20 @@ import {
   HOME_PATH,
   LOG_CATEGORY_PATH,
   LOG_TYPE_AND_CATEGORY_PATH,
+  MUSIC_SECTION_PATH,
+  MUSIC_SONG_PATH,
   MUSICAL_PATH,
   roles,
 } from '../constants';
 import DailyLogLayout from '../layouts/DailyLogLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
+import MusicalLayout from '../layouts/MusicalLayout';
 import { default as DailyLogDashboardPage } from '../pages/DailyLog/DashboardPage';
 import LogTypePage from '../pages/DailyLog/LogTypeAndCategoryPage';
 import HomePage from '../pages/HomePage';
 import MusicalDashboardPage from '../pages/Musical/DashboardPage';
+import MusicSectionPage from '../pages/Musical/MusicSectionPage';
+import MusicSongPage from '../pages/Musical/MusicSongPage';
 
 export const routes = [
   {
@@ -40,6 +45,20 @@ export const routes = [
     component: MusicalDashboardPage,
     roles: [],
     isProtected: false,
-    layout: DailyLogLayout,
+    layout: MusicalLayout,
+  },
+  {
+    path: MUSIC_SONG_PATH,
+    component: MusicSongPage,
+    roles: [],
+    isProtected: false,
+    layout: MusicalLayout,
+  },
+  {
+    path: MUSIC_SECTION_PATH,
+    component: MusicSectionPage,
+    roles: [],
+    isProtected: false,
+    layout: MusicalLayout,
   },
 ];

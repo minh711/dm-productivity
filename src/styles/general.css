@@ -236,3 +236,17 @@
     max-width: 100%;
   }
 }
+
+/* Modal */
+.modal-lg {
+  width: 80vw !important;
+}
+.modal-m {
+  width: 60vw !important;
+}
+.modal-sm {
+  width: 40vw !important;
+}
+.modal-xm {
+  width: 20vw !important;
+}

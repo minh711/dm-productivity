@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const fs = require('fs').promises;
 const path = require('path');
+const { v4: uuidv4 } = require('uuid');
 
 let mainWindow;
 
@@ -58,13 +59,15 @@ app.whenReady().then(async () => {
       const selectedFilePath = result.filePaths[0];
 
       const appFolder = path.join(app.getPath('userData'), 'data', 'files');
-      const fileName = path.basename(selectedFilePath);
-      const destinationPath = path.join(appFolder, fileName);
-
       await fs.mkdir(appFolder, { recursive: true });
+
+      const ext = path.extname(selectedFilePath); // Get file extension
+      const uniqueFileName = `${uuidv4()}${ext}`; // Generate unique filename
+      const destinationPath = path.join(appFolder, uniqueFileName);
+
       await fs.copyFile(selectedFilePath, destinationPath);
 
-      return destinationPath;
+      return uniqueFileName;
     }
 
     return null;
@@ -83,6 +86,26 @@ app.whenReady().then(async () => {
     const base64Data = fileBuffer.toString('base64');
 
     return base64Data;
+  });
+
+  ipcMain.handle('delete-file', async (event, fileName) => {
+    const fs = require('fs').promises;
+
+    const filePath = path.join(
+      app.getPath('userData'),
+      'data',
+      'files',
+      fileName
+    );
+
+    try {
+      await fs.access(filePath); // Check if file exists
+      await fs.unlink(filePath); // Delete the file
+      return true; // Success
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      return false; // Failure
+    }
   });
 
   mainWindow = new BrowserWindow({

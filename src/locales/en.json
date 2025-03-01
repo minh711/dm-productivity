@@ -28,6 +28,12 @@
     }
   },
   "musical": {
-    "tittle": "Âm nhạc"
+    "tittle": "Musical",
+    "song": {
+      "title": "Song"
+    },
+    "section": {
+      "title": "Music Section"
+    }
   }
 }

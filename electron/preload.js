@@ -6,4 +6,5 @@ contextBridge.exposeInMainWorld('electron', {
   set: (storeName, value) => ipcRenderer.invoke('store:set', storeName, value),
   uploadFile: () => ipcRenderer.invoke('upload-file'),
   getFile: (fileName) => ipcRenderer.invoke('get-file', fileName),
+  deleteFile: (fileName) => ipcRenderer.invoke('delete-file', fileName),
 });

@@ -86,8 +86,8 @@ const DashboardPage = () => {
           <Card bordered={false} style={{ height: '100%' }}>
             <h2>Kế hoạch sắp tới</h2>
 
-            <Card className="d-flex justify-content-center align-item-center">
-              <div style={{ height: 600 }}>
+            {/* <Card className="d-flex justify-content-center align-item-center"> */}
+            {/* <div style={{ height: 600 }}>
                 <Calendar
                   localizer={localizer}
                   events={events}
@@ -95,8 +95,8 @@ const DashboardPage = () => {
                   endAccessor="end"
                   defaultView="month"
                 />
-              </div>
-            </Card>
+              </div> */}
+            {/* </Card> */}
           </Card>
         </Col>
 
