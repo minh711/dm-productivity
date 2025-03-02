@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
-import { Input, Typography, Button, message, Switch, Card, Row } from 'antd';
+import {
+  Input,
+  Typography,
+  Button,
+  message,
+  Switch,
+  Card,
+  Row,
+  Divider,
+} from 'antd';
 import { pitchOrder, validPitches } from '../../constants';
+import { AnimatePresence, motion } from 'framer-motion';
 import Piano from '../Piano';
+import RichTextEditor from '../RichTextEditor';
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -53,6 +64,17 @@ const MusicSectionContent = () => {
     setIsEditingText(false);
   };
 
+  const expandVariants = {
+    hidden: { opacity: 0, height: 0, overflow: 'hidden' },
+    visible: { opacity: 1, height: 'auto', transition: { duration: 0.3 } },
+    exit: {
+      opacity: 0,
+      height: 0,
+      overflow: 'hidden',
+      transition: { duration: 0.2 },
+    },
+  };
+
   return (
     <div>
       <Title level={2}>Musical Dashboard</Title>
@@ -78,34 +100,60 @@ const MusicSectionContent = () => {
           )}
         </Row>
 
-        {!isExpanded ? (
-          <div className="mb-m">Description</div>
-        ) : (
-          <div>
-            <TextArea className="mb-m" value="Description" />
-
-            <TextArea
-              value={textValue}
-              onChange={handleTextChange}
-              placeholder="Enter pitches separated by space or enter"
-              autoSize={{ minRows: 3, maxRows: 6 }}
-            />
-            <Button
-              className="mt-sm mb-m"
-              type="primary"
-              onClick={handleUpdateClick}
+        <AnimatePresence mode="wait">
+          {!isExpanded ? (
+            <motion.div
+              key="collapsed"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={expandVariants}
+              className="mb-m"
             >
-              Update
-            </Button>
+              Description
+            </motion.div>
+          ) : (
+            <motion.div
+              key="expanded"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={expandVariants}
+            >
+              <div>
+                <div className="mt-sm mb-m">
+                  <RichTextEditor value="" onChange={() => {}} />
+                </div>
 
-            <Row className="mb-m">
-              <span className="me-sm">Edit Mode</span>
-              <Switch checked={isEdit} onChange={setIsEdit} />
-              <span className="ms-m me-sm">Show Pitch Notation</span>
-              <Switch checked={isShowPitch} onChange={setIsShowPitch} />
-            </Row>
-          </div>
-        )}
+                <Divider />
+
+                <TextArea
+                  value={textValue}
+                  onChange={handleTextChange}
+                  placeholder="Enter pitches separated by space or enter"
+                  autoSize={{ minRows: 1, maxRows: 6 }}
+                />
+
+                <Row
+                  className="mt-m mb-m"
+                  justify={'space-between'}
+                  align={'middle'}
+                >
+                  <Row>
+                    <span className="me-sm">Edit Mode</span>
+                    <Switch checked={isEdit} onChange={setIsEdit} />
+                    <span className="ms-m me-sm">Show Pitch Notation</span>
+                    <Switch checked={isShowPitch} onChange={setIsShowPitch} />
+                  </Row>
+
+                  <Button type="primary" onClick={handleUpdateClick}>
+                    Update
+                  </Button>
+                </Row>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <Piano
           isShowPitch={isShowPitch}

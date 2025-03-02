@@ -1,6 +1,33 @@
-.pianoContainer {
+.parentContainer {
+  position: relative;
+}
+.parentContainer:hover .buttons {
+  top: -12px;
+  right: -12px;
+  opacity: 1;
+}
+
+.buttons {
+  position: absolute;
+  top: 0px;
+  right: -12px;
+  opacity: 0;
+  transition: opacity 0.4s ease-out, top 0.2s ease-out;
+  background-color: var(--color-primary);
+  padding: 8px;
+  border-radius: 8px;
+  z-index: 999;
+}
+
+.container {
   width: 100%;
-  height: 256px;
+  overflow-x: auto;
+}
+
+.pianoContainer {
+  width: 1536px;
+  margin: auto;
+  height: 230px;
   overflow: auto;
 }
 
