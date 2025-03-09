@@ -44,7 +44,7 @@ const MusicSongDetailPage = () => {
     null
   );
   const [editedSectionName, setEditedSectionName] = useState('');
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const sectionRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   const [collapsedSections, setCollapsedSections] = useState<{
     [key: string]: boolean;
