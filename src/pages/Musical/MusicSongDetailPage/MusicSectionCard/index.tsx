@@ -15,6 +15,10 @@ import MusicSectionContent from '../../../../components/MusicSectionContent';
 
 interface MusicSectionCardProps {
   section: any;
+  updateSectionContentOrder: (
+    sectionId: string,
+    updatedContentIds: any[]
+  ) => void;
   song: any;
   collapsedSections: { [key: string]: boolean };
   handleToggleCollapse: (sectionId: string) => void;
@@ -28,6 +32,7 @@ interface MusicSectionCardProps {
 
 const MusicSectionCard: React.FC<MusicSectionCardProps> = ({
   section,
+  updateSectionContentOrder,
   song,
   collapsedSections,
   handleToggleCollapse,
@@ -38,6 +43,37 @@ const MusicSectionCard: React.FC<MusicSectionCardProps> = ({
   handleDeleteContent,
   sectionRefs,
 }) => {
+  const moveContent = (contentId: string, direction: number) => {
+    if (!section || !section.contentIds) return;
+
+    const contentIndex = section.contentIds.findIndex(
+      (c: any) => c.id === contentId
+    );
+    if (contentIndex === -1) return;
+
+    const targetIndex = contentIndex + direction;
+    if (targetIndex < 0 || targetIndex >= section.contentIds.length) return;
+
+    // Swap orders
+    const updatedContentIds = [...section.contentIds];
+    [
+      updatedContentIds[contentIndex].order,
+      updatedContentIds[targetIndex].order,
+    ] = [
+      updatedContentIds[targetIndex].order,
+      updatedContentIds[contentIndex].order,
+    ];
+
+    // Recalculate order to ensure it starts from 1
+    updatedContentIds
+      .sort((a, b) => a.order - b.order)
+      .forEach((c, i) => {
+        c.order = i + 1;
+      });
+
+    updateSectionContentOrder(section.id, updatedContentIds);
+  };
+
   return (
     <Card
       className={classNames(styles.sectionContainer, 'mb-m')}
@@ -97,19 +133,37 @@ const MusicSectionCard: React.FC<MusicSectionCardProps> = ({
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {section.contentIds!.map((contentId: any) => (
-              <Card className="mb-m" key={contentId}>
-                <MusicSectionContent id={contentId} />
-                <Row justify="end">
-                  <Button
-                    className="mt-m"
-                    danger
-                    onClick={() => handleDeleteContent(section.id, contentId)}
-                    icon={<DeleteOutlined />}
-                  />
-                </Row>
-              </Card>
-            ))}
+            {section
+              .contentIds!.slice()
+              .sort((a: any, b: any) => a.order - b.order)
+              .map((item: any) => (
+                <Card className="mb-m" key={item.id}>
+                  <MusicSectionContent id={item.id} />
+                  <Row justify="space-between" align={'bottom'}>
+                    <Row align={'bottom'}>
+                      <Button
+                        disabled={item.order === 1}
+                        onClick={() => moveContent(item.id, -1)}
+                        type="text"
+                        icon={<CaretUpOutlined />}
+                      />
+                      <Button
+                        disabled={item.order === section.contentIds.length}
+                        onClick={() => moveContent(item.id, 1)}
+                        type="text"
+                        icon={<CaretDownOutlined />}
+                      />
+                    </Row>
+
+                    <Button
+                      className="mt-m"
+                      danger
+                      onClick={() => handleDeleteContent(section.id, item.id)}
+                      icon={<DeleteOutlined />}
+                    />
+                  </Row>
+                </Card>
+              ))}
 
             <Row justify="space-between" align="middle">
               <Button

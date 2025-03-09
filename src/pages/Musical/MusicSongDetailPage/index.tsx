@@ -135,7 +135,16 @@ const MusicSongDetailPage = () => {
 
     const updatedSections = sections.map((section) =>
       section.id === sectionId
-        ? { ...section, contentIds: [...section.contentIds!, newContentId] }
+        ? {
+            ...section,
+            contentIds: [
+              ...section.contentIds!,
+              {
+                id: newContentId,
+                order: (section.contentIds?.length ?? 0) + 1,
+              },
+            ],
+          }
         : section
     );
 
@@ -187,7 +196,9 @@ const MusicSongDetailPage = () => {
         section.id === sectionId
           ? {
               ...section,
-              contentIds: section.contentIds!.filter((id) => id !== contentId),
+              contentIds: section.contentIds!.filter(
+                (item) => item.id !== contentId
+              ),
             }
           : section
       );
@@ -277,6 +288,23 @@ const MusicSongDetailPage = () => {
     ]);
   };
 
+  const updateSectionContentOrder = async (
+    sectionId: string,
+    updatedContentIds: any[]
+  ) => {
+    setSections((prevSections) =>
+      prevSections.map((s) =>
+        s.id === sectionId ? { ...s, contentIds: updatedContentIds } : s
+      )
+    );
+
+    const section = await MusicSectionRepository.getById(sectionId);
+    if (!section) return;
+
+    const updatedSection = { ...section, contentIds: updatedContentIds };
+    await MusicSectionRepository.update(updatedSection);
+  };
+
   if (!song) {
     return <div>Song not found</div>;
   }
@@ -325,6 +353,7 @@ const MusicSongDetailPage = () => {
               <MusicSectionCard
                 key={section.id}
                 section={section}
+                updateSectionContentOrder={updateSectionContentOrder}
                 song={song}
                 collapsedSections={collapsedSections}
                 handleToggleCollapse={handleToggleCollapse}

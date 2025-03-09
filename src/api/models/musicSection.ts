@@ -6,5 +6,6 @@ export interface MusicSection {
   name: string;
   tagIds: string[];
   tags?: string[];
-  contentIds?: string[];
+  // contentIds?: string[];
+  contentIds: { id: string; order: number }[];
 }
