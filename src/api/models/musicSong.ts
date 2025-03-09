@@ -1,3 +1,4 @@
+import { MusicSection } from './musicSection';
 import { MusicTag } from './musicTag';
 
 export interface MusicSong {
@@ -5,6 +6,7 @@ export interface MusicSong {
   name: string;
   thumbnail?: string;
   audio?: string;
+  musicSections?: string[];
   tagIds?: string[];
   tags?: MusicTag[];
   createdAt: Date;

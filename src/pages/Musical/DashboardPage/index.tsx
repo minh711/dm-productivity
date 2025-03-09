@@ -21,8 +21,6 @@ const MusicalDashboardPage = () => {
   return (
     <div>
       <MusicSongPage />
-
-      <MusicSectionContent />
     </div>
   );
 };

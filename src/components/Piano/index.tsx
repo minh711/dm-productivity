@@ -28,8 +28,6 @@ const Piano: React.FC<PianoProps> = ({
     useState<string[]>(pressedPitches);
 
   useEffect(() => {
-    console.log('here');
-    console.log(pressedPitches);
     setLocalPressedPitches(pressedPitches);
   }, [pressedPitches]);
 
@@ -76,12 +74,16 @@ const Piano: React.FC<PianoProps> = ({
       <div className={classNames(styles.parentContainer)}>
         <div className={classNames(styles.buttons)}>
           <Space direction="vertical">
-            <Button onClick={handleCopyToClipboard}>
-              <CopyOutlined />
-            </Button>
-            <Button onClick={handleDownload}>
-              <DownloadOutlined />
-            </Button>
+            <Button
+              onClick={handleCopyToClipboard}
+              icon={<CopyOutlined />}
+              style={{ borderRadius: '50%' }}
+            />
+            <Button
+              onClick={handleDownload}
+              icon={<DownloadOutlined />}
+              style={{ borderRadius: '50%' }}
+            />
           </Space>
         </div>
 

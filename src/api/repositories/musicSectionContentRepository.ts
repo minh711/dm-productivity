@@ -10,6 +10,11 @@ export class MusicSectionContentRepository {
     )) as MusicSectionContent[];
   }
 
+  static async getById(id: string): Promise<MusicSectionContent | null> {
+    const contents = await this.getAll();
+    return contents.find((c) => c.id === id) || null;
+  }
+
   static async add(content: MusicSectionContent): Promise<void> {
     const contents = await this.getAll();
     contents.push(content);

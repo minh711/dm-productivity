@@ -9,6 +9,7 @@
   --table-body-cell: #fff;
   --table-border: #f0f0f0;
   --color-primary: #1677ff;
+  --color-primary-rgb: 22, 119, 255;
   --color-danger: #ff4d4f;
 }
 
@@ -23,6 +24,7 @@ body.dark-mode {
   --table-body-cell: #112a45;
   --table-border: #111d2c;
   --color-primary: #1677ff;
+  --color-primary-rgb: 22, 119, 255;
   --color-danger: #ff4d4f;
 }
 

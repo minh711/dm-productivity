@@ -1,0 +1,11 @@
+.editButton {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+  z-index: 999;
+}
+.container:hover .editButton {
+  opacity: 1;
+}

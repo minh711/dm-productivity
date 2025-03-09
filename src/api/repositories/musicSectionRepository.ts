@@ -7,6 +7,14 @@ export class MusicSectionRepository {
     return (await window.electron.get(this.storeName, [])) as MusicSection[];
   }
 
+  static async getById(id: string): Promise<MusicSection | null> {
+    const sections = (await window.electron.get(
+      this.storeName,
+      []
+    )) as MusicSection[];
+    return sections.find((s) => s.id === id) || null;
+  }
+
   static async add(section: MusicSection): Promise<void> {
     const sections = await this.getAll();
     sections.push(section);

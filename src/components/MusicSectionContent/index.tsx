@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Input,
   Typography,
@@ -9,33 +9,57 @@ import {
   Row,
   Divider,
 } from 'antd';
+import { EditOutlined, CheckOutlined } from '@ant-design/icons';
 import { pitchOrder, validPitches } from '../../constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import Piano from '../Piano';
 import RichTextEditor from '../RichTextEditor';
+import { MusicSectionContent as MusicSectionContentModel } from '../../api/models';
+import classNames from 'classnames';
+import styles from './style.module.css';
+import { MusicSectionContentRepository } from '../../api/repositories/musicSectionContentRepository';
 
 const { TextArea } = Input;
-const { Title } = Typography;
 
-const MusicSectionContent = () => {
-  const [pressedPitches, setPressedPitches] = useState<string[]>([
-    'C3',
-    'C4',
-    'Db4', // TODO: Test
-  ]);
-  const [textValue, setTextValue] = useState(pressedPitches.join(' '));
+interface MusicSectionContentProps {
+  id: string;
+}
+
+const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
+  const [pressedPitches, setPressedPitches] = useState<string[]>([]);
+  const [description, setDescription] = useState('');
+  const [notes, setNotes] = useState(pressedPitches.join(' '));
   const [isEditingText, setIsEditingText] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [isShowPitch, setIsShowPitch] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [musicSection, setMusicSection] = useState<MusicSectionContentModel>();
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTextValue(e.target.value);
+  useEffect(() => {
+    const fetchMusicSection = async () => {
+      const data = await MusicSectionContentRepository.getById(id);
+      if (data) {
+        setMusicSection(data);
+        setDescription(data.description || '');
+        setNotes(data.notes || '');
+        setPressedPitches(data.notes?.split(' ') || []);
+      }
+    };
+
+    fetchMusicSection();
+  }, [id]);
+
+  const handleNotesChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNotes(e.target.value);
     setIsEditingText(true);
   };
 
-  const handleUpdateClick = () => {
-    const newPitches = textValue
+  const handleDescriptionChange = (value: string) => {
+    setDescription(value);
+  };
+
+  const handleUpdateNotesClick = () => {
+    const newPitches = notes
       .split(/\s+/)
       .map((p) => p.trim())
       .filter((p) => p !== '');
@@ -60,8 +84,33 @@ const MusicSectionContent = () => {
     });
 
     setPressedPitches(newPitches);
-    setTextValue(newPitches.join(' '));
+    setNotes(newPitches.join(' '));
+    setMusicSection((prev: any) => ({
+      ...prev,
+      notes: newPitches.join(' '),
+    }));
+
     setIsEditingText(false);
+  };
+
+  const handleOk = async () => {
+    if (!musicSection) return;
+
+    const updatedContent: MusicSectionContentModel = {
+      ...musicSection,
+      description,
+      notes,
+    };
+
+    const success = await MusicSectionContentRepository.update(updatedContent);
+
+    if (success) {
+      setMusicSection(updatedContent);
+      setIsExpanded(false);
+      setIsEdit(false);
+    } else {
+      message.error('Failed to update content');
+    }
   };
 
   const expandVariants = {
@@ -77,30 +126,29 @@ const MusicSectionContent = () => {
 
   return (
     <div>
-      <Title level={2}>Musical Dashboard</Title>
-
-      <Card>
-        <Row justify={'space-between'} align={'top'}>
-          <Title level={4}>Pitches</Title>
+      <div className={classNames(styles.container)}>
+        <div className={classNames(styles.editButton)}>
           {!isExpanded ? (
-            <Button type="primary" onClick={() => setIsExpanded(true)}>
-              Edit
-            </Button>
+            <Button
+              type="primary"
+              size="large"
+              icon={<EditOutlined />}
+              onClick={() => setIsExpanded(true)}
+              style={{ borderRadius: '50%' }}
+            />
           ) : (
             <Button
               className="ms-sm"
               type="primary"
-              onClick={() => {
-                setIsExpanded(false);
-                setIsEdit(false);
-              }}
-            >
-              OK
-            </Button>
+              size="large"
+              icon={<CheckOutlined />}
+              onClick={handleOk}
+              style={{ borderRadius: '50%' }}
+            />
           )}
-        </Row>
+        </div>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="sync">
           {!isExpanded ? (
             <motion.div
               key="collapsed"
@@ -109,8 +157,9 @@ const MusicSectionContent = () => {
               exit="exit"
               variants={expandVariants}
               className="mb-m"
+              dangerouslySetInnerHTML={{ __html: description }}
             >
-              Description
+              {/* {description} */}
             </motion.div>
           ) : (
             <motion.div
@@ -122,14 +171,17 @@ const MusicSectionContent = () => {
             >
               <div>
                 <div className="mt-sm mb-m">
-                  <RichTextEditor value="" onChange={() => {}} />
+                  <RichTextEditor
+                    value={description}
+                    onChange={handleDescriptionChange}
+                  />
                 </div>
 
                 <Divider />
 
                 <TextArea
-                  value={textValue}
-                  onChange={handleTextChange}
+                  value={notes}
+                  onChange={handleNotesChange}
                   placeholder="Enter pitches separated by space or enter"
                   autoSize={{ minRows: 1, maxRows: 6 }}
                 />
@@ -146,9 +198,7 @@ const MusicSectionContent = () => {
                     <Switch checked={isShowPitch} onChange={setIsShowPitch} />
                   </Row>
 
-                  <Button type="primary" onClick={handleUpdateClick}>
-                    Update
-                  </Button>
+                  <Button onClick={handleUpdateNotesClick}>Update notes</Button>
                 </Row>
               </div>
             </motion.div>
@@ -162,11 +212,11 @@ const MusicSectionContent = () => {
           onChangePressedPitches={(newPitches) => {
             setPressedPitches(newPitches);
             if (!isEditingText) {
-              setTextValue(newPitches.join(' '));
+              setNotes(newPitches.join(' '));
             }
           }}
         />
-      </Card>
+      </div>
     </div>
   );
 };

@@ -17,7 +17,7 @@ import HomePage from '../pages/HomePage';
 import MusicalDashboardPage from '../pages/Musical/DashboardPage';
 import MusicSectionPage from '../pages/Musical/MusicSectionPage';
 import MusicSongPage from '../pages/Musical/MusicSongPage';
-import MusicSongDetailPage from '../pages/Musical/MusicSongPage/DetailPage';
+import MusicSongDetailPage from '../pages/Musical/MusicSongDetailPage';
 
 export const routes = [
   {
