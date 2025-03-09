@@ -42,7 +42,6 @@ const modules = {
     [{ script: 'sub' }, { script: 'super' }],
     [{ indent: '-1' }, { indent: '+1' }],
     [{ direction: 'rtl' }],
-    [{ size: ['small', false, 'large', 'huge'] }],
     [{ color: [] }, { background: [] }],
     [{ align: [] }],
     ['clean'],

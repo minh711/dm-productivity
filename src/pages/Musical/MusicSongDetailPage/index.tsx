@@ -6,6 +6,12 @@ import {
   EditOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined,
+  DownOutlined,
+  UpOutlined,
+  CaretUpOutlined,
+  CaretDownOutlined,
 } from '@ant-design/icons';
 import { v4 as uuidv4 } from 'uuid';
 import { MusicSongRepository } from '../../../api/repositories/musicSongRepository';
@@ -20,6 +26,9 @@ import MusicSectionContent from '../../../components/MusicSectionContent';
 import Sider from 'antd/es/layout/Sider';
 import { Content } from 'antd/es/layout/layout';
 import { motion, AnimatePresence } from 'framer-motion';
+import classNames from 'classnames';
+import styles from './style.module.css';
+import MusicSectionCard from './MusicSectionCard';
 
 const MusicSongDetailPage = () => {
   const { id } = useParams();
@@ -62,14 +71,19 @@ const MusicSongDetailPage = () => {
       const foundSong = await MusicSongRepository.getById(id);
       setSong(foundSong);
 
-      if (foundSong?.musicSections!.length) {
-        const sectionPromises = foundSong.musicSections.map((musicSectionId) =>
-          MusicSectionRepository.getById(musicSectionId)
+      if (foundSong?.musicSections?.length) {
+        const sectionPromises = foundSong.musicSections.map(({ id }) =>
+          MusicSectionRepository.getById(id)
         );
         const resolvedSections = await Promise.all(sectionPromises);
-        const validSections = resolvedSections.filter(
-          (s) => s !== null
-        ) as MusicSection[];
+        const validSections = resolvedSections
+          .filter((s) => s !== null)
+          .map((section, index) => ({
+            ...section!,
+            order: foundSong.musicSections!.find((s) => s.id === section!.id)!
+              .order,
+          }))
+          .sort((a, b) => a.order - b.order); // Ensure correct order
 
         setSections(validSections);
       }
@@ -93,7 +107,10 @@ const MusicSongDetailPage = () => {
 
     const updatedSong: MusicSong = {
       ...song,
-      musicSections: [...(song.musicSections || []), newSectionId],
+      musicSections: [
+        ...(song.musicSections || []),
+        { id: newSectionId, order: (song.musicSections?.length ?? 0) + 1 },
+      ],
     };
 
     await MusicSongRepository.update(updatedSong);
@@ -147,7 +164,7 @@ const MusicSongDetailPage = () => {
       const updatedSong = {
         ...song,
         musicSections: song.musicSections!.filter(
-          (id) => id !== deleteTarget.sectionId
+          (item) => item.id !== deleteTarget.sectionId
         ),
       };
       await MusicSongRepository.update(updatedSong);
@@ -214,6 +231,52 @@ const MusicSongDetailPage = () => {
     setEditedSectionName('');
   };
 
+  const moveSection = async (sectionId: string, direction: number) => {
+    if (!song) return;
+
+    const sectionIndex = song.musicSections.findIndex(
+      (s) => s.id === sectionId
+    );
+    if (sectionIndex === -1) return;
+
+    const targetIndex = sectionIndex + direction;
+    if (targetIndex < 0 || targetIndex >= song.musicSections.length) return;
+
+    // Swap orders in song.musicSections
+    const updatedMusicSections = [...song.musicSections];
+    [
+      updatedMusicSections[sectionIndex].order,
+      updatedMusicSections[targetIndex].order,
+    ] = [
+      updatedMusicSections[targetIndex].order,
+      updatedMusicSections[sectionIndex].order,
+    ];
+
+    // Recalculate order to ensure it starts from 1
+    updatedMusicSections
+      .sort((a, b) => a.order - b.order)
+      .forEach((s, i) => {
+        s.order = i + 1;
+      });
+
+    // Sort sections based on updated song.musicSections order
+    const updatedSections = updatedMusicSections.map(
+      (s) => sections.find((section) => section.id === s.id)!
+    );
+
+    // Update state
+    setSections(updatedSections);
+    setSong({ ...song, musicSections: updatedMusicSections });
+
+    // Update backend
+    await Promise.all([
+      MusicSongRepository.update({
+        ...song,
+        musicSections: updatedMusicSections,
+      }),
+    ]);
+  };
+
   if (!song) {
     return <div>Song not found</div>;
   }
@@ -228,13 +291,11 @@ const MusicSongDetailPage = () => {
           style={{
             position: 'fixed',
             top: 80,
-            right: 0,
             height: 'calc(100vh - 160px)',
-            borderRadius: '24px 0 0 24px',
             overflowY: 'auto',
             zIndex: 1000,
           }}
-          className="ms-m shadow"
+          className={classNames('ms-m shadow', styles.sider)}
         >
           <div style={{ padding: 16, textAlign: 'center' }}>
             <Button
@@ -256,64 +317,30 @@ const MusicSongDetailPage = () => {
         </Sider>
 
         <Layout>
-          <Content style={{ paddingRight: 80 }}>
+          <Content
+            style={{ paddingRight: 80, minHeight: 'calc(100vh - 160px)' }}
+          >
             <h1>{song.name}</h1>
             {sections.map((section) => (
-              <Card
-                className="mb-m"
+              <MusicSectionCard
                 key={section.id}
-                ref={(el) => (sectionRefs.current[section.id] = el)}
-              >
-                <Row
-                  className="mb-m"
-                  justify={'space-between'}
-                  align={'middle'}
-                >
-                  <h2>{section.name || 'Untitled Section'}</h2>
-                  <Button
-                    type="primary"
-                    size="large"
-                    style={{ borderRadius: '50%' }}
-                    icon={<EditOutlined />}
-                    onClick={() => handleEditSection(section)}
-                  />
-                </Row>
-
-                {section.contentIds!.map((contentId) => (
-                  <Card className="mb-m" key={contentId}>
-                    <MusicSectionContent id={contentId} />
-                    <Row justify={'end'}>
-                      <Button
-                        className="mt-m"
-                        danger
-                        onClick={() =>
-                          handleDeleteContent(section.id, contentId)
-                        }
-                        icon={<DeleteOutlined />}
-                      />
-                    </Row>
-                  </Card>
-                ))}
-
-                <Row justify={'space-between'} align={'middle'}>
-                  <Button
-                    type="primary"
-                    onClick={() => handleAddContent(section.id)}
-                  >
-                    Add Content
-                  </Button>
-
-                  <Button
-                    danger
-                    onClick={() => handleDeleteSection(section.id)}
-                    icon={<DeleteOutlined />}
-                  />
-                </Row>
-              </Card>
+                section={section}
+                song={song}
+                collapsedSections={collapsedSections}
+                handleToggleCollapse={handleToggleCollapse}
+                moveSection={moveSection}
+                handleEditSection={handleEditSection}
+                handleDeleteSection={handleDeleteSection}
+                handleAddContent={handleAddContent}
+                handleDeleteContent={handleDeleteContent}
+                sectionRefs={sectionRefs}
+              />
             ))}
+
             <Button type="primary" onClick={handleAddSection}>
               Add Section
             </Button>
+
             <Modal
               title="Confirm Deletion"
               open={!!deleteTarget}
@@ -341,6 +368,7 @@ const MusicSongDetailPage = () => {
               </p>
               <p>This action cannot be undone if deleted permanently.</p>
             </Modal>
+
             <Modal
               title="Edit Section"
               open={isEditSectionModalOpen}

@@ -75,10 +75,12 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       <DmSider menuItems={menuItems} />
       <Layout>
         <DmHeader />
-        <Content className="p-m">
-          {children || <div>Welcome to the Dashboard!</div>}
-        </Content>
-        <DmFooter />
+        <div style={{ height: '100%', overflowY: 'auto' }}>
+          <Content className="p-m" style={{ minHeight: 'calc(100% - 70px)' }}>
+            {children || <div>Welcome to the Dashboard!</div>}
+          </Content>
+          <DmFooter />
+        </div>
       </Layout>
     </Layout>
   );
