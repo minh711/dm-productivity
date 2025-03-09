@@ -17,6 +17,7 @@ import HomePage from '../pages/HomePage';
 import MusicalDashboardPage from '../pages/Musical/DashboardPage';
 import MusicSectionPage from '../pages/Musical/MusicSectionPage';
 import MusicSongPage from '../pages/Musical/MusicSongPage';
+import MusicSongDetailPage from '../pages/Musical/MusicSongPage/DetailPage';
 
 export const routes = [
   {
@@ -43,6 +44,13 @@ export const routes = [
   {
     path: MUSICAL_PATH,
     component: MusicalDashboardPage,
+    roles: [],
+    isProtected: false,
+    layout: MusicalLayout,
+  },
+  {
+    path: `${MUSIC_SONG_PATH}/:id`,
+    component: MusicSongDetailPage,
     roles: [],
     isProtected: false,
     layout: MusicalLayout,

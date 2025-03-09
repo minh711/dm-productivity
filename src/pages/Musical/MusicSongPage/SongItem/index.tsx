@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { EditOutlined } from '@ant-design/icons';
 import styles from './style.module.css';
 import FileLoader from '../../../../components/FileLoader';
+import { useNavigate } from 'react-router-dom';
+import { MUSIC_SONG_PATH } from '../../../../constants';
 
 interface SongItemProps {
   song: {
@@ -16,6 +18,11 @@ interface SongItemProps {
 
 const SongItem: React.FC<SongItemProps> = ({ song, onEdit }) => {
   const [hovered, setHovered] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSongClick = () => {
+    navigate(`${MUSIC_SONG_PATH}/${song.id}`);
+  };
 
   return (
     <div
@@ -40,6 +47,8 @@ const SongItem: React.FC<SongItemProps> = ({ song, onEdit }) => {
         />
       )}
       <Card
+        onClick={handleSongClick}
+        style={{ cursor: 'pointer' }}
         cover={
           song.thumbnail ? (
             <FileLoader

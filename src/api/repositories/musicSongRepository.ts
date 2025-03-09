@@ -14,6 +14,14 @@ export class MusicSongRepository {
     );
   }
 
+  static async getById(id: string): Promise<MusicSong | null> {
+    const songs = (await window.electron.get(
+      this.storeName,
+      []
+    )) as MusicSong[];
+    return songs.find((s) => s.id === id) || null;
+  }
+
   static async add(song: MusicSong): Promise<void> {
     const now = new Date();
     const newSong: MusicSong = { ...song, createdAt: now, updatedAt: now };

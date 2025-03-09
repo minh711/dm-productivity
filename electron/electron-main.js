@@ -108,6 +108,18 @@ app.whenReady().then(async () => {
     }
   });
 
+  ipcMain.on('go-back', () => {
+    if (mainWindow.webContents.canGoBack()) {
+      mainWindow.webContents.goBack();
+    }
+  });
+
+  ipcMain.on('go-forward', () => {
+    if (mainWindow.webContents.canGoForward()) {
+      mainWindow.webContents.goForward();
+    }
+  });
+
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 720,

@@ -6,6 +6,8 @@ declare global {
       uploadFile: () => Promise<string | null>;
       getFile: (fileName: string) => Promise<string | null>;
       deleteFile: (fileName: string) => Promise<void>;
+      goBack: () => Promise<void>;
+      goForward: () => Promise<void>;
     };
   }
 }

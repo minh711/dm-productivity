@@ -4,6 +4,10 @@ import { routes } from './routes';
 import ProtectedRoute from './components/ProtectedRoute';
 import NotFoundPage from './pages/NotFoundPage';
 import * as electron from 'electron';
+import { Button, Tooltip } from 'antd';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import classNames from 'classnames';
+import styles from './style.module.css';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
@@ -23,40 +27,60 @@ function App() {
   }, [isDarkMode]);
 
   return (
-    <Router>
-      <Routes>
-        {routes.map((route) =>
-          route.isProtected ? (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <ProtectedRoute
-                  roles={route.roles}
-                  layout={route.layout}
-                  component={route.component}
-                />
-              }
-            />
-          ) : (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                route.layout ? (
-                  <route.layout>
+    <div>
+      <div className={classNames(styles.menu)}>
+        <Tooltip title="Go Back" placement="topLeft">
+          <Button
+            icon={<LeftOutlined />}
+            onClick={() => window.electron.goBack()}
+            className={classNames('me-sm')}
+            style={{ borderRadius: '50%' }}
+          />
+        </Tooltip>
+        <Tooltip title="Go Forward" placement="topLeft">
+          <Button
+            icon={<RightOutlined />}
+            onClick={() => window.electron.goForward()}
+            style={{ borderRadius: '50%' }}
+          />
+        </Tooltip>
+      </div>
+
+      <Router>
+        <Routes>
+          {routes.map((route) =>
+            route.isProtected ? (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  <ProtectedRoute
+                    roles={route.roles}
+                    layout={route.layout}
+                    component={route.component}
+                  />
+                }
+              />
+            ) : (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  route.layout ? (
+                    <route.layout>
+                      <route.component />
+                    </route.layout>
+                  ) : (
                     <route.component />
-                  </route.layout>
-                ) : (
-                  <route.component />
-                )
-              }
-            />
-          )
-        )}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
+                  )
+                }
+              />
+            )
+          )}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

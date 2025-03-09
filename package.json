@@ -36,7 +36,7 @@
     "dm-productivity": "file:",
     "electron-is-dev": "^3.0.1",
     "electron-store": "^10.0.1",
-    "framer-motion": "^12.4.7",
+    "framer-motion": "^12.4.10",
     "html2canvas": "^1.4.1",
     "i18next": "^24.2.2",
     "react": "^18.3.1",

@@ -2,6 +2,7 @@ import { MusicTag } from './musicTag';
 
 export interface MusicSectionContent {
   id: string;
+  order?: number;
   description: string;
   pdf?: string;
   audio?: string;
