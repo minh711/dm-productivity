@@ -14,7 +14,7 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
 
   const { role } = useSession();
 
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
 
   return (
