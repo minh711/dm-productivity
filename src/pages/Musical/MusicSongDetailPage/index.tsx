@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Card, Input, Layout, Menu, Modal, Row } from 'antd';
+import { Button, Card, Col, Input, Layout, Menu, Modal, Row } from 'antd';
 import {
   DeleteOutlined,
   EditOutlined,
@@ -29,6 +29,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import classNames from 'classnames';
 import styles from './style.module.css';
 import MusicSectionCard from './MusicSectionCard';
+import FileLoader from '../../../components/FileLoader';
 
 const MusicSongDetailPage = () => {
   const { id } = useParams();
@@ -350,7 +351,32 @@ const MusicSongDetailPage = () => {
           <Content
             style={{ paddingRight: 80, minHeight: 'calc(100vh - 160px)' }}
           >
-            <h1>{song.name}</h1>
+            <div>
+              <h1>{song.name}</h1>
+              <Row gutter={[16, 16]} className="mb-m">
+                <Col span={12}>
+                  {song.thumbnail ? (
+                    <FileLoader
+                      fileName={song.thumbnail}
+                      className={classNames(styles.songCover)}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: '100%',
+                        height: '240px',
+                        background: '#f0f0f0',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      No Thumbnail
+                    </div>
+                  )}
+                </Col>
+              </Row>
+            </div>
             {sections.map((section) => (
               <MusicSectionCard
                 key={section.id}

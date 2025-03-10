@@ -176,7 +176,7 @@ const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
               {description !== '' ? (
                 <div dangerouslySetInnerHTML={{ __html: description }}></div>
               ) : (
-                <div>No description</div>
+                <div className="text-white">No description</div>
               )}
             </motion.div>
           ) : (

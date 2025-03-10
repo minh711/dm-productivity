@@ -6,6 +6,7 @@ interface FileLoaderProps {
   style?: React.CSSProperties;
   className?: string;
   innerStyle?: React.CSSProperties;
+  height?: number;
 }
 
 const FileLoader: React.FC<FileLoaderProps> = ({
@@ -13,6 +14,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   style,
   className,
   innerStyle,
+  height,
 }) => {
   const [fileBase64, setFileBase64] = useState<string | null>(null);
   const [fileType, setFileType] = useState<string | null>(null);
@@ -57,7 +59,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '240px',
+          height: height ?? 120,
           width: '100%',
         }}
       >

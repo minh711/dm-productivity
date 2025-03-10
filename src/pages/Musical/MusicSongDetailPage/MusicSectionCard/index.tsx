@@ -128,10 +128,10 @@ const MusicSectionCard: React.FC<MusicSectionCardProps> = ({
         {!collapsedSections[section.id] && (
           <motion.div
             className="mt-m"
-            initial={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, height: 'auto' }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
           >
             {section
               .contentIds!.slice()
