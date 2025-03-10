@@ -27,6 +27,16 @@ const RichTextEditor: React.FC<RichTextEditorProps> = ({
   };
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      const editor = document.querySelector('.ql-editor');
+      if (editor) {
+        editor.setAttribute('spellcheck', 'false'); // ✅ Disable spellcheck
+        clearInterval(interval);
+      }
+    }, 100);
+  }, []);
+
+  useEffect(() => {
     const styleId = 'quill-editor-font-style';
     let styleElement = document.getElementById(styleId);
 

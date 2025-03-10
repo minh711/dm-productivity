@@ -18,6 +18,8 @@ import { MusicSectionContent as MusicSectionContentModel } from '../../api/model
 import classNames from 'classnames';
 import styles from './style.module.css';
 import { MusicSectionContentRepository } from '../../api/repositories/musicSectionContentRepository';
+import FileUploader from '../FileUploader';
+import FileLoader from '../FileLoader';
 
 const { TextArea } = Input;
 
@@ -113,6 +115,19 @@ const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
     }
   };
 
+  const handleUploadImage = async (fileName: string) => {
+    if (!musicSection) {
+      return;
+    }
+
+    setMusicSection((prev: any) => ({
+      ...prev,
+      image: fileName,
+    }));
+
+    await MusicSectionContentRepository.update(musicSection);
+  };
+
   const expandVariants = {
     hidden: { opacity: 0, height: 0, overflow: 'hidden' },
     visible: { opacity: 1, height: 'auto', transition: { duration: 0.3 } },
@@ -157,8 +172,13 @@ const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
               exit="exit"
               variants={expandVariants}
               className={classNames('mb-m', styles.description)}
-              dangerouslySetInnerHTML={{ __html: description }}
-            ></motion.div>
+            >
+              {description !== '' ? (
+                <div dangerouslySetInnerHTML={{ __html: description }}></div>
+              ) : (
+                <div>No description</div>
+              )}
+            </motion.div>
           ) : (
             <motion.div
               key="expanded"
@@ -168,53 +188,90 @@ const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
               variants={expandVariants}
             >
               <div>
-                <div className="mt-sm mb-m">
-                  <RichTextEditor
-                    value={description}
-                    onChange={handleDescriptionChange}
-                    isSerif={true}
+                <div>
+                  <h3>Description</h3>
+
+                  <div className="mt-sm mb-m">
+                    <RichTextEditor
+                      value={description}
+                      onChange={handleDescriptionChange}
+                      isSerif={true}
+                    />
+                  </div>
+                </div>
+
+                <Divider />
+
+                <div>
+                  <h3>Image</h3>
+                  <FileUploader
+                    allowedTypes={['image']}
+                    onFileUploaded={handleUploadImage}
                   />
                 </div>
 
                 <Divider />
 
-                <TextArea
-                  value={notes}
-                  onChange={handleNotesChange}
-                  placeholder="Enter pitches separated by space or enter"
-                  autoSize={{ minRows: 1, maxRows: 6 }}
-                />
+                <div>
+                  <h3>Notes</h3>
 
-                <Row
-                  className="mt-m mb-m"
-                  justify={'space-between'}
-                  align={'middle'}
-                >
-                  <Row>
-                    <span className="me-sm">Edit Mode</span>
-                    <Switch checked={isEdit} onChange={setIsEdit} />
-                    <span className="ms-m me-sm">Show Pitch Notation</span>
-                    <Switch checked={isShowPitch} onChange={setIsShowPitch} />
+                  <TextArea
+                    value={notes}
+                    onChange={handleNotesChange}
+                    placeholder="Enter pitches separated by space or enter"
+                    autoSize={{ minRows: 1, maxRows: 6 }}
+                  />
+
+                  <Row
+                    className="mt-m mb-m"
+                    justify={'space-between'}
+                    align={'middle'}
+                  >
+                    <Row>
+                      <span className="me-sm">Edit Mode</span>
+                      <Switch checked={isEdit} onChange={setIsEdit} />
+                      <span className="ms-m me-sm">Show Pitch Notation</span>
+                      <Switch checked={isShowPitch} onChange={setIsShowPitch} />
+                    </Row>
+
+                    <Button onClick={handleUpdateNotesClick}>
+                      Update notes
+                    </Button>
                   </Row>
-
-                  <Button onClick={handleUpdateNotesClick}>Update notes</Button>
-                </Row>
+                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        <Piano
-          isShowPitch={isShowPitch}
-          pressedPitches={pressedPitches}
-          isEdit={isEdit}
-          onChangePressedPitches={(newPitches) => {
-            setPressedPitches(newPitches);
-            if (!isEditingText) {
-              setNotes(newPitches.join(' '));
-            }
-          }}
-        />
+        {musicSection?.image && !isExpanded && (
+          <FileLoader
+            className="d-flex justify-content-center"
+            fileName={musicSection?.image ?? ''}
+          />
+        )}
+
+        {((pressedPitches.length > 0 &&
+          !pressedPitches.every((pitch) => pitch === '')) ||
+          isExpanded) && (
+          <Piano
+            isShowPitch={isShowPitch}
+            pressedPitches={pressedPitches}
+            isEdit={isEdit}
+            onChangePressedPitches={(newPitches) => {
+              setPressedPitches(newPitches);
+              if (!isEditingText) {
+                setNotes(newPitches.join(' '));
+              }
+            }}
+          />
+        )}
+
+        {isExpanded && (
+          <Button className="mt-m" type="primary" onClick={handleOk}>
+            Save all
+          </Button>
+        )}
       </div>
     </div>
   );

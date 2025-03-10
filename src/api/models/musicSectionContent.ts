@@ -4,6 +4,7 @@ export interface MusicSectionContent {
   id: string;
   order?: number;
   description: string;
+  image?: string;
   pdf?: string;
   audio?: string;
   notes?: string;

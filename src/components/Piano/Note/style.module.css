@@ -16,10 +16,10 @@
 }
 
 .note.pressed {
-  background-color: rgb(171, 224, 248);
+  background-color: rgb(251, 200, 245);
 }
 .noteBlack.pressed {
-  background-color: rgb(38, 127, 187);
+  background-color: rgb(251, 116, 215);
 }
 
 .noteWhite {

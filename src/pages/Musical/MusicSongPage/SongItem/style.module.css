@@ -3,12 +3,14 @@
   overflow: hidden;
   position: relative;
 }
-.songCover img {
+.songCover.ant-image img {
   height: 240px !important;
   object-fit: cover;
   margin: 0 !important;
   padding: 0 !important;
   border-radius: 8px 8px 0 0;
+}
+.songCover img {
   transition: transform 0.2s ease-out;
   animation: songCoverZoom 0.4s ease-out;
 }

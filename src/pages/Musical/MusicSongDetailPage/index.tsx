@@ -105,6 +105,8 @@ const MusicSongDetailPage = () => {
 
     await MusicSectionRepository.add(newSection);
 
+    console.log(song.musicSections);
+
     const updatedSong: MusicSong = {
       ...song,
       musicSections: [

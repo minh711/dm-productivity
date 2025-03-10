@@ -70,7 +70,7 @@ const Piano: React.FC<PianoProps> = ({
   };
 
   return (
-    <Card>
+    <div>
       <div className={classNames(styles.parentContainer)}>
         <div className={classNames(styles.buttons)}>
           <Space direction="vertical">
@@ -795,7 +795,7 @@ const Piano: React.FC<PianoProps> = ({
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 };
 

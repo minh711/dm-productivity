@@ -2,15 +2,14 @@
   position: relative;
 }
 .parentContainer:hover .buttons {
-  top: -12px;
-  right: -12px;
+  top: 0px;
   opacity: 1;
 }
 
 .buttons {
   position: absolute;
-  top: 0px;
-  right: -12px;
+  top: 8px;
+  right: 0px;
   opacity: 0;
   transition: opacity 0.4s ease-out, top 0.2s ease-out;
   z-index: 999;

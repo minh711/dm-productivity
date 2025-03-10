@@ -1,15 +1,18 @@
+import { Image, Spin } from 'antd';
 import React, { useEffect, useState } from 'react';
 
 interface FileLoaderProps {
   fileName: string;
   style?: React.CSSProperties;
   className?: string;
+  innerStyle?: React.CSSProperties;
 }
 
 const FileLoader: React.FC<FileLoaderProps> = ({
   fileName,
   style,
   className,
+  innerStyle,
 }) => {
   const [fileBase64, setFileBase64] = useState<string | null>(null);
   const [fileType, setFileType] = useState<string | null>(null);
@@ -47,19 +50,25 @@ const FileLoader: React.FC<FileLoaderProps> = ({
 
   if (!fileBase64)
     return (
-      <div className={className} style={style}>
-        Loading...
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '240px',
+          width: '100%',
+        }}
+      >
+        <Spin size="large" />
       </div>
     );
 
   return (
     <div className={className} style={style}>
       {fileType === 'image' && (
-        <img
-          src={`data:image/*;base64,${fileBase64}`}
-          alt="File"
-          style={{ width: '100%', height: 'auto' }}
-        />
+        <Image src={`data:image/*;base64,${fileBase64}`} alt="File" />
       )}
       {fileType === 'audio' && (
         <audio controls>

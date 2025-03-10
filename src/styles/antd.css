@@ -195,3 +195,18 @@
 .ant-color-picker-trigger .ant-color-picker-color-block {
   width: 100% !important;
 }
+
+/* Image */
+.ant-image-mask {
+  background-color: unset !important;
+  align-items: start !important;
+  justify-content: start !important;
+  padding: 12px;
+  display: none;
+}
+.ant-image-mask-info {
+  background-color: var(--background-transparent);
+  padding: 4px 12px !important;
+  border-radius: 8px;
+  display: none;
+}
