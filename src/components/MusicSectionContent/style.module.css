@@ -9,3 +9,10 @@
 .container:hover .editButton {
   opacity: 1;
 }
+
+.description {
+  font-family: serif;
+}
+.description p {
+  margin-bottom: 0px;
+}

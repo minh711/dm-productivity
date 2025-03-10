@@ -156,11 +156,9 @@ const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
               animate="visible"
               exit="exit"
               variants={expandVariants}
-              className="mb-m"
+              className={classNames('mb-m', styles.description)}
               dangerouslySetInnerHTML={{ __html: description }}
-            >
-              {/* {description} */}
-            </motion.div>
+            ></motion.div>
           ) : (
             <motion.div
               key="expanded"
@@ -174,6 +172,7 @@ const MusicSectionContent: React.FC<MusicSectionContentProps> = ({ id }) => {
                   <RichTextEditor
                     value={description}
                     onChange={handleDescriptionChange}
+                    isSerif={true}
                   />
                 </div>
 

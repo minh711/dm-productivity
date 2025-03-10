@@ -12,7 +12,7 @@
     "preview": "vite preview"
   },
   "build": {
-    "appId": "com.yourcompany.dmproductivity",
+    "appId": "com.dmdev.dmproductivity",
     "productName": "DM Productivity",
     "directories": {
       "output": "dist"

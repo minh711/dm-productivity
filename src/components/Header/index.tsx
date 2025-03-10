@@ -109,8 +109,16 @@ const DmHeader: React.FC = () => {
 
   useEffect(() => {
     const updateTitle = () => {
-      const currentPath = window.location.hash.replace('#', '') || '/';
-      setCurrentPageTitle(routeTitles[currentPath] || '');
+      let currentPath = window.location.hash.replace('#', '') || '/';
+      let title = routeTitles[currentPath];
+
+      // If title is undefined, try removing the last segment (assuming it's a UUID or dynamic ID)
+      if (!title) {
+        const modifiedPath = currentPath.replace(/\/[^/]+$/, ''); // Remove the last segment
+        title = routeTitles[modifiedPath];
+      }
+
+      setCurrentPageTitle(title || '');
     };
 
     updateTitle();
