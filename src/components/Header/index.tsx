@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   Button,
+  Divider,
   Dropdown,
   Layout,
   MenuProps,
@@ -12,15 +13,18 @@ import {
   AppstoreFilled,
   AppstoreOutlined,
   SettingOutlined,
+  VerifiedOutlined,
 } from '@ant-design/icons';
 import classNames from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './style.module.css';
 import { useTranslation } from 'react-i18next';
-import { DAILY_LOG_PATH, routeTitles } from '../../constants';
+import { DAILY_LOG_PATH, routeTitles, SETTINGS_PATH } from '../../constants';
 import AppIcons from './AppIcons';
 import { AppSettingsRepository } from '../../api/repositories/appSettingsRepository';
+import NavigationControls from '../NavigationControls';
+import DmLink from '../DmLink';
 
 const { Header } = Layout;
 const { Option } = Select;
@@ -45,7 +49,7 @@ const DmHeader: React.FC = () => {
     };
 
     fetchSettings();
-  }, []);
+  }, [i18n]);
 
   const handleLanguageChange = async (lang: string) => {
     const currentSettings = await AppSettingsRepository.getSettings();
@@ -69,7 +73,7 @@ const DmHeader: React.FC = () => {
     document.body.classList.toggle('dark-mode', isDarkMode);
   }, [isDarkMode]);
 
-  const userMenu: MenuProps['items'] = [
+  const settingsMenu: MenuProps['items'] = [
     {
       key: 'darkmode',
       label: (
@@ -103,6 +107,14 @@ const DmHeader: React.FC = () => {
         </div>
       ),
     },
+    {
+      key: 'moreSettings',
+      label: (
+        <DmLink to={SETTINGS_PATH} style={{ width: '100%' }}>
+          <Button style={{ width: '100%' }}>{t('more-settings')}</Button>
+        </DmLink>
+      ),
+    },
   ];
 
   const [currentPageTitle, setCurrentPageTitle] = useState<string>('');
@@ -110,6 +122,10 @@ const DmHeader: React.FC = () => {
   useEffect(() => {
     const updateTitle = () => {
       let currentPath = window.location.hash.replace('#', '') || '/';
+      if (!currentPath.startsWith('/')) {
+        currentPath = '/' + currentPath;
+      }
+
       let title = routeTitles[currentPath];
 
       // If title is undefined, try removing the last segment (assuming it's a UUID or dynamic ID)
@@ -129,9 +145,18 @@ const DmHeader: React.FC = () => {
 
   return (
     <Header className={classNames(styles.header)}>
-      <div className={classNames(styles.title, 'font-serif font-bold')}>
-        {t(currentPageTitle).toUpperCase()}
+      <div className={classNames('d-flex align-items-center')}>
+        <div className={classNames('ms-sm')}>
+          <NavigationControls />
+        </div>
+
+        <Divider type="vertical" style={{ height: '40px' }} />
+
+        <div className={classNames(styles.title, 'font-serif font-bold')}>
+          {t(currentPageTitle).toUpperCase()}
+        </div>
       </div>
+
       <div className={classNames('d-flex align-items-center')}>
         <AppIcons />
 
@@ -191,7 +216,7 @@ const DmHeader: React.FC = () => {
 
         <Dropdown
           className={classNames('pointer')}
-          menu={{ items: userMenu }}
+          menu={{ items: settingsMenu }}
           trigger={['click']}
           placement="bottomRight"
         >

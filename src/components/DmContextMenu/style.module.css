@@ -1,0 +1,29 @@
+.wrapper {
+  display: inline-block;
+}
+
+.menu {
+  position: fixed;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 5px 0;
+  margin: 0;
+  list-style: none;
+  z-index: 10000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  user-select: none;
+}
+
+.menuItem {
+  padding: 8px;
+  cursor: pointer;
+  background-color: white;
+  transition: background-color 0.2s ease;
+}
+
+.menuItem:hover {
+  background-color: #eee;
+}

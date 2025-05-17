@@ -2,6 +2,8 @@
   "en": "English",
   "vn": "Tiếng Việt",
   "settings": "Tùy chỉnh",
+  "more-settings": "Tùy chỉnh khác",
+  "open-in-new-window": "Mở trong cửa sổ mới",
   "darkMode": "Chế độ ban đêm",
   "selectLanguage": "Ngôn ngữ",
   "explores": "Khám phá các ứng dụng:",
@@ -28,7 +30,7 @@
     }
   },
   "musical": {
-    "tittle": "Âm nhạc",
+    "title": "Âm nhạc",
     "song": {
       "title": "Bài hát"
     },

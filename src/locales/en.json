@@ -2,6 +2,8 @@
   "en": "English",
   "vn": "Tiếng Việt",
   "settings": "Settings",
+  "more-settings": "More settings",
+  "open-in-new-window": "Open in new window",
   "darkMode": "Dark mode",
   "selectLanguage": "Language",
   "explores": "Explores:",
@@ -28,7 +30,7 @@
     }
   },
   "musical": {
-    "tittle": "Musical",
+    "title": "Musical",
     "song": {
       "title": "Song"
     },

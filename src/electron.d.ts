@@ -8,6 +8,13 @@ declare global {
       deleteFile: (fileName: string) => Promise<void>;
       goBack: () => Promise<void>;
       goForward: () => Promise<void>;
+      openNewWindow: (path: string) => void;
+      loadZipData: () => Promise<{ success: boolean; message?: string }>;
+      exportZipData: () => Promise<{
+        success: boolean;
+        filePath?: string;
+        message?: string;
+      }>;
     };
   }
 }

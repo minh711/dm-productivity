@@ -7,21 +7,21 @@ First, switch mode in `electron-main.js`:
 from:
 
 ```js
-// Dev mode
-// mainWindow.loadURL('http://localhost:7329');
+// $$ Dev mode $$
+// [...]
 
-// Production mode
-mainWindow.loadFile('./dist/index.html');
+// $$ Production mode $$
+[...]
 ```
 
 to:
 
 ```js
-// Dev mode
-mainWindow.loadURL('http://localhost:7329');
+// $$ Dev mode $$
+[...]
 
-// Production mode
-// mainWindow.loadFile('./dist/index.html');
+// $$ Production mode $$
+// [...]
 ```
 
 Then run the app in development mode:

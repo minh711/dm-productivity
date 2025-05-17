@@ -13,6 +13,7 @@ import DmFooter from '../../components/Footer';
 import DmHeader from '../../components/Header';
 import DmSider from '../../components/Sider';
 import React, { ReactNode } from 'react';
+import DmLink from '../../components/DmLink';
 
 const { Content } = Layout;
 
@@ -43,8 +44,13 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
         </span>
       ),
       className: 'wrap',
-      label: t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH]),
-      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+      // label: t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH]),
+      // onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+      label: (
+        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH])}
+        </DmLink>
+      ),
     },
     {
       key: 'chart',

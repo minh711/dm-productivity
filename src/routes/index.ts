@@ -7,6 +7,7 @@ import {
   MUSIC_SONG_PATH,
   MUSICAL_PATH,
   roles,
+  SETTINGS_PATH,
 } from '../constants';
 import DailyLogLayout from '../layouts/DailyLogLayout';
 import DashboardLayout from '../layouts/DashboardLayout';
@@ -18,11 +19,19 @@ import MusicalDashboardPage from '../pages/Musical/DashboardPage';
 import MusicSectionPage from '../pages/Musical/MusicSectionPage';
 import MusicSongPage from '../pages/Musical/MusicSongPage';
 import MusicSongDetailPage from '../pages/Musical/MusicSongDetailPage';
+import SettingsPage from '../pages/SettingsPage';
 
 export const routes = [
   {
     path: HOME_PATH,
     component: HomePage,
+    roles: [],
+    isProtected: false,
+    layout: DashboardLayout,
+  },
+  {
+    path: SETTINGS_PATH,
+    component: SettingsPage,
     roles: [],
     isProtected: false,
     layout: DashboardLayout,

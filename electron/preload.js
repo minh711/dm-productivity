@@ -9,4 +9,7 @@ contextBridge.exposeInMainWorld('electron', {
   deleteFile: (fileName) => ipcRenderer.invoke('delete-file', fileName),
   goBack: () => ipcRenderer.send('go-back'),
   goForward: () => ipcRenderer.send('go-forward'),
+  openNewWindow: (path) => ipcRenderer.send('open-new-window', path),
+  loadZipData: () => ipcRenderer.invoke('load-zip-data'),
+  exportZipData: () => ipcRenderer.invoke('export-zip-data'),
 });
