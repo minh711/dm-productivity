@@ -44,10 +44,8 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
         </span>
       ),
       className: 'wrap',
-      // label: t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH]),
-      // onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
       label: (
-        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH} style={{ width: '100%' }}>
+        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH}>
           {t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH])}
         </DmLink>
       ),

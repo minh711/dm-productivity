@@ -265,15 +265,17 @@ app.whenReady().then(async () => {
   // ===================== End IPC Handlers for data backup =====================
 
   // ===================== IPC Handlers for window operations =====================
-  ipcMain.on('go-back', () => {
-    if (mainWindow.webContents.canGoBack()) {
-      mainWindow.webContents.goBack();
+  ipcMain.on('go-back', (event) => {
+    const senderWebContents = event.sender;
+    if (senderWebContents.navigationHistory.canGoBack()) {
+      senderWebContents.navigationHistory.goBack();
     }
   });
 
-  ipcMain.on('go-forward', () => {
-    if (mainWindow.webContents.canGoForward()) {
-      mainWindow.webContents.goForward();
+  ipcMain.on('go-forward', (event) => {
+    const senderWebContents = event.sender;
+    if (senderWebContents.navigationHistory.canGoForward()) {
+      senderWebContents.navigationHistory.goForward();
     }
   });
 
@@ -289,13 +291,13 @@ app.whenReady().then(async () => {
     });
 
     // $$ Dev mode $$
-    // const newRoutePath = routePath.replace(/\//, '#');
-    // newWin.loadURL(`http://localhost:7329/${newRoutePath}`);
+    const newRoutePath = routePath.replace(/\//, '#');
+    newWin.loadURL(`http://localhost:7329/${newRoutePath}`);
 
     // $$ Production mode $$
-    newWin.loadFile(path.join('dist/index.html'), {
-      hash: routePath,
-    });
+    // newWin.loadFile(path.join('dist/index.html'), {
+    //   hash: routePath,
+    // });
   });
   // ===================== IPC Handlers for window operations =====================
 
@@ -314,10 +316,10 @@ app.whenReady().then(async () => {
   // ===================== End initialize main window =====================
 
   // $$ Dev mode $$
-  // mainWindow.loadURL('http://localhost:7329');
+  mainWindow.loadURL('http://localhost:7329');
 
   // $$ Production mode $$
-  mainWindow.loadFile('./dist/index.html');
+  // mainWindow.loadFile('./dist/index.html');
 });
 
 app.on('window-all-closed', () => {
@@ -339,9 +341,9 @@ app.on('activate', () => {
     });
 
     // $$ Dev mode $$
-    // mainWindow.loadURL('http://localhost:7329');
+    mainWindow.loadURL('http://localhost:7329');
 
     // $$ Production mode $$
-    mainWindow.loadFile('./dist/index.html');
+    // mainWindow.loadFile('./dist/index.html');
   }
 });
