@@ -5,7 +5,6 @@ import {
   LOG_TYPE_AND_CATEGORY_PATH,
   routeTitles,
 } from '../../constants';
-import { HomeOutlined, BorderOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -23,7 +22,6 @@ interface DailyLogLayoutProps {
 
 const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -33,8 +31,11 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
           📝
         </span>
       ),
-      label: t(routeTitles[DAILY_LOG_PATH]),
-      onClick: () => navigate(DAILY_LOG_PATH),
+      label: (
+        <DmLink to={DAILY_LOG_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[DAILY_LOG_PATH])}
+        </DmLink>
+      ),
     },
     {
       key: 'log-type-category',
@@ -45,7 +46,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       ),
       className: 'wrap',
       label: (
-        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH}>
+        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH} style={{ width: '100%' }}>
           {t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH])}
         </DmLink>
       ),
@@ -58,8 +59,11 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
         </span>
       ),
       className: 'wrap',
-      label: 'Biểu đồ',
-      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+      label: (
+        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH} style={{ width: '100%' }}>
+          Biểu đồ
+        </DmLink>
+      ),
     },
     {
       key: 'calendar',
@@ -69,8 +73,11 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
         </span>
       ),
       className: 'wrap',
-      label: 'Lịch',
-      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
+      label: (
+        <DmLink to={LOG_TYPE_AND_CATEGORY_PATH} style={{ width: '100%' }}>
+          Lịch
+        </DmLink>
+      ),
     },
   ];
 

@@ -8,14 +8,13 @@ import {
   MUSICAL_PATH,
   routeTitles,
 } from '../../constants';
-import { HomeOutlined, BorderOutlined } from '@ant-design/icons';
 import { Layout } from 'antd';
-import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import DmFooter from '../../components/Footer';
 import DmHeader from '../../components/Header';
 import DmSider from '../../components/Sider';
 import React, { ReactNode } from 'react';
+import DmLink from '../../components/DmLink';
 
 const { Content } = Layout;
 
@@ -25,7 +24,6 @@ interface MusicalLayoutProps {
 
 const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -35,8 +33,11 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
           📝
         </span>
       ),
-      label: t(routeTitles[MUSICAL_PATH]),
-      onClick: () => navigate(MUSICAL_PATH),
+      label: (
+        <DmLink to={MUSICAL_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[MUSICAL_PATH])}
+        </DmLink>
+      ),
     },
     {
       key: 'song',
@@ -45,8 +46,11 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
           🎼
         </span>
       ),
-      label: t(routeTitles[MUSIC_SONG_PATH]),
-      onClick: () => navigate(MUSIC_SONG_PATH),
+      label: (
+        <DmLink to={MUSIC_SONG_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[MUSIC_SONG_PATH])}
+        </DmLink>
+      ),
     },
     {
       key: 'section',
@@ -55,8 +59,11 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
           🎹
         </span>
       ),
-      label: t(routeTitles[MUSIC_SECTION_PATH]),
-      onClick: () => navigate(MUSIC_SECTION_PATH),
+      label: (
+        <DmLink to={MUSIC_SECTION_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[MUSIC_SECTION_PATH])}
+        </DmLink>
+      ),
     },
   ];
 

@@ -16,6 +16,7 @@ import DmFooter from '../../components/Footer';
 import DmHeader from '../../components/Header';
 import DmSider from '../../components/Sider';
 import React, { ReactNode } from 'react';
+import DmLink from '../../components/DmLink';
 
 const { Content } = Layout;
 
@@ -35,8 +36,11 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           🏠
         </span>
       ),
-      label: t(routeTitles[HOME_PATH]),
-      onClick: () => navigate(HOME_PATH),
+      label: (
+        <DmLink to={HOME_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[HOME_PATH])}
+        </DmLink>
+      ),
     },
     {
       key: 'daily-log',
@@ -45,9 +49,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           📝
         </span>
       ),
-      label: t(routeTitles[DAILY_LOG_PATH]),
       className: 'wrap',
-      onClick: () => navigate(DAILY_LOG_PATH),
+      label: (
+        <DmLink to={DAILY_LOG_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[DAILY_LOG_PATH])}
+        </DmLink>
+      ),
     },
     {
       key: 'musical',
@@ -56,9 +63,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           🎼
         </span>
       ),
-      label: t(routeTitles[MUSICAL_PATH]),
       className: 'wrap',
-      onClick: () => navigate(MUSICAL_PATH),
+      label: (
+        <DmLink to={MUSICAL_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[MUSICAL_PATH])}
+        </DmLink>
+      ),
     },
     // {
     //   key: 'group',

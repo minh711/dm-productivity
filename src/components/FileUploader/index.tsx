@@ -64,8 +64,6 @@ const FileUploader: React.FC<FileUploaderProps> = ({
       setFileType(typeCategory);
       fetchFileBase64(fileName, typeCategory);
       onFileUploaded?.(fileName);
-    } else {
-      alert('No file selected.');
     }
   };
 

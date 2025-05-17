@@ -11,6 +11,7 @@
 .title {
   flex: 1;
   font-size: 18px;
+  max-width: 400px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -40,6 +41,12 @@
   padding-left: 0px;
   padding-right: 0px;
   box-shadow: none;
+}
+
+@media (max-width: 1440px) {
+  .title {
+    max-width: 200px;
+  }
 }
 
 @media (max-width: 1280px) {
