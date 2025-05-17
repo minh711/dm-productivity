@@ -289,13 +289,13 @@ app.whenReady().then(async () => {
     });
 
     // $$ Dev mode $$
-    const newRoutePath = routePath.replace(/\//, '#');
-    newWin.loadURL(`http://localhost:7329/${newRoutePath}`);
+    // const newRoutePath = routePath.replace(/\//, '#');
+    // newWin.loadURL(`http://localhost:7329/${newRoutePath}`);
 
     // $$ Production mode $$
-    // newWin.loadFile(path.join('dist/index.html'), {
-    //   hash: routePath,
-    // });
+    newWin.loadFile(path.join('dist/index.html'), {
+      hash: routePath,
+    });
   });
   // ===================== IPC Handlers for window operations =====================
 
@@ -314,10 +314,10 @@ app.whenReady().then(async () => {
   // ===================== End initialize main window =====================
 
   // $$ Dev mode $$
-  mainWindow.loadURL('http://localhost:7329');
+  // mainWindow.loadURL('http://localhost:7329');
 
   // $$ Production mode $$
-  // mainWindow.loadFile('./dist/index.html');
+  mainWindow.loadFile('./dist/index.html');
 });
 
 app.on('window-all-closed', () => {
@@ -339,9 +339,9 @@ app.on('activate', () => {
     });
 
     // $$ Dev mode $$
-    mainWindow.loadURL('http://localhost:7329');
+    // mainWindow.loadURL('http://localhost:7329');
 
     // $$ Production mode $$
-    // mainWindow.loadFile('./dist/index.html');
+    mainWindow.loadFile('./dist/index.html');
   }
 });
