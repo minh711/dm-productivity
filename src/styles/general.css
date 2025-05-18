@@ -158,6 +158,14 @@
   border-radius: 8px;
 }
 
+/* Background */
+.background-1 {
+  background-color: var(--background-1) !important;
+}
+.background-2 {
+  background-color: var(--background-2) !important;
+}
+
 /* Others */
 .container {
   width: 100%;

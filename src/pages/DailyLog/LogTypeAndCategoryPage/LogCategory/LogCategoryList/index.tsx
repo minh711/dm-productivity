@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Row, Table } from 'antd';
+import { Button, Card, Row, Table } from 'antd';
 import { logCategoryColumns } from './columns';
 import AddLogCategoryModal from '../AddLogCategoryModal';
 import { useTranslation } from 'react-i18next';
@@ -52,36 +52,38 @@ const LogCategoryList = () => {
 
   return (
     <div>
-      <Row justify="space-between" className="mb-sm">
-        <Button type="primary" onClick={handleAddNew}>
-          {t('daily-log.log-type-category.log-category.add-new')}
-        </Button>
-        <Button type="primary">
-          {t('daily-log.log-type-category.log-category.filter')}
-        </Button>
-      </Row>
+      <Card bordered={false}>
+        <Row justify="space-between" className="mb-sm">
+          <Button type="primary" onClick={handleAddNew}>
+            {t('daily-log.log-type-category.log-category.add-new')}
+          </Button>
+          <Button type="primary">
+            {t('daily-log.log-type-category.log-category.filter')}
+          </Button>
+        </Row>
 
-      <Table
-        columns={logCategoryColumns(handleEdit)}
-        dataSource={logCategories}
-        rowKey="id"
-      />
-
-      <AddLogCategoryModal
-        open={isModalOpen}
-        onClose={handleModalClose}
-        onAdd={handleAddLogCategory}
-      />
-
-      {editingLogCategory && (
-        <EditLogCategoryModal
-          logCategory={editingLogCategory}
-          open={!!editingLogCategory}
-          onClose={() => setEditingLogCategory(null)}
-          onUpdate={handleUpdate}
-          onDelete={handleDelete}
+        <Table
+          columns={logCategoryColumns(handleEdit)}
+          dataSource={logCategories}
+          rowKey="id"
         />
-      )}
+
+        <AddLogCategoryModal
+          open={isModalOpen}
+          onClose={handleModalClose}
+          onAdd={handleAddLogCategory}
+        />
+
+        {editingLogCategory && (
+          <EditLogCategoryModal
+            logCategory={editingLogCategory}
+            open={!!editingLogCategory}
+            onClose={() => setEditingLogCategory(null)}
+            onUpdate={handleUpdate}
+            onDelete={handleDelete}
+          />
+        )}
+      </Card>
     </div>
   );
 };
