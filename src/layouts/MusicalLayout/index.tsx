@@ -14,7 +14,7 @@ import DmFooter from '../../components/General/DmFooter';
 import DmHeader from '../../components/General/DmHeader';
 import DmSider from '../../components/General/Sider';
 import React, { ReactNode } from 'react';
-import DmLink from '../../components/General/DmLink';
+import DmLink from '../../components/general/DmLink';
 
 const { Content } = Layout;
 
