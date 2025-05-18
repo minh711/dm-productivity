@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 import { LogCategory } from '../../../../../api/models';
 import { LogCategoryRepository } from '../../../../../api/repositories/logCategoryRepository';
-import DmColorPicker from '../../../../../components/DmColorPicker';
+import DmColorPicker from '../../../../../components/general/DmColorPicker';
 
 interface AddLogCategoryModalProps {
   open: boolean;

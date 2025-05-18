@@ -2,6 +2,7 @@
 .ant-layout {
   background-color: var(--background-2);
   color: var(--text);
+  min-width: 400px !important;
 }
 .ant-layout-content {
   color: var(--text);

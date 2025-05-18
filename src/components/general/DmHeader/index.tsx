@@ -20,10 +20,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './style.module.css';
 import { useTranslation } from 'react-i18next';
-import { DAILY_LOG_PATH, routeTitles, SETTINGS_PATH } from '../../constants';
+import { DAILY_LOG_PATH, routeTitles, SETTINGS_PATH } from '../../../constants';
 import AppIcons from './AppIcons';
-import { AppSettingsRepository } from '../../api/repositories/appSettingsRepository';
-import NavigationControls from '../NavigationControls';
+import { AppSettingsRepository } from '../../../api/repositories/appSettingsRepository';
+import NavigationControls from '../../NavigationControls';
 import DmLink from '../DmLink';
 
 const { Header } = Layout;
@@ -45,7 +45,7 @@ const DmHeader: React.FC = () => {
       i18n.changeLanguage(savedLanguage);
       setSelectedLanguage(savedLanguage);
       setIsDarkMode(savedDarkMode);
-      document.body.classList.toggle('dark-mode', savedDarkMode);
+      document.documentElement.classList.toggle('dark-mode', savedDarkMode);
     };
 
     fetchSettings();

@@ -12,7 +12,7 @@ import {
 import dayjs from 'dayjs';
 import { LogCategory } from '../../../../../api/models';
 import { LogCategoryRepository } from '../../../../../api/repositories/logCategoryRepository';
-import DmColorPicker from '../../../../../components/DmColorPicker';
+import DmColorPicker from '../../../../../components/general/DmColorPicker';
 
 interface EditLogCategoryModalProps {
   open: boolean;

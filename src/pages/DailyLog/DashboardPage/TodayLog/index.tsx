@@ -11,7 +11,7 @@ import {
   Form,
 } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import DraggableTable from '../../../../components/DraggableTable';
+import DraggableTable from '../../../../components/general/DraggableTable';
 import { myColumns } from './columns';
 import styles from './style.module.css';
 import classNames from 'classnames';

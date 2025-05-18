@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './style.module.css';
 import { useTranslation } from 'react-i18next';
 import DraggableScroll from '../DraggableScroll';
-import { DAILY_LOG_PATH, routeTitles } from '../../constants';
+import { DAILY_LOG_PATH, routeTitles } from '../../../constants';
 
 const AppIcons = () => {
   const { t } = useTranslation();

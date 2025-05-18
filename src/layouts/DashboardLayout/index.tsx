@@ -12,11 +12,11 @@ import {
 import { Layout, Tooltip } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import DmFooter from '../../components/Footer';
-import DmHeader from '../../components/Header';
-import DmSider from '../../components/Sider';
+import DmFooter from '../../components/general/DmFooter';
+import DmHeader from '../../components/general/DmHeader';
+import DmSider from '../../components/general/Sider';
 import React, { ReactNode } from 'react';
-import DmLink from '../../components/DmLink';
+import DmLink from '../../components/general/DmLink';
 
 const { Content } = Layout;
 

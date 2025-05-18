@@ -3,7 +3,7 @@
   --text-white: #fff;
   --text-muted: rgba(0, 0, 0, 0.24);
   --background-1: #fff;
-  /* --background-2: #e6fffb; */
+  --background-2: #e6fffb;
   --background-2: #f5f5f5;
   --background-transparent: rgba(0, 0, 0, 0.6);
   --card-background: rgba(255, 255, 255, 0.48);
@@ -42,6 +42,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--text);
+}
+
+html {
+  background-color: #f5f5f5 !important;
+}
+html.dark-mode {
+  background-color: #112a45 !important;
+}
+
+body,
+#root {
+  background-color: transparent !important;
 }
 
 p,

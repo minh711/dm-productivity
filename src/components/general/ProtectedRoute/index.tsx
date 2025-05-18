@@ -1,6 +1,6 @@
 import React from 'react';
-import useSession from '../../hooks/useSession';
-import UnauthorizedPage from '../../pages/UnauthorizedPage';
+import useSession from '../../../hooks/useSession';
+import UnauthorizedPage from '../../../pages/UnauthorizedPage';
 
 interface ProtectedRouteProps {
   component: React.ComponentType<any>;

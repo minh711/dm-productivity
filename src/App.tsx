@@ -6,102 +6,94 @@ import {
   useLocation,
 } from 'react-router-dom';
 import { routes } from './routes';
-import ProtectedRoute from './components/ProtectedRoute';
 import NotFoundPage from './pages/NotFoundPage';
 import { AnimatePresence, motion } from 'framer-motion';
+import ProtectedRoute from './components/general/ProtectedRoute';
+import { AppSettingsRepository } from './api/repositories/appSettingsRepository';
 
 function AnimatedRoutes() {
   const location = useLocation();
 
   const pageVariants = {
-    initial: { opacity: 0, y: 20 },
+    initial: {
+      opacity: 0,
+      y: 40,
+      transition: { delay: 0.1 },
+    },
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.3, ease: 'easeOut', delay: 0.1 },
+    },
+    exit: {
+      opacity: 0,
+      y: -40,
+      transition: { duration: 0.3, ease: 'easeIn', delay: 0.1 },
     },
   };
 
   return (
-    <AnimatePresence mode="sync">
-      <Routes location={location} key={location.pathname}>
-        {routes.map((route) =>
-          route.isProtected ? (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <motion.div
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  variants={pageVariants}
-                >
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        variants={pageVariants}
+      >
+        <Routes location={location}>
+          {routes.map((route) =>
+            route.isProtected ? (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
                   <ProtectedRoute
                     roles={route.roles}
                     layout={route.layout}
                     component={route.component}
                   />
-                </motion.div>
-              }
-            />
-          ) : (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <motion.div
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  variants={pageVariants}
-                >
-                  {route.layout ? (
+                }
+              />
+            ) : (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  route.layout ? (
                     <route.layout>
                       <route.component />
                     </route.layout>
                   ) : (
                     <route.component />
-                  )}
-                </motion.div>
-              }
-            />
-          )
-        )}
-        <Route
-          path="*"
-          element={
-            <motion.div
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              variants={pageVariants}
-            >
-              <NotFoundPage />
-            </motion.div>
-          }
-        />
-      </Routes>
+                  )
+                }
+              />
+            )
+          )}
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </motion.div>
     </AnimatePresence>
   );
 }
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const savedDarkMode = localStorage.getItem('isDarkMode');
-    return savedDarkMode === 'true';
-  });
-
   useEffect(() => {
-    const body = document.body;
-    if (isDarkMode) {
-      body.classList.add('dark-mode');
-    } else {
-      body.classList.remove('dark-mode');
-    }
+    const applyTheme = async () => {
+      const settings = await AppSettingsRepository.getSettings();
+      const isDarkMode = settings?.isDarkMode ?? false;
+      const html = document.documentElement;
 
-    localStorage.setItem('isDarkMode', isDarkMode.toString());
-  }, [isDarkMode]);
+      if (isDarkMode) {
+        html.classList.add('dark-mode');
+      } else {
+        html.classList.remove('dark-mode');
+      }
+    };
+
+    applyTheme();
+  }, []);
 
   return (
     <Router>

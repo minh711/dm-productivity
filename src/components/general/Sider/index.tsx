@@ -4,8 +4,8 @@ import { AppstoreAddOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 // import { useTranslation } from 'react-i18next';
-import { HOME_PATH } from '../../constants';
-import useSession from '../../hooks/useSession';
+import { HOME_PATH } from '../../../constants';
+import useSession from '../../../hooks/useSession';
 
 const { Sider } = Layout;
 

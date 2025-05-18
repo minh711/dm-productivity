@@ -29,7 +29,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import classNames from 'classnames';
 import styles from './style.module.css';
 import MusicSectionCard from './MusicSectionCard';
-import FileLoader from '../../../components/FileLoader';
+import FileLoader from '../../../components/general/FileLoader';
 
 const MusicSongDetailPage = () => {
   const { id } = useParams();

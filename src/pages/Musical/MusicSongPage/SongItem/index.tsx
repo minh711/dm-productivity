@@ -3,7 +3,7 @@ import { Card, Col, Button } from 'antd';
 import classNames from 'classnames';
 import { EditOutlined } from '@ant-design/icons';
 import styles from './style.module.css';
-import FileLoader from '../../../../components/FileLoader';
+import FileLoader from '../../../../components/general/FileLoader';
 import { useNavigate } from 'react-router-dom';
 import { MUSIC_SONG_PATH } from '../../../../constants';
 
