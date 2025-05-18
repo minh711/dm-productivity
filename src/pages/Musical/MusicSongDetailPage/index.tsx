@@ -22,7 +22,6 @@ import {
   MusicSection,
   MusicSectionContent as MusicSectionContentModel,
 } from '../../../api/models';
-import MusicSectionContent from '../../../components/MusicSectionContent';
 import Sider from 'antd/es/layout/Sider';
 import { Content } from 'antd/es/layout/layout';
 import { motion, AnimatePresence } from 'framer-motion';

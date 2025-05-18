@@ -11,7 +11,6 @@ import {
 } from 'antd';
 import Piano from '../../../components/Musical/Piano';
 import { pitchOrder, validPitches } from '../../../constants';
-import MusicSectionContent from '../../../components/MusicSectionContent';
 import MusicSongPage from '../MusicSongPage';
 
 const { TextArea } = Input;

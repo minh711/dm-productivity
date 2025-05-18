@@ -65,3 +65,26 @@ h5 {
   color: var(--text);
   margin-bottom: 0.6em;
 }
+
+/* Scroll bar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0);
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0);
+  height: 8px;
+}
+::-webkit-scrollbar-track:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  min-height: 8px;
+  transition: all 0.3s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
