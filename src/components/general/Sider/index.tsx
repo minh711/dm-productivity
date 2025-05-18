@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import { AppstoreAddOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 // import { useTranslation } from 'react-i18next';
 import { HOME_PATH } from '../../../constants';
@@ -16,6 +16,7 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
 
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <Sider
@@ -53,7 +54,12 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
           🍇 {collapsed ? '' : ' DM Pro'}
         </span>
       </div>
-      <Menu theme="light" mode="inline" items={menuItems} />
+      <Menu
+        theme="light"
+        mode="inline"
+        items={menuItems}
+        selectedKeys={[location.pathname]}
+      />
     </Sider>
   );
 };

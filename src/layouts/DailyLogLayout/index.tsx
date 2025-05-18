@@ -25,7 +25,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
 
   const menuItems = [
     {
-      key: 'dashboard',
+      key: DAILY_LOG_PATH,
       icon: (
         <span role="img" aria-label="dashboard">
           <DmLink to={DAILY_LOG_PATH}>📝</DmLink>
@@ -38,7 +38,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       ),
     },
     {
-      key: 'log-type-category',
+      key: LOG_TYPE_AND_CATEGORY_PATH,
       icon: (
         <span role="img" aria-label="log-type-category">
           <DmLink to={LOG_TYPE_AND_CATEGORY_PATH}>🎹</DmLink>
