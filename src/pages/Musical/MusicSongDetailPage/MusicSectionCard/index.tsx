@@ -11,7 +11,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import classNames from 'classnames';
 import styles from './style.module.css';
-import MusicSectionContent from '../../../../components/MusicSectionContent';
+import MusicSectionContent from '../../../../components/Musical/MusicSectionContent';
 
 interface MusicSectionCardProps {
   section: any;

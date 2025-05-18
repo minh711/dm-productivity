@@ -10,16 +10,16 @@ import {
   Divider,
 } from 'antd';
 import { EditOutlined, CheckOutlined } from '@ant-design/icons';
-import { pitchOrder, validPitches } from '../../constants';
 import { AnimatePresence, motion } from 'framer-motion';
 import Piano from '../Piano';
-import RichTextEditor from '../general/RichTextEditor';
-import { MusicSectionContent as MusicSectionContentModel } from '../../api/models';
 import classNames from 'classnames';
 import styles from './style.module.css';
-import { MusicSectionContentRepository } from '../../api/repositories/musicSectionContentRepository';
-import FileUploader from '../general/FileUploader';
-import FileLoader from '../general/FileLoader';
+import { MusicSectionContentRepository } from '../../../api/repositories/musicSectionContentRepository';
+import { pitchOrder, validPitches } from '../../../constants';
+import RichTextEditor from '../../General/RichTextEditor';
+import FileLoader from '../../General/FileLoader';
+import FileUploader from '../../General/FileUploader';
+import { MusicSectionContent as MusicSectionContentModel } from '../../../api/models';
 
 const { TextArea } = Input;
 

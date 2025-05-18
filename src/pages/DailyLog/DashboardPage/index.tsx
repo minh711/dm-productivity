@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import Timer from '../../../components/Timer';
+import Timer from '../../../components/DailyLog/Timer';
 import { useTranslation } from 'react-i18next';
 import TabPane from 'antd/es/tabs/TabPane';
 import TodayLog from './TodayLog';

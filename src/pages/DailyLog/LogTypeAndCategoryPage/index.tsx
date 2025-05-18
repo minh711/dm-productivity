@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, Col, Row } from 'antd';
 import LogCategoryList from './LogCategory/LogCategoryList';
 import LogTypeList from './LogType/LogTypeList';
-import FileUploader from '../../../components/general/FileUploader';
+import FileUploader from '../../../components/General/FileUploader';
 
 const LogTypePage = () => {
   const { t } = useTranslation();

@@ -10,11 +10,11 @@ import {
 } from '../../constants';
 import { Layout } from 'antd';
 import { useTranslation } from 'react-i18next';
-import DmFooter from '../../components/general/DmFooter';
-import DmHeader from '../../components/general/DmHeader';
-import DmSider from '../../components/general/Sider';
+import DmFooter from '../../components/General/DmFooter';
+import DmHeader from '../../components/General/DmHeader';
+import DmSider from '../../components/General/Sider';
 import React, { ReactNode } from 'react';
-import DmLink from '../../components/general/DmLink';
+import DmLink from '../../components/General/DmLink';
 
 const { Content } = Layout;
 

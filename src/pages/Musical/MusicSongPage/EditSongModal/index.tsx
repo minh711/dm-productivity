@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, Button } from 'antd';
 import { MusicSong } from '../../../../api/models';
-import FileUploader from '../../../../components/general/FileUploader';
-import FileLoader from '../../../../components/general/FileLoader';
+import FileUploader from '../../../../components/General/FileUploader';
+import FileLoader from '../../../../components/General/FileLoader';
 
 interface EditSongModalProps {
   visible: boolean;

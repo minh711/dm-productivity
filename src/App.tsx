@@ -8,7 +8,7 @@ import {
 import { routes } from './routes';
 import NotFoundPage from './pages/NotFoundPage';
 import { AnimatePresence, motion } from 'framer-motion';
-import ProtectedRoute from './components/general/ProtectedRoute';
+import ProtectedRoute from './components/General/ProtectedRoute';
 import { AppSettingsRepository } from './api/repositories/appSettingsRepository';
 
 function AnimatedRoutes() {
@@ -23,12 +23,12 @@ function AnimatedRoutes() {
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3, ease: 'easeOut', delay: 0.1 },
+      transition: { duration: 0.2, ease: 'easeOut', delay: 0.1 },
     },
     exit: {
       opacity: 0,
       y: -40,
-      transition: { duration: 0.3, ease: 'easeIn', delay: 0.1 },
+      transition: { duration: 0.2, ease: 'easeIn', delay: 0.1 },
     },
   };
 
@@ -97,7 +97,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div style={{ overflow: 'hidden' }}>
         <AnimatedRoutes />
       </div>
     </Router>

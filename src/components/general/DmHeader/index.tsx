@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { DAILY_LOG_PATH, routeTitles, SETTINGS_PATH } from '../../../constants';
 import AppIcons from './AppIcons';
 import { AppSettingsRepository } from '../../../api/repositories/appSettingsRepository';
-import NavigationControls from '../../NavigationControls';
+import NavigationControls from '../NavigationControls';
 import DmLink from '../DmLink';
 
 const { Header } = Layout;
