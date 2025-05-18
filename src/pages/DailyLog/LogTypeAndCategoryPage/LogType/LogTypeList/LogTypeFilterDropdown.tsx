@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Dropdown, Input, DatePicker, Space, Card } from 'antd';
+import { Button, Dropdown, Input, DatePicker, Space, Card, Radio } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { Dayjs } from 'dayjs';
 
@@ -11,6 +11,7 @@ interface Filters {
   finishedAtOrder: 'asc' | 'desc' | null;
   createdAtRange: [Dayjs | null, Dayjs | null];
   finishedAtRange: [Dayjs | null, Dayjs | null];
+  finishedStatus: 'finished' | 'not_finished' | null;
 }
 
 interface Props {
@@ -58,6 +59,7 @@ const LogTypeFilterDropdown: React.FC<Props> = ({ filters, setFilters }) => {
       finishedAtOrder: null,
       createdAtRange: [null, null],
       finishedAtRange: [null, null],
+      finishedStatus: null,
     });
   };
 
@@ -152,6 +154,20 @@ const LogTypeFilterDropdown: React.FC<Props> = ({ filters, setFilters }) => {
             allowClear
             style={{ width: '100%' }}
           />
+        </div>
+
+        <div>
+          <label>Finished Status:</label>
+          <Radio.Group
+            value={filters.finishedStatus}
+            onChange={(e) =>
+              setFilters((f) => ({ ...f, finishedStatus: e.target.value }))
+            }
+          >
+            <Radio value={null}>All</Radio>
+            <Radio value="finished">Finished</Radio>
+            <Radio value="not_finished">Not Finished</Radio>
+          </Radio.Group>
         </div>
 
         <Button type="link" onClick={clearFilters} style={{ paddingLeft: 0 }}>

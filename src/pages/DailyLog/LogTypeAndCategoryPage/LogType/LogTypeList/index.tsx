@@ -25,6 +25,7 @@ interface Filters {
   finishedAtOrder: 'asc' | 'desc' | null;
   createdAtRange: [Dayjs | null, Dayjs | null];
   finishedAtRange: [Dayjs | null, Dayjs | null];
+  finishedStatus: 'finished' | 'not_finished' | null;
 }
 
 const LogTypeList = () => {
@@ -38,6 +39,7 @@ const LogTypeList = () => {
     finishedAtOrder: null,
     createdAtRange: [null, null],
     finishedAtRange: [null, null],
+    finishedStatus: null,
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingLogType, setEditingLogType] = useState<LogType | null>(null);
@@ -99,6 +101,13 @@ const LogTypeList = () => {
           ? aTime - bTime
           : bTime - aTime;
       });
+    }
+
+    // Filter by finishedStatus
+    if (filters.finishedStatus === 'finished') {
+      filtered = filtered.filter((lt) => !!lt.finishedAt);
+    } else if (filters.finishedStatus === 'not_finished') {
+      filtered = filtered.filter((lt) => !lt.finishedAt);
     }
 
     return filtered;
