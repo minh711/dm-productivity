@@ -18,6 +18,7 @@ export const logCategoryColumns = (
             borderRadius: '16px',
             backgroundColor: record.color,
             cursor: 'pointer',
+            color: '#fff',
           }}
           onClick={() => onNameClick(record)}
         >

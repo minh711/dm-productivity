@@ -9,9 +9,7 @@ const LogTypePage = () => {
   const { t } = useTranslation();
 
   return (
-    <>
-      <FileUploader />
-
+    <div>
       <Row gutter={[16, 16]} align={'stretch'}>
         <Col span={12}>
           <Card bordered={false} style={{ height: '100%' }}>
@@ -28,7 +26,7 @@ const LogTypePage = () => {
           </Card>
         </Col>
       </Row>
-    </>
+    </div>
   );
 };
 

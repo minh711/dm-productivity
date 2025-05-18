@@ -21,10 +21,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import styles from './style.module.css';
 import { useTranslation } from 'react-i18next';
 import { DAILY_LOG_PATH, routeTitles, SETTINGS_PATH } from '../../../constants';
-import AppIcons from './AppIcons';
 import { AppSettingsRepository } from '../../../api/repositories/appSettingsRepository';
-import NavigationControls from '../NavigationControls';
 import DmLink from '../DmLink';
+import NavigationControls from '../NavigationControls';
+import AppIcons from './AppIcons';
 
 const { Header } = Layout;
 const { Option } = Select;

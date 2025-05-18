@@ -16,6 +16,7 @@ export const logTypeColumns = (
           style={{
             padding: '4px 16px',
             borderRadius: '16px',
+            color: '#fff',
             backgroundColor: record.color,
             cursor: 'pointer',
           }}
