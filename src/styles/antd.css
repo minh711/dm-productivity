@@ -156,6 +156,9 @@
 .ant-card {
   background-color: var(--card-background);
 }
+.ant-card-body {
+  padding: 16px !important;
+}
 
 /* Tool tip */
 .ant-tooltip {
