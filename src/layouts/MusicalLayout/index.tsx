@@ -14,7 +14,7 @@ import DmFooter from '../../components/General/DmFooter';
 import DmHeader from '../../components/General/DmHeader';
 import DmSider from '../../components/General/Sider';
 import React, { ReactNode } from 'react';
-import DmLink from '../../components/general/DmLink';
+import DmLink from '../../components/General/DmLink';
 
 const { Content } = Layout;
 
@@ -30,7 +30,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
       key: 'dashboard',
       icon: (
         <span role="img" aria-label="dashboard">
-          📝
+          <DmLink to={MUSICAL_PATH}>📝</DmLink>
         </span>
       ),
       label: (
@@ -43,7 +43,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
       key: 'song',
       icon: (
         <span role="img" aria-label="song">
-          🎼
+          <DmLink to={MUSIC_SONG_PATH}>🎼</DmLink>
         </span>
       ),
       label: (
@@ -56,7 +56,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
       key: 'section',
       icon: (
         <span role="img" aria-label="section">
-          🎹
+          <DmLink to={MUSIC_SECTION_PATH}>🎹</DmLink>
         </span>
       ),
       label: (

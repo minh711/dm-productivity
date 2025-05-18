@@ -28,7 +28,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       key: 'dashboard',
       icon: (
         <span role="img" aria-label="dashboard">
-          📝
+          <DmLink to={DAILY_LOG_PATH}>📝</DmLink>
         </span>
       ),
       label: (
@@ -41,7 +41,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       key: 'log-type-category',
       icon: (
         <span role="img" aria-label="log-type-category">
-          🎹
+          <DmLink to={LOG_TYPE_AND_CATEGORY_PATH}>🎹</DmLink>
         </span>
       ),
       className: 'wrap',
@@ -55,7 +55,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       key: 'chart',
       icon: (
         <span role="img" aria-label="chart">
-          📊
+          <DmLink to={LOG_TYPE_AND_CATEGORY_PATH}>📊</DmLink>
         </span>
       ),
       className: 'wrap',
@@ -69,7 +69,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
       key: 'calendar',
       icon: (
         <span role="img" aria-label="calendar">
-          📅
+          <DmLink to={LOG_TYPE_AND_CATEGORY_PATH}>📅</DmLink>
         </span>
       ),
       className: 'wrap',

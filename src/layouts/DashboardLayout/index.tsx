@@ -33,7 +33,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       key: 'home',
       icon: (
         <span role="img" aria-label="home">
-          🏠
+          <DmLink to={HOME_PATH}>🏠</DmLink>
         </span>
       ),
       label: (
@@ -46,7 +46,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       key: 'daily-log',
       icon: (
         <span role="img" aria-label="daily-log">
-          📝
+          <DmLink to={DAILY_LOG_PATH}>📝</DmLink>
         </span>
       ),
       className: 'wrap',
@@ -60,7 +60,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       key: 'musical',
       icon: (
         <span role="img" aria-label="musical">
-          🎼
+          <DmLink to={MUSICAL_PATH}>🎼</DmLink>
         </span>
       ),
       className: 'wrap',
