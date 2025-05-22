@@ -301,6 +301,100 @@ app.whenReady().then(async () => {
   });
   // ===================== IPC Handlers for window operations =====================
 
+  // ===================== Music Player module =====================
+  let parseFile;
+  ipcMain.handle('select-music-folder', async () => {
+    if (!parseFile) {
+      // Dynamically import ESM module at runtime
+      ({ parseFile } = await import('music-metadata'));
+    }
+
+    const result = await dialog.showOpenDialog({
+      properties: ['openDirectory'],
+    });
+
+    if (result.canceled || result.filePaths.length === 0) {
+      return [];
+    }
+
+    const selectedFolder = result.filePaths[0];
+    const files = await fs.readdir(selectedFolder);
+    const musicFiles = files.filter((file) => {
+      const ext = path.extname(file).toLowerCase();
+      return ['.mp3', '.wav', '.ogg', '.flac', '.aac', '.m4a'].includes(ext);
+    });
+
+    // For each file, parse metadata including artwork (if exists)
+    const results = await Promise.all(
+      musicFiles.map(async (file) => {
+        const fullPath = path.join(selectedFolder, file);
+        try {
+          const metadata = await parseFile(fullPath);
+
+          console.log('Metadata', metadata);
+
+          let picture = null;
+
+          // Extract artwork if available
+          if (metadata.common.picture && metadata.common.picture.length > 0) {
+            const pic = metadata.common.picture[0];
+            // Convert to base64 string for renderer usage
+            picture = `data:${pic.format};base64,${pic.data.toString(
+              'base64'
+            )}`;
+          }
+
+          return {
+            path: fullPath,
+            metadata: {
+              artist: metadata.common.artist || null,
+              album: metadata.common.album || null,
+              title: metadata.common.title || file,
+              picture,
+              // add other fields if needed
+            },
+          };
+        } catch (e) {
+          // If parsing fails, return minimal info
+          return {
+            path: fullPath,
+            metadata: {
+              artist: null,
+              album: null,
+              title: file,
+              picture: null,
+            },
+          };
+        }
+      })
+    );
+
+    return results;
+  });
+
+  ipcMain.handle('read-music-file', async (event, filePath) => {
+    try {
+      const buffer = await fs.readFile(filePath);
+      const ext = path.extname(filePath).toLowerCase().substring(1); // e.g. "mp3"
+      const base64 = buffer.toString('base64');
+      const mimeType =
+        {
+          mp3: 'audio/mpeg',
+          wav: 'audio/wav',
+          ogg: 'audio/ogg',
+          flac: 'audio/flac',
+          m4a: 'audio/mp4',
+          aac: 'audio/aac',
+        }[ext] || 'application/octet-stream';
+
+      return `data:${mimeType};base64,${base64}`;
+    } catch (err) {
+      console.error('Error reading music file:', err);
+      return null;
+    }
+  });
+  // ===================== End Music Player module =====================
+
   // ===================== Initialize main window =====================
   mainWindow = new BrowserWindow({
     width: 1600,
@@ -309,6 +403,7 @@ app.whenReady().then(async () => {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
+      webSecurity: false,
     },
   });
 
@@ -337,6 +432,7 @@ app.on('activate', () => {
         preload: path.join(__dirname, 'preload.js'),
         contextIsolation: true,
         nodeIntegration: false,
+        webSecurity: false,
       },
     });
 

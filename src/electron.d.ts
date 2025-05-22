@@ -15,6 +15,18 @@ declare global {
         filePath?: string;
         message?: string;
       }>;
+      selectMusicFolder: () => Promise<
+        Array<{
+          path: string;
+          metadata: {
+            artist: string | null;
+            album: string | null;
+            title: string;
+            picture: string | null; // base64 data URL or null
+          };
+        }>
+      >;
+      readMusicFile: (filePath: string) => Promise<string | null>;
     };
   }
 }
