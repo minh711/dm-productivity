@@ -303,8 +303,8 @@ app.whenReady().then(async () => {
 
   // ===================== Initialize main window =====================
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 720,
+    width: 1600,
+    height: 900,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -331,8 +331,8 @@ app.on('window-all-closed', () => {
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     mainWindow = new BrowserWindow({
-      width: 1280,
-      height: 720,
+      width: 1600,
+      height: 900,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         contextIsolation: true,

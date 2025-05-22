@@ -3,6 +3,7 @@ import {
   HOME_PATH,
   LOG_CATEGORY_PATH,
   LOG_TYPE_AND_CATEGORY_PATH,
+  MUSIC_PLAYER_PATH,
   MUSIC_SECTION_PATH,
   MUSIC_SONG_PATH,
   MUSICAL_PATH,
@@ -20,6 +21,8 @@ import MusicSectionPage from '../pages/Musical/MusicSectionPage';
 import MusicSongPage from '../pages/Musical/MusicSongPage';
 import MusicSongDetailPage from '../pages/Musical/MusicSongDetailPage';
 import SettingsPage from '../pages/SettingsPage';
+import MusicPlayerDashboardPage from '../pages/MusicPlayer/DashboardPage';
+import MusicPlayerLayout from '../layouts/MusicPlayerLayout';
 
 export const routes = [
   {
@@ -77,5 +80,12 @@ export const routes = [
     roles: [],
     isProtected: false,
     layout: MusicalLayout,
+  },
+  {
+    path: MUSIC_PLAYER_PATH,
+    component: MusicPlayerDashboardPage,
+    roles: [],
+    isProtected: false,
+    layout: MusicPlayerLayout,
   },
 ];

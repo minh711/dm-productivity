@@ -1,6 +1,7 @@
 import {
   DAILY_LOG_PATH,
   HOME_PATH,
+  MUSIC_PLAYER_PATH,
   MUSICAL_PATH,
   routeTitles,
 } from '../../constants';
@@ -67,6 +68,19 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       label: (
         <DmLink to={MUSICAL_PATH} style={{ width: '100%' }}>
           {t(routeTitles[MUSICAL_PATH])}
+        </DmLink>
+      ),
+    },
+    {
+      key: { MUSIC_PLAYER_PATH },
+      icon: (
+        <span role="img" aria-label="dashboard">
+          <DmLink to={MUSIC_PLAYER_PATH}>📻</DmLink>
+        </span>
+      ),
+      label: (
+        <DmLink to={MUSIC_PLAYER_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[MUSIC_PLAYER_PATH])}
         </DmLink>
       ),
     },
