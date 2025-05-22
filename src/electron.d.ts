@@ -22,11 +22,11 @@ declare global {
             artist: string | null;
             album: string | null;
             title: string;
-            picture: string | null; // base64 data URL or null
+            picture: string | null;
+            thumbnail: string | null;
           };
         }>
       >;
-      readMusicFile: (filePath: string) => Promise<string | null>;
     };
   }
 }

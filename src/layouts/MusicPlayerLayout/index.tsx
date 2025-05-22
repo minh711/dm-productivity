@@ -47,12 +47,9 @@ const MusicPlayerLayout: React.FC<Props> = ({ children }) => {
       <DmSider menuItems={menuItems} />
       <Layout>
         <DmHeader />
-        <div style={{ height: '100%', overflowY: 'auto' }}>
-          <Content className="p-m" style={{ minHeight: 'calc(100% - 70px)' }}>
-            {children || <div>Welcome to the Dashboard!</div>}
-          </Content>
-          <DmFooter />
-        </div>
+        <Content className="p-m">
+          {children || <div>Welcome to the Dashboard!</div>}
+        </Content>
       </Layout>
     </Layout>
   );

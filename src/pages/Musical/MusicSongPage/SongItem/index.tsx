@@ -54,7 +54,6 @@ const SongItem: React.FC<SongItemProps> = ({ song, onEdit }) => {
             <FileLoader
               fileName={song.thumbnail}
               className={classNames(styles.songCover)}
-              innerStyle={{ width: '100% !important' }}
               height={240}
             />
           ) : (

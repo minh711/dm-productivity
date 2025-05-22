@@ -13,5 +13,4 @@ contextBridge.exposeInMainWorld('electron', {
   loadZipData: () => ipcRenderer.invoke('load-zip-data'),
   exportZipData: () => ipcRenderer.invoke('export-zip-data'),
   selectMusicFolder: () => ipcRenderer.invoke('select-music-folder'),
-  readMusicFile: (filePath) => ipcRenderer.invoke('read-music-file'),
 });

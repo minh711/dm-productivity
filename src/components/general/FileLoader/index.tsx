@@ -5,16 +5,16 @@ interface FileLoaderProps {
   fileName: string;
   style?: React.CSSProperties;
   className?: string;
-  innerStyle?: React.CSSProperties;
   height?: number;
+  width?: number;
 }
 
 const FileLoader: React.FC<FileLoaderProps> = ({
   fileName,
   style,
   className,
-  innerStyle,
   height,
+  width,
 }) => {
   const [fileBase64, setFileBase64] = useState<string | null>(null);
   const [fileType, setFileType] = useState<string | null>(null);
@@ -59,7 +59,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: height ?? 120,
+          height: height,
           width: '100%',
         }}
       >
@@ -70,7 +70,13 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   return (
     <div className={className} style={style}>
       {fileType === 'image' && (
-        <Image src={`data:image/*;base64,${fileBase64}`} alt="File" />
+        <Image
+          src={`data:image/*;base64,${fileBase64}`}
+          alt="File"
+          height={height}
+          width={width ?? '100%'}
+          style={{ objectFit: 'cover' }}
+        />
       )}
       {fileType === 'audio' && (
         <audio controls>

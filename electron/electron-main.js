@@ -204,12 +204,16 @@ app.whenReady().then(async () => {
   ipcMain.handle('get-file', async (event, fileName) => {
     const fs = require('fs');
 
-    const filePath = path.join(
-      app.getPath('userData'),
-      'data',
-      'files',
-      fileName
-    );
+    const basePath = path.join(app.getPath('userData'), 'data', 'files');
+    let filePath;
+
+    if (fileName.startsWith('/')) {
+      const segments = fileName.slice(1).split('/');
+      filePath = path.join(basePath, ...segments);
+    } else {
+      filePath = path.join(basePath, fileName);
+    }
+
     const fileBuffer = fs.readFileSync(filePath);
     const base64Data = fileBuffer.toString('base64');
 
@@ -303,9 +307,9 @@ app.whenReady().then(async () => {
 
   // ===================== Music Player module =====================
   let parseFile;
+  const sharp = require('sharp');
   ipcMain.handle('select-music-folder', async () => {
     if (!parseFile) {
-      // Dynamically import ESM module at runtime
       ({ parseFile } = await import('music-metadata'));
     }
 
@@ -319,79 +323,81 @@ app.whenReady().then(async () => {
 
     const selectedFolder = result.filePaths[0];
     const files = await fs.readdir(selectedFolder);
-    const musicFiles = files.filter((file) => {
-      const ext = path.extname(file).toLowerCase();
-      return ['.mp3', '.wav', '.ogg', '.flac', '.aac', '.m4a'].includes(ext);
-    });
-
-    // For each file, parse metadata including artwork (if exists)
-    const results = await Promise.all(
-      musicFiles.map(async (file) => {
-        const fullPath = path.join(selectedFolder, file);
-        try {
-          const metadata = await parseFile(fullPath);
-
-          console.log('Metadata', metadata);
-
-          let picture = null;
-
-          // Extract artwork if available
-          if (metadata.common.picture && metadata.common.picture.length > 0) {
-            const pic = metadata.common.picture[0];
-            // Convert to base64 string for renderer usage
-            picture = `data:${pic.format};base64,${pic.data.toString(
-              'base64'
-            )}`;
-          }
-
-          return {
-            path: fullPath,
-            metadata: {
-              artist: metadata.common.artist || null,
-              album: metadata.common.album || null,
-              title: metadata.common.title || file,
-              picture,
-              // add other fields if needed
-            },
-          };
-        } catch (e) {
-          // If parsing fails, return minimal info
-          return {
-            path: fullPath,
-            metadata: {
-              artist: null,
-              album: null,
-              title: file,
-              picture: null,
-            },
-          };
-        }
-      })
+    const musicFiles = files.filter(
+      (file) => path.extname(file).toLowerCase() === '.mp3'
     );
 
-    return results;
-  });
+    const appFolder = path.join(app.getPath('userData'), 'data');
+    const filesFolder = path.join(appFolder, 'files', 'music');
+    const storePath = path.join(appFolder, 'stores');
+    const storeFile = path.join(storePath, 'music.json');
 
-  ipcMain.handle('read-music-file', async (event, filePath) => {
-    try {
-      const buffer = await fs.readFile(filePath);
-      const ext = path.extname(filePath).toLowerCase().substring(1); // e.g. "mp3"
-      const base64 = buffer.toString('base64');
-      const mimeType =
-        {
-          mp3: 'audio/mpeg',
-          wav: 'audio/wav',
-          ogg: 'audio/ogg',
-          flac: 'audio/flac',
-          m4a: 'audio/mp4',
-          aac: 'audio/aac',
-        }[ext] || 'application/octet-stream';
+    await fs.mkdir(filesFolder, { recursive: true });
+    await fs.mkdir(storePath, { recursive: true });
 
-      return `data:${mimeType};base64,${base64}`;
-    } catch (err) {
-      console.error('Error reading music file:', err);
-      return null;
+    const results = [];
+
+    for (const file of musicFiles) {
+      const fullPath = path.join(selectedFolder, file);
+      try {
+        const metadata = await parseFile(fullPath);
+        let picturePath = null;
+
+        console.log(metadata);
+
+        if (metadata.common.picture && metadata.common.picture.length > 0) {
+          const pic = metadata.common.picture[0];
+          const ext = pic.format.includes('jpeg') ? '.jpg' : '.png';
+          const uniqueFileBase = uuidv4();
+
+          picturePath = `/music/${uniqueFileBase}${ext}`;
+          thumbnailPath = `/music/${uniqueFileBase}_thumbnail${ext}`;
+
+          await fs.writeFile(
+            path.join(filesFolder, `${uniqueFileBase}${ext}`),
+            pic.data
+          );
+
+          const thumbnailBuffer = await sharp(pic.data)
+            .resize(128, 128, { fit: 'cover' })
+            .toBuffer();
+
+          await fs.writeFile(
+            path.join(filesFolder, `${uniqueFileBase}_thumbnail${ext}`),
+            thumbnailBuffer
+          );
+        }
+
+        results.push({
+          path: fullPath,
+          metadata: {
+            artist: metadata.common.artist || null,
+            album: metadata.common.album || null,
+            title: metadata.common.title || file,
+            picture: picturePath,
+            thumbnail: thumbnailPath,
+          },
+        });
+      } catch {
+        results.push({
+          path: fullPath,
+          metadata: {
+            artist: null,
+            album: null,
+            title: file,
+            picture: null,
+            thumbnail: null,
+          },
+        });
+      }
     }
+
+    await fs.writeFile(
+      storeFile,
+      JSON.stringify({ music: results }, null, 2),
+      'utf-8'
+    );
+    return results;
   });
   // ===================== End Music Player module =====================
 
