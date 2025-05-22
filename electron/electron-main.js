@@ -342,6 +342,7 @@ app.whenReady().then(async () => {
       try {
         const metadata = await parseFile(fullPath);
         let picturePath = null;
+        let thumbnailPath = null;
 
         console.log(metadata);
 

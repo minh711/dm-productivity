@@ -155,7 +155,7 @@
 
 /* Border */
 .rounded {
-  border-radius: 8px;
+  border-radius: 8px !important;
 }
 
 /* Background */

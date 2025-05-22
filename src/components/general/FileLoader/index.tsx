@@ -5,6 +5,7 @@ interface FileLoaderProps {
   fileName: string;
   style?: React.CSSProperties;
   className?: string;
+  innerClassName?: string;
   height?: number;
   width?: number;
 }
@@ -13,6 +14,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
   fileName,
   style,
   className,
+  innerClassName,
   height,
   width,
 }) => {
@@ -76,6 +78,7 @@ const FileLoader: React.FC<FileLoaderProps> = ({
           height={height}
           width={width ?? '100%'}
           style={{ objectFit: 'cover' }}
+          className={innerClassName}
         />
       )}
       {fileType === 'audio' && (

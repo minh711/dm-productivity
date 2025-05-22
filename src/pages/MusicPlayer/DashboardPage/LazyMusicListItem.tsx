@@ -14,22 +14,34 @@ type Props = {
     thumbnail: string | null;
   };
   onPlay: (path: string) => void;
+  scrollRootRef?: React.RefObject<Element>;
 };
 
-const LazyMusicListItem: React.FC<Props> = ({ path, metadata, onPlay }) => {
+const LazyMusicListItem: React.FC<Props> = ({
+  path,
+  metadata,
+  onPlay,
+  scrollRootRef,
+}) => {
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    if (!scrollRootRef) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
+        console.log('Intersection:', entry.isIntersecting, entry);
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect(); // Load only once
+          observer.disconnect();
         }
       },
       {
         threshold: 0.1,
+        root: scrollRootRef.current || null,
       }
     );
 
@@ -38,10 +50,10 @@ const LazyMusicListItem: React.FC<Props> = ({ path, metadata, onPlay }) => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [scrollRootRef]);
 
   return (
-    <div ref={ref} className={style.listItem}>
+    <div ref={ref} style={{ width: '200px' }}>
       {visible && (
         <Suspense fallback={<div>Loading...</div>}>
           <MusicListItem path={path} metadata={metadata} onPlay={onPlay} />

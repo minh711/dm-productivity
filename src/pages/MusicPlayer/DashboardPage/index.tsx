@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import FileLoader from '../../../components/General/FileLoader';
-import { Button } from 'antd';
+import { Button, Card, Col, Row } from 'antd';
 import LazyMusicListItem from './LazyMusicListItem';
 import style from './style.module.css';
 import classNames from 'classnames';
@@ -77,6 +77,8 @@ const MusicPlayerDashboardPage = () => {
     setCurrentTrack(safePath);
   };
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className={style.container}>
       {showLoading && <FullscreenLoading fadingOut={!loading} />}
@@ -88,25 +90,30 @@ const MusicPlayerDashboardPage = () => {
         Select Music Folder
       </Button>
 
-      <div className={style.content}>
-        {musicFiles.length > 0 ? (
-          <ul className={style.list}>
-            {musicFiles.map(({ path, metadata }, index) => (
-              <li key={index} className={style.listItem}>
-                <LazyMusicListItem
-                  path={path}
-                  metadata={metadata}
-                  onPlay={handlePlay}
-                />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className={style.emptyMessage}>No music files loaded.</p>
-        )}
+      <div
+        className={style.content}
+        style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          rowGap: '16px',
+        }}
+        ref={scrollContainerRef}
+      >
+        {musicFiles.map(({ path, metadata }, index) => (
+          <LazyMusicListItem
+            key={path}
+            path={path}
+            metadata={metadata}
+            onPlay={handlePlay}
+            scrollRootRef={scrollContainerRef}
+          />
+        ))}
+      </div>
 
+      <Card bordered={false} className={classNames('mt-m', style.player)}>
         {currentTrack && (
-          <div className={style.player}>
+          <div>
             <p>Now Playing:</p>
             <audio
               ref={(el) => {
@@ -119,7 +126,7 @@ const MusicPlayerDashboardPage = () => {
             />
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 };

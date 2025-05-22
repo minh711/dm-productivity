@@ -1,5 +1,6 @@
 import React from 'react';
 import FileLoader from '../../../components/General/FileLoader';
+import { Button, Card } from 'antd';
 
 type MusicFileMetadata = {
   artist: string | null;
@@ -16,18 +17,41 @@ type Props = {
 
 const MusicListItem: React.FC<Props> = ({ path, metadata, onPlay }) => {
   return (
-    <div>
-      {metadata.thumbnail && (
-        <FileLoader fileName={metadata.thumbnail} height={100} width={100} />
-      )}
+    <Card bordered={false}>
+      <div className="d-flex justify-content-center">
+        {metadata.thumbnail ? (
+          <FileLoader
+            fileName={metadata.thumbnail}
+            height={128}
+            width={128}
+            style={{ height: 128, width: 128, backgroundColor: '#000' }}
+            className="rounded"
+            innerClassName="rounded"
+          />
+        ) : (
+          <div
+            className="d-flex justify-content-center align-items-center"
+            style={{ width: 128, height: 128, background: '#ddd' }}
+          >
+            No data
+          </div>
+        )}
+      </div>
+
       <div>
-        <p>{metadata.title}</p>
+        {/* <p>{metadata.title}</p>
         <p>
           {metadata.artist} — {metadata.album}
-        </p>
+        </p> */}
       </div>
-      <button onClick={() => onPlay(path)}>Play</button>
-    </div>
+      <Button
+        className="mt-m"
+        style={{ width: '100%' }}
+        onClick={() => onPlay(path)}
+      >
+        Play
+      </Button>
+    </Card>
   );
 };
 
