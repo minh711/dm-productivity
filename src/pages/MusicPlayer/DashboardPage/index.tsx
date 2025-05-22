@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 type MusicFile = {
   path: string;
@@ -6,7 +6,7 @@ type MusicFile = {
     artist: string | null;
     album: string | null;
     title: string;
-    picture: string | null;
+    picture: string | null; // this will be a Blob URL after processing
   };
 };
 
@@ -14,7 +14,7 @@ const MusicPlayerDashboardPage = () => {
   const [musicFiles, setMusicFiles] = useState<MusicFile[]>([]);
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
 
-  // Fix broken picture string ONCE before setting state
+  // Convert broken picture base64 string to proper base64 string
   const fixPictureString = (picture: string | null): string | null => {
     if (!picture) return null;
 
@@ -46,18 +46,44 @@ const MusicPlayerDashboardPage = () => {
     return prefix + base64String;
   };
 
+  // Convert base64 string to Blob URL
+  const base64ToBlobUrl = (base64String: string): string => {
+    const [prefix, base64Data] = base64String.split(',');
+    const mimeMatch = prefix.match(/data:(.*);base64/);
+    const mimeType = mimeMatch ? mimeMatch[1] : 'application/octet-stream';
+
+    const byteCharacters = atob(base64Data);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: mimeType });
+    return URL.createObjectURL(blob);
+  };
+
+  // When selecting folder, fix picture strings and convert to blob URLs
   const handleSelectFolder = async () => {
     try {
       const files = await window.electron.selectMusicFolder();
       if (Array.isArray(files)) {
-        // Fix pictures once here before setting state
-        const fixedFiles = files.map((file) => ({
-          ...file,
-          metadata: {
-            ...file.metadata,
-            picture: fixPictureString(file.metadata.picture),
-          },
-        }));
+        // Revoke previous Blob URLs to avoid memory leaks
+        musicFiles.forEach((file) => {
+          if (file.metadata.picture) {
+            URL.revokeObjectURL(file.metadata.picture);
+          }
+        });
+
+        const fixedFiles = files.map((file) => {
+          const fixedBase64 = fixPictureString(file.metadata.picture);
+          return {
+            ...file,
+            metadata: {
+              ...file.metadata,
+              picture: fixedBase64 ? base64ToBlobUrl(fixedBase64) : null,
+            },
+          };
+        });
 
         setMusicFiles(fixedFiles);
       } else {
@@ -67,6 +93,17 @@ const MusicPlayerDashboardPage = () => {
       console.error('Error selecting music folder:', error);
     }
   };
+
+  // Cleanup blob URLs on unmount or when musicFiles change
+  useEffect(() => {
+    return () => {
+      musicFiles.forEach((file) => {
+        if (file.metadata.picture) {
+          URL.revokeObjectURL(file.metadata.picture);
+        }
+      });
+    };
+  }, [musicFiles]);
 
   const handlePlay = (filePath: string) => {
     const file = musicFiles.find((f) => f.path === filePath);
@@ -88,7 +125,11 @@ const MusicPlayerDashboardPage = () => {
             <li key={index}>
               <div>
                 {metadata.picture && (
-                  <img src={metadata.picture} alt="artwork" />
+                  <img
+                    src={metadata.picture}
+                    alt="artwork"
+                    style={{ maxWidth: 100, maxHeight: 100 }}
+                  />
                 )}
                 <div>
                   <p>{metadata.title}</p>
