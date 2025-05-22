@@ -28,6 +28,16 @@
       "sign": false,
       "signAndEditExecutable": false
     },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "maintainer": "minh711 <minhtd.developer@gmail.com>",
+      "synopsis": "DM Productivity App for Linux",
+      "description": "A cross-platform productivity application"
+    },
     "extraResources": [
       {
         "from": "node_modules/adm-zip",
