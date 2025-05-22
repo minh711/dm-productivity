@@ -1,0 +1,16 @@
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--background-2);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}

@@ -1,15 +1,4 @@
 .container {
   overflow-y: scroll;
-  border: 5px solid red;
   height: 100%;
-}
-
-.loading {
-  width: 100vw;
-  height: 100vh;
-  z-index: 10000;
-  background: pink;
-  position: fixed;
-  top: 0;
-  left: 0;
 }

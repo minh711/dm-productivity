@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import LazyMusicListItem from './LazyMusicListItem';
 import style from './style.module.css';
 import classNames from 'classnames';
+import FullscreenLoading from '../../../components/General/FullscreenLoading';
 
 type MusicFile = {
   path: string;
@@ -20,11 +21,13 @@ const MusicPlayerDashboardPage = () => {
   const [musicFiles, setMusicFiles] = useState<MusicFile[]>([]);
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 seconds
+      setTimeout(() => setShowLoading(false), 500);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -76,7 +79,7 @@ const MusicPlayerDashboardPage = () => {
 
   return (
     <div className={style.container}>
-      {loading && <div className={style.loading}></div>}
+      {showLoading && <FullscreenLoading fadingOut={!loading} />}
 
       <Button
         className={classNames('mb-m', style.selectBtn)}
