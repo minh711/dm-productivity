@@ -7,9 +7,10 @@ import {
 } from 'react-router-dom';
 import { routes } from './routes';
 import NotFoundPage from './pages/NotFoundPage';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, delay, motion } from 'framer-motion';
 import ProtectedRoute from './components/General/ProtectedRoute';
 import { AppSettingsRepository } from './api/repositories/appSettingsRepository';
+import FullscreenLoading from './components/General/FullscreenLoading';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -17,18 +18,14 @@ function AnimatedRoutes() {
   const pageVariants = {
     initial: {
       opacity: 0,
-      y: 40,
-      transition: { delay: 0.1 },
     },
     animate: {
       opacity: 1,
-      y: 0,
-      transition: { duration: 0.2, ease: 'easeOut', delay: 0.1 },
+      transition: { duration: 0.2, ease: 'easeOut', delay: 0.2 },
     },
     exit: {
       opacity: 0,
-      y: -40,
-      transition: { duration: 0.2, ease: 'easeIn', delay: 0.1 },
+      transition: { duration: 0.2, ease: 'easeIn' },
     },
   };
 
@@ -48,11 +45,14 @@ function AnimatedRoutes() {
                 key={route.path}
                 path={route.path}
                 element={
-                  <ProtectedRoute
-                    roles={route.roles}
-                    layout={route.layout}
-                    component={route.component}
-                  />
+                  <div>
+                    <FullscreenLoading />
+                    <ProtectedRoute
+                      roles={route.roles}
+                      layout={route.layout}
+                      component={route.component}
+                    />
+                  </div>
                 }
               />
             ) : (
@@ -62,10 +62,14 @@ function AnimatedRoutes() {
                 element={
                   route.layout ? (
                     <route.layout>
+                      <FullscreenLoading />
                       <route.component />
                     </route.layout>
                   ) : (
-                    <route.component />
+                    <div>
+                      <FullscreenLoading />
+                      <route.component />
+                    </div>
                   )
                 }
               />

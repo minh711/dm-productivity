@@ -20,17 +20,6 @@ type MusicFile = {
 const MusicPlayerDashboardPage = () => {
   const [musicFiles, setMusicFiles] = useState<MusicFile[]>([]);
   const [currentTrack, setCurrentTrack] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [showLoading, setShowLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-      setTimeout(() => setShowLoading(false), 500);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const fetchStoredMusic = async () => {
@@ -81,7 +70,7 @@ const MusicPlayerDashboardPage = () => {
 
   return (
     <div className={style.container}>
-      {showLoading && <FullscreenLoading fadingOut={!loading} />}
+      <FullscreenLoading />
 
       <Button
         className={classNames('mb-m', style.selectBtn)}

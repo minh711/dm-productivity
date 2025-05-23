@@ -288,14 +288,16 @@ app.whenReady().then(async () => {
 
   ipcMain.on('open-new-window', (event, routePath) => {
     const newWin = new BrowserWindow({
-      width: 1280,
-      height: 720,
+      width: 1600,
+      height: 900,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         contextIsolation: true,
         nodeIntegration: false,
+        webSecurity: false,
       },
     });
+    mainWindow.setMenuBarVisibility(false);
 
     if (isDevMode) {
       const newRoutePath = routePath.replace(/\//, '#');
@@ -406,9 +408,27 @@ app.whenReady().then(async () => {
   // ===================== End Music Player module =====================
 
   // ===================== Initialize main window =====================
+  const splashWindow = new BrowserWindow({
+    width: 400,
+    height: 300,
+    frame: false,
+    transparent: false,
+    alwaysOnTop: true,
+    center: true,
+    resizable: false,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+    },
+  });
+
+  splashWindow.loadFile('splash.html');
+  splash = splashWindow;
+
   mainWindow = new BrowserWindow({
     width: 1600,
     height: 900,
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -416,8 +436,12 @@ app.whenReady().then(async () => {
       webSecurity: false,
     },
   });
-
   mainWindow.setMenuBarVisibility(false);
+
+  mainWindow.once('ready-to-show', () => {
+    splash.close();
+    mainWindow.show();
+  });
   // ===================== End initialize main window =====================
 
   if (isDevMode) {
@@ -445,8 +469,8 @@ app.on('activate', () => {
         webSecurity: false,
       },
     });
+    mainWindow.setMenuBarVisibility(false);
 
-    // $$ Dev mode $$
     if (isDevMode) {
       mainWindow.loadURL('http://localhost:7329');
     } else {
