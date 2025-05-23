@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Dropdown,
-  Input,
-  InputNumber,
-  Row,
-  Col,
-  Space,
-  Card,
-  Form,
-} from 'antd';
+import { Button, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import DraggableTable from '../../../../components/General/DraggableTable';
 import { myColumns } from './columns';
-import styles from './style.module.css';
-import classNames from 'classnames';
+import AddEditLogForm from './AddEditLogForm'; // import new component
 
 interface MyData {
   key: string;
@@ -29,11 +18,6 @@ const TodayLog = () => {
     { key: '1', type: 'John', category: 'Work', duration: 30, note: 'Meeting' },
     { key: '2', type: 'Jane', category: 'Exercise', duration: 25, note: 'Gym' },
     { key: '3', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
-    { key: '4', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
-    { key: '5', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
-    { key: '6', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
-    { key: '7', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
-    { key: '8', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
   ]);
 
   const [newRow, setNewRow] = useState<MyData>({
@@ -58,55 +42,19 @@ const TodayLog = () => {
     setDropdownOpen(false);
   };
 
-  const dropdownMenu = (
-    <Card
-      className={classNames(styles.dropdownMenu, 'shadow')}
-      style={{ width: '40vw' }}
-      onClick={(e) => e.stopPropagation()} // Prevent dropdown from closing when clicking inside
-    >
-      <div>
-        <Input
-          placeholder="Type"
-          className="mb-sm"
-          value={newRow.type}
-          onChange={(e) => handleInputChange('type', e.target.value)}
-        />
-
-        <Input
-          placeholder="Category"
-          className="mb-sm"
-          value={newRow.category}
-          onChange={(e) => handleInputChange('category', e.target.value)}
-        />
-
-        <InputNumber
-          min={1}
-          placeholder="Duration"
-          className="mb-sm"
-          style={{ width: '100%' }}
-          value={newRow.duration}
-          onChange={(value) => handleInputChange('duration', value ?? 0)}
-        />
-
-        <Input
-          placeholder="Note"
-          className="mb-sm"
-          value={newRow.note}
-          onChange={(e) => handleInputChange('note', e.target.value)}
-        />
-
-        <Button onClick={addRow}>Add Row</Button>
-      </div>
-    </Card>
-  );
-
   return (
     <div>
       <Dropdown
         open={dropdownOpen}
         onOpenChange={setDropdownOpen}
         trigger={['click']}
-        dropdownRender={() => dropdownMenu}
+        dropdownRender={() => (
+          <AddEditLogForm
+            newRow={newRow}
+            onChange={handleInputChange}
+            onAdd={addRow}
+          />
+        )}
         placement="bottomLeft"
       >
         <Button className="mb-sm">

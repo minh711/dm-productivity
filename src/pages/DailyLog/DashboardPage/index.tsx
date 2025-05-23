@@ -63,13 +63,6 @@ const DashboardPage = () => {
       <Row gutter={[16, 16]} align="stretch">
         <Col lg={6} md={24}>
           <Card bordered={false} style={{ height: '100%' }}>
-            <h2>Đồng hồ bấm giờ</h2>
-            <Timer />
-          </Card>
-        </Col>
-
-        <Col lg={6} md={24}>
-          <Card bordered={false} style={{ height: '100%' }}>
             <h2>Chỉ tiêu hôm nay</h2>
 
             <h3>Planed</h3>
@@ -87,6 +80,13 @@ const DashboardPage = () => {
             <h2>Công việc hôm nay</h2>
 
             <TodayLog />
+          </Card>
+        </Col>
+
+        <Col lg={6} md={24}>
+          <Card bordered={false} style={{ height: '100%' }}>
+            <h2>Đồng hồ bấm giờ</h2>
+            <Timer />
           </Card>
         </Col>
 
