@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const AdmZip = require('adm-zip');
 
 // Change to false to build for production
-const isDevMode = true;
+const isDevMode = false;
 
 async function loadDataFromZip(zipFilePath) {
   const zip = new AdmZip(zipFilePath);
@@ -301,7 +301,12 @@ app.whenReady().then(async () => {
       },
     });
 
-    splashWindow.loadFile('splash.html');
+    if (isDevMode) {
+      splashWindow.loadFile('splash.html');
+    } else {
+      splashWindow.loadFile('./dist/splash.html');
+    }
+
     splash = splashWindow;
 
     const newWin = new BrowserWindow({
@@ -447,7 +452,12 @@ app.whenReady().then(async () => {
     },
   });
 
-  splashWindow.loadFile('splash.html');
+  if (isDevMode) {
+    splashWindow.loadFile('splash.html');
+  } else {
+    splashWindow.loadFile('./dist/splash.html');
+  }
+
   splash = splashWindow;
 
   mainWindow = new BrowserWindow({
@@ -500,7 +510,12 @@ app.on('activate', () => {
       },
     });
 
-    splashWindow.loadFile('splash.html');
+    if (isDevMode) {
+      splashWindow.loadFile('splash.html');
+    } else {
+      splashWindow.loadFile('./dist/splash.html');
+    }
+
     splash = splashWindow;
 
     mainWindow = new BrowserWindow({
