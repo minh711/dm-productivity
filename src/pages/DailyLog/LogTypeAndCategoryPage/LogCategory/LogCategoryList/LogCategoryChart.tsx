@@ -1,16 +1,16 @@
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
-import { LogType } from '../../../../../api/models';
+import { LogCategory } from '../../../../../api/models'; // Adjust path as needed
 import { Card } from 'antd';
 
 interface Props {
-  logTypes: LogType[];
+  logCategories: LogCategory[];
 }
 
-const LogTypeChart: React.FC<Props> = ({ logTypes }) => {
-  const data = logTypes
-    .map((lt) => ({ ...lt, totalDuration: Number(lt.totalDuration) || 0 }))
-    .filter((lt) => lt.totalDuration > 0);
+const LogCategoryChart: React.FC<Props> = ({ logCategories }) => {
+  const data = logCategories
+    .map((lc) => ({ ...lc, totalDuration: Number(lc.totalDuration) || 0 }))
+    .filter((lc) => lc.totalDuration > 0);
 
   return (
     <Card bordered={false}>
@@ -36,4 +36,4 @@ const LogTypeChart: React.FC<Props> = ({ logTypes }) => {
   );
 };
 
-export default LogTypeChart;
+export default LogCategoryChart;

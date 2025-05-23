@@ -152,9 +152,7 @@ const LogTypeList = () => {
   return (
     <div>
       <Card bordered={false}>
-        <Title level={4}>
-          {t('daily-log.log-type-category.log-type.total-duration-chart')}
-        </Title>
+        <Title level={4}>Total</Title>
         <LogTypeChart
           logTypes={filteredLogTypes.filter((lt) =>
             selectedIds.includes(lt.id)
