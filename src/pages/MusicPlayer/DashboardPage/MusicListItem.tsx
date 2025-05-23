@@ -1,6 +1,6 @@
 import React from 'react';
 import FileLoader from '../../../components/General/FileLoader';
-import { Button, Card } from 'antd';
+import { Button, Card, Tooltip } from 'antd';
 
 type MusicFileMetadata = {
   artist: string | null;
@@ -38,19 +38,17 @@ const MusicListItem: React.FC<Props> = ({ path, metadata, onPlay }) => {
         )}
       </div>
 
-      <div>
-        {/* <p>{metadata.title}</p>
-        <p>
-          {metadata.artist} — {metadata.album}
-        </p> */}
-      </div>
-      <Button
-        className="mt-m"
-        style={{ width: '100%' }}
-        onClick={() => onPlay(path)}
+      <Tooltip
+        title={`${metadata.title} - ${metadata.artist} — ${metadata.album}`}
       >
-        Play
-      </Button>
+        <Button
+          className="mt-m"
+          style={{ width: '100%' }}
+          onClick={() => onPlay(path)}
+        >
+          Play
+        </Button>
+      </Tooltip>
     </Card>
   );
 };

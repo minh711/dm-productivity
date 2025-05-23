@@ -1,27 +1,12 @@
-# How to run 🚀
+# ℹ️ How to run
 
-## Development mode
+## 💻 Development mode
 
 First, switch mode in `electron-main.js`:
 
-from:
-
 ```js
-// $$ Dev mode $$
-// [...]
-
-// $$ Production mode $$
-[...]
-```
-
-to:
-
-```js
-// $$ Dev mode $$
-[...]
-
-// $$ Production mode $$
-// [...]
+// Change to false to build for production
+const isDevMode = true;
 ```
 
 Then run the app in development mode:
@@ -30,15 +15,15 @@ Then run the app in development mode:
 npm run start:electron
 ```
 
-## Deployment
+## 🚀 Deployment
 
-Build the **Vite** frontend:
+### 1. Build the **Vite** frontend
 
 ```bash
 npm run build
 ```
 
-Build the **Electron** app:
+### 2. Build the **Electron** app
 
 ```bash
 npm run build:electron

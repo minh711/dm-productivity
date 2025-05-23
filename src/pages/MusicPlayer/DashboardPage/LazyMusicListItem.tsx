@@ -53,7 +53,7 @@ const LazyMusicListItem: React.FC<Props> = ({
   }, [scrollRootRef]);
 
   return (
-    <div ref={ref} style={{ width: '200px' }}>
+    <div ref={ref}>
       {visible && (
         <Suspense fallback={<div>Loading...</div>}>
           <MusicListItem path={path} metadata={metadata} onPlay={onPlay} />

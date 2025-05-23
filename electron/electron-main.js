@@ -4,6 +4,9 @@ const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const AdmZip = require('adm-zip');
 
+// Change to false to build for production
+const isDevMode = true;
+
 async function loadDataFromZip(zipFilePath) {
   const zip = new AdmZip(zipFilePath);
   const zipEntries = zip.getEntries();
@@ -294,14 +297,14 @@ app.whenReady().then(async () => {
       },
     });
 
-    // $$ Dev mode $$
-    const newRoutePath = routePath.replace(/\//, '#');
-    newWin.loadURL(`http://localhost:7329/${newRoutePath}`);
-
-    // $$ Production mode $$
-    // newWin.loadFile(path.join('dist/index.html'), {
-    //   hash: routePath,
-    // });
+    if (isDevMode) {
+      const newRoutePath = routePath.replace(/\//, '#');
+      newWin.loadURL(`http://localhost:7329/${newRoutePath}`);
+    } else {
+      newWin.loadFile(path.join('dist/index.html'), {
+        hash: routePath,
+      });
+    }
   });
   // ===================== IPC Handlers for window operations =====================
 
@@ -417,11 +420,11 @@ app.whenReady().then(async () => {
   mainWindow.setMenuBarVisibility(false);
   // ===================== End initialize main window =====================
 
-  // $$ Dev mode $$
-  mainWindow.loadURL('http://localhost:7329');
-
-  // $$ Production mode $$
-  // mainWindow.loadFile('./dist/index.html');
+  if (isDevMode) {
+    mainWindow.loadURL('http://localhost:7329');
+  } else {
+    mainWindow.loadFile('./dist/index.html');
+  }
 });
 
 app.on('window-all-closed', () => {
@@ -444,9 +447,10 @@ app.on('activate', () => {
     });
 
     // $$ Dev mode $$
-    mainWindow.loadURL('http://localhost:7329');
-
-    // $$ Production mode $$
-    // mainWindow.loadFile('./dist/index.html');
+    if (isDevMode) {
+      mainWindow.loadURL('http://localhost:7329');
+    } else {
+      mainWindow.loadFile('./dist/index.html');
+    }
   }
 });

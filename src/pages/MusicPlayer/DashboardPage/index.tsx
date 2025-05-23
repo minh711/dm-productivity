@@ -90,16 +90,7 @@ const MusicPlayerDashboardPage = () => {
         Select Music Folder
       </Button>
 
-      <div
-        className={style.content}
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          rowGap: '16px',
-        }}
-        ref={scrollContainerRef}
-      >
+      <div className={style.content} ref={scrollContainerRef}>
         {musicFiles.map(({ path, metadata }, index) => (
           <LazyMusicListItem
             key={path}
@@ -111,7 +102,7 @@ const MusicPlayerDashboardPage = () => {
         ))}
       </div>
 
-      <Card bordered={false} className={classNames('mt-m', style.player)}>
+      <Card bordered={false} className={classNames(style.player)}>
         {currentTrack && (
           <div>
             <p>Now Playing:</p>
