@@ -287,9 +287,27 @@ app.whenReady().then(async () => {
   });
 
   ipcMain.on('open-new-window', (event, routePath) => {
+    const splashWindow = new BrowserWindow({
+      width: 400,
+      height: 300,
+      frame: false,
+      transparent: true,
+      alwaysOnTop: true,
+      center: true,
+      resizable: false,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+      },
+    });
+
+    splashWindow.loadFile('splash.html');
+    splash = splashWindow;
+
     const newWin = new BrowserWindow({
       width: 1600,
       height: 900,
+      show: false,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         contextIsolation: true,
@@ -297,7 +315,7 @@ app.whenReady().then(async () => {
         webSecurity: false,
       },
     });
-    mainWindow.setMenuBarVisibility(false);
+    newWin.setMenuBarVisibility(false);
 
     if (isDevMode) {
       const newRoutePath = routePath.replace(/\//, '#');
@@ -307,6 +325,13 @@ app.whenReady().then(async () => {
         hash: routePath,
       });
     }
+
+    newWin.once('ready-to-show', () => {
+      setTimeout(() => {
+        splash.close();
+        newWin.show();
+      }, 500);
+    });
   });
   // ===================== IPC Handlers for window operations =====================
 
@@ -412,7 +437,7 @@ app.whenReady().then(async () => {
     width: 400,
     height: 300,
     frame: false,
-    transparent: false,
+    transparent: true,
     alwaysOnTop: true,
     center: true,
     resizable: false,
@@ -439,8 +464,10 @@ app.whenReady().then(async () => {
   mainWindow.setMenuBarVisibility(false);
 
   mainWindow.once('ready-to-show', () => {
-    splash.close();
-    mainWindow.show();
+    setTimeout(() => {
+      splash.close();
+      mainWindow.show();
+    }, 500);
   });
   // ===================== End initialize main window =====================
 
@@ -459,9 +486,27 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
+    const splashWindow = new BrowserWindow({
+      width: 400,
+      height: 300,
+      frame: false,
+      transparent: true,
+      alwaysOnTop: true,
+      center: true,
+      resizable: false,
+      webPreferences: {
+        nodeIntegration: false,
+        contextIsolation: true,
+      },
+    });
+
+    splashWindow.loadFile('splash.html');
+    splash = splashWindow;
+
     mainWindow = new BrowserWindow({
       width: 1600,
       height: 900,
+      show: false,
       webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
         contextIsolation: true,
@@ -476,5 +521,12 @@ app.on('activate', () => {
     } else {
       mainWindow.loadFile('./dist/index.html');
     }
+
+    mainWindow.once('ready-to-show', () => {
+      setTimeout(() => {
+        splash.close();
+        mainWindow.show();
+      }, 500);
+    });
   }
 });
