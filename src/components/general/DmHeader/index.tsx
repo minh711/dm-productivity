@@ -152,7 +152,7 @@ const DmHeader: React.FC = () => {
 
         <Divider type="vertical" style={{ height: '40px' }} />
 
-        <div className={classNames(styles.title, 'font-serif font-bold')}>
+        <div className={classNames(styles.title, 'font-bold')}>
           {t(currentPageTitle).toUpperCase()}
         </div>
       </div>

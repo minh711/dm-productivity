@@ -73,7 +73,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
       <Layout>
         <DmHeader />
         <div style={{ height: '100%', overflowY: 'auto' }}>
-          <Content className="p-m" style={{ minHeight: 'calc(100% - 70px)' }}>
+          <Content className="p-m" style={{ minHeight: 'calc(100% - 67px)' }}>
             {children || <div>Welcome to the Dashboard!</div>}
           </Content>
           <DmFooter />

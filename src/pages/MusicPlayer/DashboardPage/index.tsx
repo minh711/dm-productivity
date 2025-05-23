@@ -69,7 +69,7 @@ const MusicPlayerDashboardPage = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className={style.container}>
+    <div className={classNames(style.container)}>
       <FullscreenLoading />
 
       <Button
@@ -79,7 +79,10 @@ const MusicPlayerDashboardPage = () => {
         Select Music Folder
       </Button>
 
-      <div className={style.content} ref={scrollContainerRef}>
+      <div
+        className={classNames('rounded', style.content)}
+        ref={scrollContainerRef}
+      >
         {musicFiles.map(({ path, metadata }, index) => (
           <LazyMusicListItem
             key={path}

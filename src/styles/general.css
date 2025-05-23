@@ -138,7 +138,7 @@
   color: var(--text-muted);
 }
 .text-white {
-  color: var(--text-white);
+  color: var(--text-revert);
 }
 .text-center {
   text-align: center;
@@ -160,10 +160,10 @@
 
 /* Background */
 .background-1 {
-  background-color: var(--background-1) !important;
+  background-color: var(--background-light) !important;
 }
 .background-2 {
-  background-color: var(--background-2) !important;
+  background-color: var(--background-dark) !important;
 }
 
 /* Others */

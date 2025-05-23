@@ -1,10 +1,9 @@
 :root {
   --text: rgba(0, 0, 0, 0.88);
-  --text-white: #fff;
+  --text-revert: #fff;
   --text-muted: rgba(0, 0, 0, 0.24);
-  --background-1: #fff;
-  --background-2: #e6fffb;
-  --background-2: #f5f5f5;
+  --background-light: #fff;
+  --background-dark: #f5f5f5;
   --background-transparent: rgba(0, 0, 0, 0.6);
   --card-background: rgba(255, 255, 255, 0.48);
   --table-head-cell: #fafafa;
@@ -17,12 +16,12 @@
 
 body.dark-mode {
   --text: #fff;
-  --text-white: rgba(0, 0, 0, 0.88);
+  --text-revert: rgba(0, 0, 0, 0.88);
   --text-muted: rgba(255, 255, 255, 0.24);
-  --background-1: #111d2c;
-  --background-2: #112a45;
+  --background-light: #282828;
+  --background-dark: #4a4a4a;
   --background-transparent: rgba(255, 255, 255, 0.6);
-  --card-background: rgba(17, 29, 44, 0.48);
+  --card-background: rgba(40, 40, 40, 0.48);
   --table-head-cell: #111d2c;
   --table-body-cell: #112a45;
   --table-border: #111d2c;
@@ -45,10 +44,10 @@ body {
 }
 
 html {
-  background-color: #f5f5f5 !important;
+  background-color: #fff !important; /* Can't use var here, don't know why */
 }
 html.dark-mode {
-  background-color: #112a45 !important;
+  background-color: #282828 !important; /* Can't use var here, don't know why */
 }
 
 body,
@@ -75,6 +74,7 @@ h5 {
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0);
   height: 8px;
+  border-radius: 8px;
 }
 ::-webkit-scrollbar-track:hover {
   background: rgba(0, 0, 0, 0.1);
