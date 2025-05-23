@@ -71,6 +71,14 @@ const DashboardPage = () => {
         <Col lg={6} md={24}>
           <Card bordered={false} style={{ height: '100%' }}>
             <h2>Chỉ tiêu hôm nay</h2>
+
+            <h3>Planed</h3>
+
+            <p>...</p>
+
+            <h3>Preset</h3>
+
+            <p>...</p>
           </Card>
         </Col>
 

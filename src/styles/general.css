@@ -160,10 +160,10 @@
 
 /* Background */
 .background-1 {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
 }
 .background-2 {
-  background-color: var(--background-dark) !important;
+  background-color: var(--background-content) !important;
 }
 
 /* Others */

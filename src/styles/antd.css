@@ -1,6 +1,6 @@
 /* Layout */
 .ant-layout {
-  background-color: var(--background-dark);
+  background-color: var(--background-content);
   color: var(--text);
   min-width: 400px !important;
 }
@@ -13,10 +13,10 @@
 
 /* Sider */
 .ant-layout-sider {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
 }
 .ant-layout-sider .ant-layout-sider-trigger {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
 }
 .anticon.anticon-right,
 .anticon.anticon-left {
@@ -26,7 +26,7 @@
 /* Menu */
 .ant-menu-light,
 .ant-menu-light > .ant-menu {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
 }
 .ant-menu-light .ant-menu-item,
 .ant-menu-light > .ant-menu .ant-menu-item,
@@ -36,30 +36,30 @@
   font-weight: bold;
 }
 .ant-menu-item-active {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   color: var(--color-primary);
 }
 .ant-menu-item:hover {
   color: var(--color-primary) !important;
 }
 .ant-menu-item:active {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
 }
 .ant-menu-light .ant-menu-item-selected,
 .ant-menu-light > .ant-menu .ant-menu-item-selected {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   color: var(--color-primary);
 }
 .ant-menu-submenu-selected {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   color: var(--color-primary);
 }
 .ant-menu-submenu-selected:hover {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   color: var(--color-primary);
 }
 .ant-menu-submenu-selected::after {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   border-bottom-color: var(--color-primary);
 }
 .ant-menu-item.wrap {
@@ -82,10 +82,10 @@
 
 /* Dropdown */
 .ant-dropdown-trigger {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
 }
 .ant-dropdown-menu {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
 }
 .ant-dropdown .ant-dropdown-menu .ant-dropdown-menu-item,
 .ant-dropdown-menu-submenu .ant-dropdown-menu .ant-dropdown-menu-item,
@@ -96,23 +96,23 @@
 
 /* Select */
 .ant-select-selector {
-  background: var(--background-light) !important;
+  background: var(--background-shell) !important;
   color: var(--text) !important;
 }
 .ant-select-open .ant-select-selector span {
   color: var(--text) !important;
 }
 .ant-select-dropdown {
-  background: var(--background-light);
+  background: var(--background-shell);
 }
 .ant-select-item-option-content {
   color: var(--text);
 }
 .ant-select-item-option-selected {
-  background-color: var(--background-dark) !important;
+  background-color: var(--background-content) !important;
 }
 .ant-select-item {
-  background: var(--background-light);
+  background: var(--background-shell);
 }
 .ant-select-arrow {
   color: var(--text) !important;
@@ -145,16 +145,16 @@
 
 /* Buttons */
 .ant-btn-color-default {
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   color: var(--text);
 }
 .ant-btn-color-default:hover {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
 }
 
 /* Card */
 .ant-card {
-  background-color: var(--card-background);
+  background-color: var(--background-card);
 }
 .ant-card-body {
   padding: 16px !important;
@@ -165,24 +165,24 @@
   color: var(--color-primary);
 }
 .ant-tooltip-arrow {
-  --antd-arrow-background-color: var(--background-light) !important;
+  --antd-arrow-background-color: var(--background-shell) !important;
 }
 .ant-tooltip-content {
-  background-origin: var(--background-light) !important;
+  background-origin: var(--background-shell) !important;
 }
 .ant-tooltip-inner {
   color: var(--text) !important;
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
   opacity: 0.9;
 }
 
 /* Notification */
 .ant-notification {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
   color: var(--text);
 }
 .ant-notification-notice-wrapper {
-  background-color: var(--background-light) !important;
+  background-color: var(--background-shell) !important;
   color: var(--text);
 }
 .ant-notification-notice-message {

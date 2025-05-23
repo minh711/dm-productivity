@@ -6,7 +6,7 @@
   position: absolute;
   top: -12px;
   left: 0px;
-  background-color: var(--background-light);
+  background-color: var(--background-shell);
   opacity: 0;
   border-radius: 8px;
   transition: top 0.4s ease-out, opacity 0.4s ease-out;

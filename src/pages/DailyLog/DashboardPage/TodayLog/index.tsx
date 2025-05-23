@@ -29,6 +29,11 @@ const TodayLog = () => {
     { key: '1', type: 'John', category: 'Work', duration: 30, note: 'Meeting' },
     { key: '2', type: 'Jane', category: 'Exercise', duration: 25, note: 'Gym' },
     { key: '3', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
+    { key: '4', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
+    { key: '5', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
+    { key: '6', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
+    { key: '7', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
+    { key: '8', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
   ]);
 
   const [newRow, setNewRow] = useState<MyData>({

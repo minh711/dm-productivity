@@ -2,10 +2,10 @@
   --text: rgba(0, 0, 0, 0.88);
   --text-revert: #fff;
   --text-muted: rgba(0, 0, 0, 0.24);
-  --background-light: #fff;
-  --background-dark: #f5f5f5;
+  --background-shell: #fff;
+  --background-content: #f5f5f5;
+  --background-card: rgba(255, 255, 255, 0.48);
   --background-transparent: rgba(0, 0, 0, 0.6);
-  --card-background: rgba(255, 255, 255, 0.48);
   --table-head-cell: #fafafa;
   --table-body-cell: #fff;
   --table-border: #f0f0f0;
@@ -18,10 +18,10 @@ body.dark-mode {
   --text: #fff;
   --text-revert: rgba(0, 0, 0, 0.88);
   --text-muted: rgba(255, 255, 255, 0.24);
-  --background-light: #282828;
-  --background-dark: #4a4a4a;
+  --background-shell: #282828;
+  --background-content: #4a4a4a;
+  --background-card: rgba(40, 40, 40, 0.48);
   --background-transparent: rgba(255, 255, 255, 0.6);
-  --card-background: rgba(40, 40, 40, 0.48);
   --table-head-cell: #111d2c;
   --table-body-cell: #112a45;
   --table-border: #111d2c;
