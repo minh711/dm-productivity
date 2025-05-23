@@ -137,7 +137,10 @@
 .text-muted {
   color: var(--text-muted);
 }
-.text-white {
+.text-normal {
+  color: var(--text);
+}
+.text-revert {
   color: var(--text-revert);
 }
 .text-center {

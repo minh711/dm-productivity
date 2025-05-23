@@ -22,7 +22,9 @@ const DmLink: React.FC<Props> = ({ to, children, style }) => {
 
   return (
     <DmContextMenu items={menuItems} style={style}>
-      <div onClick={() => navigate(to)}>{children ?? 'N/A'}</div>
+      <div style={{ cursor: 'pointer' }} onClick={() => navigate(to)}>
+        {children ?? 'N/A'}
+      </div>
     </DmContextMenu>
   );
 };

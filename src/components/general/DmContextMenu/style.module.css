@@ -4,8 +4,7 @@
 
 .menu {
   position: fixed;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: var(--background-shell);
   font-size: 14px;
   border-radius: 8px;
   padding: 5px 0;
@@ -20,10 +19,10 @@
 .menuItem {
   padding: 8px;
   cursor: pointer;
-  background-color: white;
+  background-color: var(--background-shell);
   transition: background-color 0.2s ease;
 }
 
 .menuItem:hover {
-  background-color: #eee;
+  background-color: var(--background-content);
 }

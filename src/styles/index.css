@@ -18,13 +18,13 @@ body.dark-mode {
   --text: #fff;
   --text-revert: rgba(0, 0, 0, 0.88);
   --text-muted: rgba(255, 255, 255, 0.24);
-  --background-shell: #282828;
-  --background-content: #4a4a4a;
-  --background-card: rgba(40, 40, 40, 0.48);
+  --background-shell: #1f1f22;
+  --background-content: #313033;
+  --background-card: rgba(31, 31, 34, 0.48);
   --background-transparent: rgba(255, 255, 255, 0.6);
-  --table-head-cell: #111d2c;
-  --table-body-cell: #112a45;
-  --table-border: #111d2c;
+  --table-head-cell: #1f1f22;
+  --table-body-cell: #313033;
+  --table-border: #1f1f22;
   --color-primary: #1677ff;
   --color-primary-rgb: 22, 119, 255;
   --color-danger: #ff4d4f;
@@ -47,7 +47,7 @@ html {
   background-color: #fff !important; /* Can't use var here, don't know why */
 }
 html.dark-mode {
-  background-color: #282828 !important; /* Can't use var here, don't know why */
+  background-color: #1f1f22 !important; /* Can't use var here, don't know why */
 }
 
 body,

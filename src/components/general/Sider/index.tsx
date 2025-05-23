@@ -6,6 +6,7 @@ import classNames from 'classnames';
 // import { useTranslation } from 'react-i18next';
 import { HOME_PATH } from '../../../constants';
 import useSession from '../../../hooks/useSession';
+import DmLink from '../DmLink';
 
 const { Sider } = Layout;
 
@@ -33,7 +34,6 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
       <div
         className="logo"
         style={{
-          cursor: 'pointer',
           height: collapsed ? '24px' : '32px',
           margin: '16px',
           display: 'flex',
@@ -41,19 +41,21 @@ const DmSider: React.FC<any> = ({ menuItems }) => {
           justifyContent: 'center',
           transition: 'height 0.3s ease',
         }}
-        onClick={() => navigate(HOME_PATH)}
       >
-        <span
-          style={{
-            fontSize: collapsed ? '18px' : '24px',
-            fontWeight: 'bold',
-            transition: 'font-size 0.3s ease',
-            textWrap: 'nowrap',
-          }}
-        >
-          🍇 {collapsed ? '' : ' DM Pro'}
-        </span>
+        <DmLink to={HOME_PATH}>
+          <span
+            style={{
+              fontSize: collapsed ? '18px' : '24px',
+              fontWeight: 'bold',
+              transition: 'font-size 0.3s ease',
+              textWrap: 'nowrap',
+            }}
+          >
+            🍇 {collapsed ? '' : ' DM Pro'}
+          </span>
+        </DmLink>
       </div>
+
       <Menu
         theme="light"
         mode="inline"

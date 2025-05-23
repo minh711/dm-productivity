@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './style.module.css';
 import classNames from 'classnames';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 const FullscreenLoading: React.FC = () => {
   const [fadingOut, setFadingOut] = useState(false);
@@ -24,9 +26,17 @@ const FullscreenLoading: React.FC = () => {
 
   return (
     <div
-      className={classNames(styles.overlay, { [styles.fadeOut]: fadingOut })}
+      className={classNames(
+        'd-flex justify-content-center align-items-center',
+        styles.overlay,
+        { [styles.fadeOut]: fadingOut }
+      )}
     >
-      <h1>Loading</h1>
+      <Spin
+        indicator={<LoadingOutlined spin />}
+        size="large"
+        tip="Loading..."
+      />
     </div>
   );
 };

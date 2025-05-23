@@ -42,6 +42,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           {t(routeTitles[HOME_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(HOME_PATH),
     },
     {
       key: 'daily-log',
@@ -56,6 +57,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           {t(routeTitles[DAILY_LOG_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(DAILY_LOG_PATH),
     },
     {
       key: 'musical',
@@ -70,6 +72,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           {t(routeTitles[MUSICAL_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(MUSICAL_PATH),
     },
     {
       key: { MUSIC_PLAYER_PATH },
@@ -83,6 +86,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
           {t(routeTitles[MUSIC_PLAYER_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(MUSIC_PLAYER_PATH),
     },
     // {
     //   key: 'group',

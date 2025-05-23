@@ -15,6 +15,7 @@ import DmHeader from '../../components/General/DmHeader';
 import DmSider from '../../components/General/Sider';
 import React, { ReactNode } from 'react';
 import DmLink from '../../components/General/DmLink';
+import { useNavigate } from 'react-router-dom';
 
 const { Content } = Layout;
 
@@ -24,6 +25,7 @@ interface MusicalLayoutProps {
 
 const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -38,6 +40,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
           {t(routeTitles[MUSICAL_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(MUSICAL_PATH),
     },
     {
       key: 'song',
@@ -51,6 +54,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
           {t(routeTitles[MUSIC_SONG_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(MUSIC_SONG_PATH),
     },
     {
       key: 'section',
@@ -64,6 +68,7 @@ const MusicalLayout: React.FC<MusicalLayoutProps> = ({ children }) => {
           {t(routeTitles[MUSIC_SECTION_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(MUSIC_SECTION_PATH),
     },
   ];
 

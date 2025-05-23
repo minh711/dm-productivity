@@ -159,6 +159,9 @@
 .ant-card-body {
   padding: 16px !important;
 }
+.ant-card-meta-title {
+  color: var(--text) !important;
+}
 
 /* Tool tip */
 .ant-tooltip {

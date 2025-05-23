@@ -100,7 +100,7 @@ const MusicPlayerDashboardPage = () => {
             <p>Now Playing:</p>
             <audio
               ref={(el) => {
-                if (el) el.volume = 0.05;
+                if (el) el.volume = 0.2;
               }}
               controls
               autoPlay
