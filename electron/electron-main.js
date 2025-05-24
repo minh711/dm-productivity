@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const AdmZip = require('adm-zip');
 
 // Change to false to build for production
-const isDevMode = true;
+const isDevMode = false;
 
 async function loadDataFromZip(zipFilePath) {
   const zip = new AdmZip(zipFilePath);

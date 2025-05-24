@@ -1,3 +1,41 @@
 .dropdownMenu {
   background-color: var(--background-shell);
 }
+
+.preview {
+  text-align: left;
+  max-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  position: relative;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  max-height: 400px;
+  overflow-y: auto;
+  opacity: 0;
+  padding: 16px;
+  background: var(--background-shell);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 9999;
+  width: 100%;
+  animation: fadeInSlideUp 0.4s ease forwards;
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    width: 240px;
+  }
+  to {
+    opacity: 1;
+    width: 300px;
+  }
+}

@@ -211,6 +211,12 @@
 .ant-select-selection-placeholder {
   color: var(--text) !important;
 }
+.ant-input-number {
+  background-color: var(--background-shell) !important;
+}
+.ant-input-number-input {
+  color: var(--text) !important;
+}
 
 /* Image */
 .ant-image-mask {

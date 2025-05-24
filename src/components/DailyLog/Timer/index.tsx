@@ -25,11 +25,23 @@ const Timer = ({ duration = 10 }) => {
     if (timeLeft > 0 && isTimerActive) {
       const timer = setTimeout(() => {
         setTimeLeft(timeLeft - 1);
-        setProgress(((timeLeft - 1) / duration) * 100); // Update progress
+        setProgress(((timeLeft - 1) / duration) * 100);
       }, 1000);
       return () => clearTimeout(timer);
     } else if (timeLeft === 0 && isTimerActive) {
-      // Show notification when the timer is up
+      // Play notification sound
+
+      // $$ Production $$
+      // const audio = new Audio(`${import.meta.env.BASE_URL}notification.mp3`);
+
+      // $$ Development $$
+      const audio = new Audio('/notification.mp3');
+
+      audio.play().catch((e) => {
+        console.warn('Failed to play sound:', e);
+      });
+
+      // Show notification
       if (Notification.permission === 'granted') {
         new Notification('Time is up!');
       }

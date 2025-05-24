@@ -6,6 +6,7 @@ import { LogCategoryRepository } from '../../../../api/repositories/logCategoryR
 import { LogTypeRepository } from '../../../../api/repositories/logTypeRepository';
 import { Log, LogCategory, LogType } from '../../../../api/models';
 import LogTag from '../../../../components/DailyLog/LogTag';
+import RichTextEditor from '../../../../components/General/RichTextEditor';
 
 const { Option } = Select;
 
@@ -124,13 +125,13 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
           onChange={(value) => onChange('duration', value ?? 0)}
         />
 
-        <Input
-          placeholder="Description"
-          className="mb-sm"
-          value={newRow.description}
-          onChange={(e) => onChange('description', e.target.value)}
-          style={{ marginBottom: 12 }}
-        />
+        <div className="mb-m">
+          <RichTextEditor
+            value={newRow.description || ''}
+            onChange={(value) => onChange('description', value)}
+            isSerif={false} // or true if you want serif font
+          />
+        </div>
 
         <Button onClick={onAdd} type="primary" block>
           Add Row
