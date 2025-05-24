@@ -14,6 +14,9 @@
       "title": "Tổng quan"
     },
     "description": "Bằng chứng không thể chối cãi về năng suất – hoặc sự lười biếng của bạn.",
+    "log-list" : {
+      "title": "Log list"
+    },
     "log-type-category": {
       "title": "Phân loại & Hạng mục công việc",
       "log-type": {

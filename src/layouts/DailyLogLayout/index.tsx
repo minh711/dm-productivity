@@ -2,6 +2,7 @@ import {
   DAILY_LOG_PATH,
   HOME_PATH,
   LOG_CATEGORY_PATH,
+  LOG_LIST_PATH,
   LOG_TYPE_AND_CATEGORY_PATH,
   routeTitles,
 } from '../../constants';
@@ -38,6 +39,20 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
         </DmLink>
       ),
       onClick: () => navigate(DAILY_LOG_PATH),
+    },
+    {
+      key: LOG_LIST_PATH,
+      icon: (
+        <span role="img" aria-label="lost-list">
+          <DmLink to={LOG_LIST_PATH}>📃</DmLink>
+        </span>
+      ),
+      label: (
+        <DmLink to={LOG_LIST_PATH} style={{ width: '100%' }}>
+          {t(routeTitles[LOG_LIST_PATH])}
+        </DmLink>
+      ),
+      onClick: () => navigate(LOG_LIST_PATH),
     },
     {
       key: LOG_TYPE_AND_CATEGORY_PATH,

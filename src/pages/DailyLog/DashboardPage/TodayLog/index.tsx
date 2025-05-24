@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Dropdown, TableColumnsType, Tooltip } from 'antd';
+import { Button, Dropdown, Modal, TableColumnsType, Tooltip } from 'antd';
 import { DeleteOutlined, DownOutlined } from '@ant-design/icons';
 import DraggableTable from '../../../../components/General/DraggableTable';
 import AddEditLogForm from './AddEditLogForm';
@@ -22,6 +22,9 @@ const TodayLog = () => {
   });
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const [editingRow, setEditingRow] = useState<Log | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -138,9 +141,9 @@ const TodayLog = () => {
         trigger={['click']}
         popupRender={() => (
           <AddEditLogForm
-            newRow={newRow}
+            row={newRow}
             onChange={handleInputChange}
-            onAdd={addRow}
+            onSubmit={addRow}
           />
         )}
         placement="bottomLeft"
@@ -154,8 +157,9 @@ const TodayLog = () => {
         <div style={{ minWidth: 720, minHeight: 400 }}>
           <DraggableTable
             hoverPointer={true}
-            onRowClick={(record: any) => {
-              console.log('fuck', record);
+            onRowClick={(record: Log) => {
+              setEditingRow(record);
+              setIsModalVisible(true);
             }}
             dataSource={data.map((item) => ({
               ...item,
@@ -166,6 +170,48 @@ const TodayLog = () => {
           />
         </div>
       </div>
+
+      <Modal
+        open={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        width={800}
+        footer={null}
+        destroyOnHidden
+        title={editingRow?.id ? 'Edit Log' : 'Add Log'}
+      >
+        {editingRow && (
+          <AddEditLogForm
+            row={editingRow}
+            onChange={(field, value) => {
+              setEditingRow((prev) => prev && { ...prev, [field]: value });
+            }}
+            onSubmit={async () => {
+              if (editingRow.id) {
+                // Edit existing
+                await LogRepository.update(editingRow);
+                setData((prev) =>
+                  prev.map((log) =>
+                    log.id === editingRow.id ? editingRow : log
+                  )
+                );
+              } else {
+                // Add new
+                const newId = uuidv4();
+                const newLog: Log = {
+                  ...editingRow,
+                  id: newId,
+                  date: new Date(),
+                  order: data.length,
+                };
+                await LogRepository.add(newLog);
+                setData((prev) => [...prev, newLog]);
+              }
+
+              setIsModalVisible(false);
+            }}
+          />
+        )}
+      </Modal>
     </div>
   );
 };

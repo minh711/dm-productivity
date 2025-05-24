@@ -11,12 +11,12 @@ import RichTextEditor from '../../../../components/General/RichTextEditor';
 const { Option } = Select;
 
 interface Props {
-  newRow: Log;
+  row: Log;
   onChange: (field: keyof Log, value: any) => void;
-  onAdd: () => void;
+  onSubmit: () => void;
 }
 
-const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
+const AddEditLogForm: React.FC<Props> = ({ row, onChange, onSubmit }) => {
   const [logTypes, setLogTypes] = useState<LogType[]>([]);
   const [logCategories, setLogCategories] = useState<LogCategory[]>([]);
   const [loading, setLoading] = useState(true);
@@ -49,7 +49,6 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
   return (
     <Card
       className={classNames(styles.dropdownMenu, 'shadow')}
-      style={{ width: '40vw' }}
       onClick={(e) => e.stopPropagation()} // Prevent dropdown from closing when clicking inside
     >
       <div>
@@ -58,7 +57,7 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
             <Select
               placeholder="Select Type"
               className="mb-sm"
-              value={newRow.logTypeId || undefined}
+              value={row.logTypeId || undefined}
               onChange={(value) => {
                 const selectedType = logTypes.find((lt) => lt.id === value);
                 if (selectedType) {
@@ -87,7 +86,7 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
             <Select
               placeholder="Select Category"
               className="mb-sm"
-              value={newRow.logCategoryId || undefined}
+              value={row.logCategoryId || undefined}
               onChange={(value) => {
                 const selectedCategory = logCategories.find(
                   (lc) => lc.id === value
@@ -121,19 +120,19 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
           placeholder="Duration"
           className="mb-sm"
           style={{ width: '100%', marginBottom: 12 }}
-          value={newRow.duration ?? 0}
+          value={row.duration ?? 0}
           onChange={(value) => onChange('duration', value ?? 0)}
         />
 
         <div className="mb-m">
           <RichTextEditor
-            value={newRow.description || ''}
+            value={row.description || ''}
             onChange={(value) => onChange('description', value)}
             isSerif={false} // or true if you want serif font
           />
         </div>
 
-        <Button onClick={onAdd} type="primary" block>
+        <Button onClick={onSubmit} type="primary" block>
           Add Row
         </Button>
       </div>

@@ -2,6 +2,7 @@ import {
   DAILY_LOG_PATH,
   HOME_PATH,
   LOG_CATEGORY_PATH,
+  LOG_LIST_PATH,
   LOG_TYPE_AND_CATEGORY_PATH,
   MUSIC_PLAYER_PATH,
   MUSIC_SECTION_PATH,
@@ -23,6 +24,7 @@ import MusicSongDetailPage from '../pages/Musical/MusicSongDetailPage';
 import SettingsPage from '../pages/SettingsPage';
 import MusicPlayerDashboardPage from '../pages/MusicPlayer/DashboardPage';
 import MusicPlayerLayout from '../layouts/MusicPlayerLayout';
+import LogListPage from '../pages/DailyLog/LogListPage';
 
 export const routes = [
   {
@@ -42,6 +44,13 @@ export const routes = [
   {
     path: DAILY_LOG_PATH,
     component: DailyLogDashboardPage,
+    roles: [],
+    isProtected: false,
+    layout: DailyLogLayout,
+  },
+  {
+    path: LOG_LIST_PATH,
+    component: LogListPage,
     roles: [],
     isProtected: false,
     layout: DailyLogLayout,

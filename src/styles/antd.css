@@ -218,6 +218,20 @@
   color: var(--text) !important;
 }
 
+/* Modal */
+.ant-modal-title {
+  color: var(--text) !important;
+}
+.ant-modal-header {
+  background-color: var(--background-shell) !important;
+}
+.ant-modal-content {
+  background-color: var(--background-shell) !important;
+}
+.ant-modal-close {
+  color: var(--text) !important;
+}
+
 /* Image */
 .ant-image-mask {
   background-color: unset !important;
