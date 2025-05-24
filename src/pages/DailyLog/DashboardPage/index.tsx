@@ -58,6 +58,59 @@ const DashboardPage = () => {
 
   const data = generateData();
 
+  const items = [
+    {
+      key: 'chart',
+      label: 'Biểu đồ',
+      children: (
+        <Card>
+          <div className="d-flex justify-content-center align-items-center">
+            <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
+              <ResponsiveContainer width={840} height={600}>
+                <BarChart
+                  data={data}
+                  margin={{ left: -24, top: 80, bottom: 60 }}
+                  barCategoryGap={5}
+                >
+                  <text
+                    x="50%"
+                    y="48"
+                    textAnchor="middle"
+                    fontSize="16"
+                    fontWeight="bold"
+                  >
+                    Thống kê tháng này
+                  </text>
+                  <CartesianGrid strokeDasharray="2 2" />
+                  <XAxis
+                    dataKey="date"
+                    angle={-90}
+                    textAnchor="end"
+                    interval={0}
+                    tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
+                  />
+                  <YAxis
+                    width={50}
+                    tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
+                  />
+                  <Tooltip />
+                  <Bar dataKey="categoryA" stackId="a" fill="#8884d8" />
+                  <Bar dataKey="categoryB" stackId="a" fill="#82ca9d" />
+                  <Bar dataKey="categoryC" stackId="a" fill="#ffc658" />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </Card>
+      ),
+    },
+    {
+      key: 'calendar',
+      label: 'Lịch',
+      children: <DashboardCalendar />,
+    },
+  ];
+
   return (
     <>
       <Row gutter={[16, 16]} align="stretch">
@@ -93,18 +146,6 @@ const DashboardPage = () => {
         <Col span={10}>
           <Card bordered={false} style={{ height: '100%' }}>
             <h2>Kế hoạch sắp tới</h2>
-
-            {/* <Card className="d-flex justify-content-center align-item-center"> */}
-            {/* <div style={{ height: 600 }}>
-                <Calendar
-                  localizer={localizer}
-                  events={events}
-                  startAccessor="start"
-                  endAccessor="end"
-                  defaultView="month"
-                />
-              </div> */}
-            {/* </Card> */}
           </Card>
         </Col>
 
@@ -112,66 +153,7 @@ const DashboardPage = () => {
           <Card bordered={false} style={{ height: '100%' }}>
             <h2>Thống kê</h2>
 
-            <Tabs defaultActiveKey="chart" type="card">
-              <TabPane tab="Biểu đồ" key="chart">
-                <Card>
-                  <div className="d-flex justify-content-center align-items-center">
-                    <div style={{ overflowX: 'auto', overflowY: 'hidden' }}>
-                      <div>
-                        <ResponsiveContainer width={840} height={600}>
-                          <BarChart
-                            data={data}
-                            margin={{ left: -24, top: 80, bottom: 60 }}
-                            barCategoryGap={5}
-                          >
-                            <text
-                              x="50%"
-                              y="48"
-                              textAnchor="middle"
-                              fontSize="16"
-                              fontWeight="bold"
-                            >
-                              Thống kê tháng này
-                            </text>
-                            <CartesianGrid strokeDasharray="2 2" />
-                            <XAxis
-                              dataKey="date"
-                              angle={-90}
-                              textAnchor="end"
-                              interval={0}
-                              tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
-                            />
-                            <YAxis
-                              width={50}
-                              tick={{ fontSize: 12, fontFamily: 'sans-serif' }}
-                            />
-                            <Tooltip />
-                            <Bar
-                              dataKey="categoryA"
-                              stackId="a"
-                              fill="#8884d8"
-                            />
-                            <Bar
-                              dataKey="categoryB"
-                              stackId="a"
-                              fill="#82ca9d"
-                            />
-                            <Bar
-                              dataKey="categoryC"
-                              stackId="a"
-                              fill="#ffc658"
-                            />
-                          </BarChart>
-                        </ResponsiveContainer>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </TabPane>
-              <TabPane tab="Lịch" key="calendar">
-                <DashboardCalendar />
-              </TabPane>
-            </Tabs>
+            <Tabs defaultActiveKey="chart" type="card" items={items} />
           </Card>
         </Col>
       </Row>

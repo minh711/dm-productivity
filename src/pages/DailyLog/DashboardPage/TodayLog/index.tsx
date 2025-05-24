@@ -72,7 +72,10 @@ const TodayLog = () => {
       </Dropdown>
 
       <DraggableTable
-        dataSource={data}
+        dataSource={data.map((item) => ({
+          ...item,
+          key: item.id,
+        }))}
         columns={myColumns}
         onSortEnd={setData}
       />

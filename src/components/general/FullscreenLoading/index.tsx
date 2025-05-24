@@ -32,11 +32,7 @@ const FullscreenLoading: React.FC = () => {
         { [styles.fadeOut]: fadingOut }
       )}
     >
-      <Spin
-        indicator={<LoadingOutlined spin />}
-        size="large"
-        tip="Loading..."
-      />
+      <Spin indicator={<LoadingOutlined spin />} size="large" />
     </div>
   );
 };
