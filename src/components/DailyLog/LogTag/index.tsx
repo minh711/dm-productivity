@@ -15,9 +15,9 @@ const LogTag: React.FC<Props> = ({ item }) => {
           color: '#fff',
           backgroundColor: item.color,
           cursor: 'pointer',
-          textAlign: 'center',
           display: 'flex',
           alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {item.name}
