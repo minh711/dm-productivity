@@ -223,23 +223,27 @@ app.whenReady().then(async () => {
     return base64Data;
   });
 
-  ipcMain.handle('delete-file', async (event, fileName) => {
+  ipcMain.handle('delete-file', async (event, relativeFilePath) => {
     const fs = require('fs').promises;
+    const basePath = path.join(app.getPath('userData'), 'data');
 
-    const filePath = path.join(
-      app.getPath('userData'),
-      'data',
-      'files',
-      fileName
-    );
+    let filePath;
+    if (relativeFilePath.startsWith('/')) {
+      // Remove leading '/' and join to basePath
+      const segments = relativeFilePath.slice(1).split('/');
+      filePath = path.join(basePath, ...segments);
+    } else {
+      // Prepend 'files' folder for paths not starting with '/'
+      filePath = path.join(basePath, 'files', relativeFilePath);
+    }
 
     try {
       await fs.access(filePath); // Check if file exists
       await fs.unlink(filePath); // Delete the file
-      return true; // Success
+      return true; // success
     } catch (error) {
       console.error('Error deleting file:', error);
-      return false; // Failure
+      return false; // failure
     }
   });
   // ===================== End IPC Handlers for file operations =====================
