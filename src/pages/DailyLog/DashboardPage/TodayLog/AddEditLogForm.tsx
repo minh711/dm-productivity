@@ -4,22 +4,14 @@ import classNames from 'classnames';
 import styles from './style.module.css';
 import { LogCategoryRepository } from '../../../../api/repositories/logCategoryRepository';
 import { LogTypeRepository } from '../../../../api/repositories/logTypeRepository';
-import { LogCategory, LogType } from '../../../../api/models';
+import { Log, LogCategory, LogType } from '../../../../api/models';
 import LogTag from '../../../../components/DailyLog/LogTag';
 
 const { Option } = Select;
 
-interface MyData {
-  key: string;
-  type: string;
-  category: string;
-  duration: number;
-  note: string;
-}
-
 interface Props {
-  newRow: MyData;
-  onChange: (field: keyof MyData, value: string | number) => void;
+  newRow: Log;
+  onChange: (field: keyof Log, value: any) => void;
   onAdd: () => void;
 }
 
@@ -65,8 +57,14 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
             <Select
               placeholder="Select Type"
               className="mb-sm"
-              value={newRow.type || undefined}
-              onChange={(value) => onChange('type', value)}
+              value={newRow.logTypeId || undefined}
+              onChange={(value) => {
+                const selectedType = logTypes.find((lt) => lt.id === value);
+                if (selectedType) {
+                  onChange('logTypeId', selectedType.id);
+                  onChange('logType', selectedType);
+                }
+              }}
               showSearch
               filterOption={(input, option) =>
                 option?.value != null &&
@@ -78,7 +76,7 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
               style={{ width: '100%', marginBottom: 12 }}
             >
               {logTypes.map((lt) => (
-                <Option key={lt.id} value={lt.name}>
+                <Option key={lt.id} value={lt.id}>
                   <LogTag item={lt}></LogTag>
                 </Option>
               ))}
@@ -88,8 +86,16 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
             <Select
               placeholder="Select Category"
               className="mb-sm"
-              value={newRow.category || undefined}
-              onChange={(value) => onChange('category', value)}
+              value={newRow.logCategoryId || undefined}
+              onChange={(value) => {
+                const selectedCategory = logCategories.find(
+                  (lc) => lc.id === value
+                );
+                if (selectedCategory) {
+                  onChange('logCategoryId', selectedCategory.id);
+                  onChange('logCategory', selectedCategory);
+                }
+              }}
               showSearch
               filterOption={(input, option) =>
                 option?.value != null &&
@@ -101,7 +107,7 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
               style={{ width: '100%', padding: 0, marginBottom: 12 }}
             >
               {logCategories.map((lc) => (
-                <Option key={lc.id} value={lc.name}>
+                <Option key={lc.id} value={lc.id}>
                   <LogTag item={lc}></LogTag>
                 </Option>
               ))}
@@ -119,10 +125,10 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
         />
 
         <Input
-          placeholder="Note"
+          placeholder="Description"
           className="mb-sm"
-          value={newRow.note}
-          onChange={(e) => onChange('note', e.target.value)}
+          value={newRow.description}
+          onChange={(e) => onChange('description', e.target.value)}
           style={{ marginBottom: 12 }}
         />
 

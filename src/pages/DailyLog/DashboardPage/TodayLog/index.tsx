@@ -3,42 +3,51 @@ import { Button, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import DraggableTable from '../../../../components/General/DraggableTable';
 import { myColumns } from './columns';
-import AddEditLogForm from './AddEditLogForm'; // import new component
-
-interface MyData {
-  key: string;
-  type: string;
-  category: string;
-  duration: number;
-  note: string;
-}
+import AddEditLogForm from './AddEditLogForm';
+import { Log } from '../../../../api/models'; // Use Log interface
 
 const TodayLog = () => {
-  const [data, setData] = useState<MyData[]>([
-    { key: '1', type: 'John', category: 'Work', duration: 30, note: 'Meeting' },
-    { key: '2', type: 'Jane', category: 'Exercise', duration: 25, note: 'Gym' },
-    { key: '3', type: 'Doe', category: 'Study', duration: 40, note: 'Reading' },
-  ]);
+  const [data, setData] = useState<Log[]>([]);
 
-  const [newRow, setNewRow] = useState<MyData>({
-    key: '',
-    type: '',
-    category: '',
+  const [newRow, setNewRow] = useState<Log>({
+    id: '',
+    date: new Date(),
     duration: 0,
-    note: '',
+    description: '',
+    logTypeId: '',
+    logCategoryId: '',
   });
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const handleInputChange = (field: keyof MyData, value: string | number) => {
-    setNewRow((prev) => ({ ...prev, [field]: value }));
+  const handleInputChange = (field: keyof Log, value: string | number) => {
+    setNewRow((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
   };
 
   const addRow = () => {
-    if (!newRow.type || !newRow.category || newRow.duration <= 0) return;
-    const rowToAdd = { ...newRow, key: String(Date.now()) };
+    if (!newRow.logTypeId || !newRow.logCategoryId || newRow.duration <= 0)
+      return;
+
+    const rowToAdd: Log = {
+      ...newRow,
+      id: String(Date.now()),
+      date: new Date(),
+    };
+
     setData((prev) => [...prev, rowToAdd]);
-    setNewRow({ key: '', type: '', category: '', duration: 0, note: '' });
+
+    setNewRow({
+      id: '',
+      date: new Date(),
+      duration: 0,
+      description: '',
+      logTypeId: '',
+      logCategoryId: '',
+    });
+
     setDropdownOpen(false);
   };
 

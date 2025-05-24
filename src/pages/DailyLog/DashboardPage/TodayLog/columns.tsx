@@ -8,17 +8,8 @@ export const myColumns: TableColumnsType<any> = [
     dataIndex: 'type',
     width: 200,
     render: (_, record) => (
-      <Tooltip title={record.type}>
-        <div
-          style={{
-            padding: '4px 16px',
-            borderRadius: '16px',
-            backgroundColor: 'pink',
-            flex: '1',
-          }}
-        >
-          {record.type}
-        </div>
+      <Tooltip title={record.logType.name}>
+        <LogTag item={record.logType}></LogTag>
       </Tooltip>
     ),
   },
@@ -27,18 +18,8 @@ export const myColumns: TableColumnsType<any> = [
     dataIndex: 'category',
     width: 200,
     render: (_, record) => (
-      <Tooltip title={record.category}>
-        <div
-          style={{
-            padding: '4px 16px',
-            borderRadius: '16px',
-            backgroundColor: 'pink',
-            flex: '1',
-          }}
-        >
-          {record.category}
-        </div>
-        {/* <LogTag item={record.category}></LogTag> */}
+      <Tooltip title={record.logCategory.name}>
+        <LogTag item={record.logCategory}></LogTag>
       </Tooltip>
     ),
   },
