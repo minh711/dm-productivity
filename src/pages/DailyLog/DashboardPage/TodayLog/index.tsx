@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Dropdown, TableColumnsType, Tooltip } from 'antd';
 import { DeleteOutlined, DownOutlined } from '@ant-design/icons';
 import DraggableTable from '../../../../components/General/DraggableTable';
@@ -6,6 +6,8 @@ import AddEditLogForm from './AddEditLogForm';
 import { Log } from '../../../../api/models'; // Use Log interface
 import LogTag from '../../../../components/DailyLog/LogTag';
 import DescriptionPreview from './DescriptionPreview';
+import { LogRepository } from '../../../../api/repositories/logRepository';
+import { v4 as uuidv4 } from 'uuid';
 
 const TodayLog = () => {
   const [data, setData] = useState<Log[]>([]);
@@ -21,6 +23,18 @@ const TodayLog = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  useEffect(() => {
+    (async () => {
+      const today = new Date();
+      const logs = await LogRepository.getAllByDate(today);
+      logs.sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+
+      console.log('Logs', logs);
+
+      setData(logs);
+    })();
+  }, []);
+
   const handleInputChange = (field: keyof Log, value: string | number) => {
     setNewRow((prev) => ({
       ...prev,
@@ -28,18 +42,18 @@ const TodayLog = () => {
     }));
   };
 
-  const addRow = () => {
-    if (!newRow.logTypeId || !newRow.logCategoryId || newRow.duration <= 0)
+  const addRow = async () => {
+    if (!newRow.logTypeId || !newRow.logCategoryId || newRow.duration < 0)
       return;
-
-    console.log('New row', newRow);
 
     const rowToAdd: Log = {
       ...newRow,
-      id: String(Date.now()),
+      id: uuidv4(),
       date: new Date(),
+      order: data.length,
     };
 
+    await LogRepository.add(rowToAdd);
     setData((prev) => [...prev, rowToAdd]);
 
     setNewRow({
@@ -52,6 +66,21 @@ const TodayLog = () => {
     });
 
     setDropdownOpen(false);
+  };
+
+  const handleDelete = async (id: string, date: Date) => {
+    await LogRepository.delete(id, date);
+    setData((prev) => prev.filter((l) => l.id !== id));
+  };
+
+  const handleSortEnd = async (newArr: Log[]) => {
+    setData(newArr);
+
+    console.log('New array', newArr);
+
+    for (const log of newArr) {
+      await LogRepository.update(log);
+    }
   };
 
   const myColumns: TableColumnsType<any> = [
@@ -90,7 +119,14 @@ const TodayLog = () => {
       dataIndex: 'actions',
       align: 'center',
       width: 20,
-      render: (_, record) => <DeleteOutlined />,
+      render: (_, record) => (
+        <Tooltip title="Delete">
+          <DeleteOutlined
+            onClick={() => handleDelete(record.id, record.date)}
+            style={{ color: 'red', cursor: 'pointer' }}
+          />
+        </Tooltip>
+      ),
     },
   ];
 
@@ -117,12 +153,16 @@ const TodayLog = () => {
       <div style={{ overflowX: 'auto' }}>
         <div style={{ minWidth: 720, minHeight: 400 }}>
           <DraggableTable
+            hoverPointer={true}
+            onRowClick={(record: any) => {
+              console.log('fuck', record);
+            }}
             dataSource={data.map((item) => ({
               ...item,
               key: item.id,
             }))}
             columns={myColumns}
-            onSortEnd={setData}
+            onSortEnd={handleSortEnd}
           />
         </div>
       </div>

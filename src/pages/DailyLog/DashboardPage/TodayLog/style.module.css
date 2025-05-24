@@ -28,6 +28,9 @@
   width: 100%;
   animation: fadeInSlideUp 0.4s ease forwards;
 }
+.overlay p:last-child {
+  margin: 0;
+}
 
 @keyframes fadeInSlideUp {
   from {

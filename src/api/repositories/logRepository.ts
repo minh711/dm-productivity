@@ -3,42 +3,56 @@ import { Log } from '../models';
 export class LogRepository {
   private static storeName = 'logs';
 
-  // static async getAll(): Promise<Log[]> {
-  //   return (await window.electron.get(this.storeName, [])) as Log[];
-  // }
+  private static getStoreKey(date: Date | string) {
+    const d = typeof date === 'string' ? new Date(date) : date;
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    return `${this.storeName}-${y}-${m}`; // -yyyy-mm
+  }
 
-  static async getByDate(date: Date): Promise<Log[]> {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const storeNameWithDate = `${this.storeName}-${year}-${month}`; // yyyy-mm
-    return (await window.electron.get(storeNameWithDate, [])) as Log[];
+  static async getAllByMonth(date: Date): Promise<Log[]> {
+    const key = this.getStoreKey(date);
+    return (await window.electron.get(key, [])) as Log[];
+  }
+
+  static async getAllByDate(date: Date): Promise<Log[]> {
+    const all = await this.getAllByMonth(date);
+    return all.filter((log) => {
+      const d = new Date(log.date);
+      return (
+        d.getFullYear() === date.getFullYear() &&
+        d.getMonth() === date.getMonth() &&
+        d.getDate() === date.getDate()
+      );
+    });
   }
 
   static async add(log: Log): Promise<void> {
-    const logs = await this.getByDate(log.date);
-    log.order ||= 0;
+    const key = this.getStoreKey(log.date);
+    const logs = await this.getAllByMonth(log.date);
+    log.order ??= 0;
     logs.push(log);
-    await window.electron.set(`${this.storeName}`, logs);
+    await window.electron.set(key, logs);
   }
 
   static async update(updatedLog: Log): Promise<boolean> {
-    const logs = await this.getByDate(updatedLog.date);
-    const index = logs.findIndex((log) => log.id === updatedLog.id);
+    const key = this.getStoreKey(updatedLog.date);
+    const logs = await this.getAllByMonth(updatedLog.date);
+    const idx = logs.findIndex((l) => l.id === updatedLog.id);
+    if (idx === -1) return false;
 
-    if (index === -1) return false;
-
-    logs[index] = updatedLog;
-    await window.electron.set(this.storeName, logs);
+    logs[idx] = updatedLog;
+    await window.electron.set(key, logs);
     return true;
   }
 
   static async delete(logId: string, date: Date): Promise<boolean> {
-    const logs = await this.getByDate(date);
-    const filteredLogs = logs.filter((log) => log.id !== logId);
+    const key = this.getStoreKey(date);
+    const logs = await this.getAllByMonth(date);
+    const filtered = logs.filter((l) => l.id !== logId);
+    if (filtered.length === logs.length) return false;
 
-    if (filteredLogs.length === logs.length) return false;
-
-    await window.electron.set(this.storeName, filteredLogs);
+    await window.electron.set(key, filtered);
     return true;
   }
 }

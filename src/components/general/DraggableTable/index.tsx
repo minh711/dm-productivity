@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useState } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { HolderOutlined } from '@ant-design/icons';
 import type { DragEndEvent } from '@dnd-kit/core';
 import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
@@ -23,6 +23,8 @@ interface DraggableTableProps<T> {
   dataSource: T[];
   columns: TableColumnsType<T>;
   onSortEnd?: (newData: T[]) => void;
+  hoverPointer?: boolean; // added
+  onRowClick?: (record: T) => void; // added
 }
 
 interface RowContextProps {
@@ -44,8 +46,13 @@ const DragHandle: React.FC = () => {
 const Row = <T extends { key: string }>({
   'data-row-key': rowKey,
   style,
+  onClick,
   ...props
-}: React.HTMLAttributes<HTMLTableRowElement> & { 'data-row-key': string }) => {
+}: React.HTMLAttributes<HTMLTableRowElement> & {
+  'data-row-key': string;
+  onClick?: () => void;
+  'data-hover-pointer'?: boolean;
+}) => {
   const {
     attributes,
     listeners,
@@ -61,6 +68,7 @@ const Row = <T extends { key: string }>({
     transform: CSS.Translate.toString(transform),
     transition,
     ...(isDragging ? { position: 'relative', zIndex: 9999 } : {}),
+    cursor: props['data-hover-pointer'] ? 'pointer' : undefined,
   };
 
   const contextValue = useMemo<RowContextProps>(
@@ -70,7 +78,13 @@ const Row = <T extends { key: string }>({
 
   return (
     <RowContext.Provider value={contextValue}>
-      <tr {...props} ref={setNodeRef} style={rowStyle} {...attributes} />
+      <tr
+        {...props}
+        ref={setNodeRef}
+        style={rowStyle}
+        {...attributes}
+        onClick={onClick}
+      />
     </RowContext.Provider>
   );
 };
@@ -79,6 +93,8 @@ const DraggableTable = <T extends { key: string }>({
   dataSource,
   columns,
   onSortEnd,
+  hoverPointer,
+  onRowClick,
 }: DraggableTableProps<T>) => {
   const data = dataSource;
 
@@ -93,8 +109,14 @@ const DraggableTable = <T extends { key: string }>({
       const activeIndex = data.findIndex((i) => i.key === active.id);
       const overIndex = data.findIndex((i) => i.key === over?.id);
       const newData = arrayMove(data, activeIndex, overIndex);
+
+      newData.forEach((item: any, index) => {
+        item.order = index;
+      });
+
       console.log('Updated order:', newData);
-      onSortEnd?.(newData); // Notify parent to update state
+
+      onSortEnd?.(newData);
     }
   };
 
@@ -118,7 +140,24 @@ const DraggableTable = <T extends { key: string }>({
         strategy={verticalListSortingStrategy}
       >
         <Table<T>
-          components={{ body: { row: Row } }}
+          components={{
+            body: {
+              row: (rowProps: any) => (
+                <Row
+                  {...rowProps}
+                  data-hover-pointer={hoverPointer ? true : undefined}
+                  onClick={() => {
+                    if (onRowClick) {
+                      const record = data.find(
+                        (item) => item.key === rowProps['data-row-key']
+                      );
+                      if (record) onRowClick(record);
+                    }
+                  }}
+                />
+              ),
+            },
+          }}
           rowKey="key"
           columns={updatedColumns}
           dataSource={data}

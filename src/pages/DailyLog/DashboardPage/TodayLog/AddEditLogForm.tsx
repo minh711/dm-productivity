@@ -117,11 +117,11 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
         </Row>
 
         <InputNumber
-          min={1}
+          min={0}
           placeholder="Duration"
           className="mb-sm"
           style={{ width: '100%', marginBottom: 12 }}
-          value={newRow.duration}
+          value={newRow.duration ?? 0}
           onChange={(value) => onChange('duration', value ?? 0)}
         />
 
