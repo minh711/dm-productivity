@@ -94,7 +94,7 @@ const MusicPlayerDashboardPage = () => {
         ))}
       </div>
 
-      <Card bordered={false} className={classNames(style.player)}>
+      <Card variant="borderless" className={classNames(style.player)}>
         {currentTrack && (
           <div>
             <p>Now Playing:</p>

@@ -115,7 +115,7 @@ const DashboardPage = () => {
     <>
       <Row gutter={[16, 16]} align="stretch">
         <Col lg={6} md={24}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>Chỉ tiêu hôm nay</h2>
 
             <h3>Planed</h3>
@@ -129,7 +129,7 @@ const DashboardPage = () => {
         </Col>
 
         <Col lg={12} md={24}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>Công việc hôm nay</h2>
 
             <TodayLog />
@@ -137,20 +137,20 @@ const DashboardPage = () => {
         </Col>
 
         <Col lg={6} md={24}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>Đồng hồ bấm giờ</h2>
             <Timer />
           </Card>
         </Col>
 
         <Col span={10}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>Kế hoạch sắp tới</h2>
           </Card>
         </Col>
 
         <Col span={14}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>Thống kê</h2>
 
             <Tabs defaultActiveKey="chart" type="card" items={items} />

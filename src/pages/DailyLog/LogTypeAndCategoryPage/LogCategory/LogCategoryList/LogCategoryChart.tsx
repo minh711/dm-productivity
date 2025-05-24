@@ -13,7 +13,7 @@ const LogCategoryChart: React.FC<Props> = ({ logCategories }) => {
     .filter((lc) => lc.totalDuration > 0);
 
   return (
-    <Card bordered={false}>
+    <Card variant="borderless">
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie

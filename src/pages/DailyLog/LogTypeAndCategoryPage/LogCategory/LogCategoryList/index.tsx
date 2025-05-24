@@ -153,7 +153,7 @@ const LogCategoryList = () => {
 
   return (
     <div>
-      <Card bordered={false}>
+      <Card variant="borderless">
         <Title level={4}>Total</Title>
         <LogCategoryChart
           logCategories={filteredLogCategories.filter((lc) =>
@@ -162,7 +162,7 @@ const LogCategoryList = () => {
         />
       </Card>
 
-      <Card bordered={false} className="mt-m">
+      <Card variant="borderless" className="mt-m">
         <Row justify="space-between" className="mb-sm">
           <Button type="primary" onClick={handleAddNew}>
             {t('daily-log.log-type-category.log-category.add-new')}

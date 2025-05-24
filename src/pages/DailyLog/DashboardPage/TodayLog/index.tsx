@@ -57,7 +57,7 @@ const TodayLog = () => {
         open={dropdownOpen}
         onOpenChange={setDropdownOpen}
         trigger={['click']}
-        dropdownRender={() => (
+        popupRender={() => (
           <AddEditLogForm
             newRow={newRow}
             onChange={handleInputChange}

@@ -76,7 +76,7 @@ const MusicSectionCard: React.FC<MusicSectionCardProps> = ({
 
   return (
     <Card
-      bordered={false}
+      variant="borderless"
       className={classNames(styles.sectionContainer, 'mb-m')}
       key={section.id}
       ref={(el) => (sectionRefs.current[section.id] = el)}

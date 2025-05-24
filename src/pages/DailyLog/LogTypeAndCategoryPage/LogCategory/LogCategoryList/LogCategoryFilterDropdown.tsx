@@ -71,7 +71,7 @@ const LogCategoryFilterDropdown: React.FC<Props> = ({
 
   const menu = (
     <Card
-      bordered={false}
+      variant="borderless"
       style={{ maxWidth: 300 }}
       className="background-1 shadow"
     >
@@ -182,7 +182,7 @@ const LogCategoryFilterDropdown: React.FC<Props> = ({
     <Dropdown
       trigger={['click']}
       placement="bottomRight"
-      dropdownRender={() => menu}
+      popupRender={() => menu}
     >
       <Button>
         Filters <DownOutlined />

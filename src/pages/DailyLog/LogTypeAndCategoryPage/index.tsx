@@ -12,14 +12,14 @@ const LogTypePage = () => {
     <div>
       <Row gutter={[16, 16]} align={'stretch'}>
         <Col span={12}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>{t('daily-log.log-type-category.log-type.title')}</h2>
 
             <LogTypeList />
           </Card>
         </Col>
         <Col span={12}>
-          <Card bordered={false} style={{ height: '100%' }}>
+          <Card variant="borderless" style={{ height: '100%' }}>
             <h2>{t('daily-log.log-type-category.log-category.title')}</h2>
 
             <LogCategoryList />

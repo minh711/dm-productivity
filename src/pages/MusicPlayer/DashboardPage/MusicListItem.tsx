@@ -17,7 +17,7 @@ type Props = {
 
 const MusicListItem: React.FC<Props> = ({ path, metadata, onPlay }) => {
   return (
-    <Card bordered={false}>
+    <Card variant="borderless">
       <div className="d-flex justify-content-center">
         {metadata.thumbnail ? (
           <FileLoader

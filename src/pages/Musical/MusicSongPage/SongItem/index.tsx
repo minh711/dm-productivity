@@ -48,7 +48,7 @@ const SongItem: React.FC<SongItemProps> = ({ song, onEdit }) => {
       )}
       <Card
         onClick={handleSongClick}
-        bordered={false}
+        variant="borderless"
         style={{ cursor: 'pointer' }}
         cover={
           song.thumbnail ? (
