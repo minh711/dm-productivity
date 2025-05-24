@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Checkbox, CheckboxChangeEvent } from 'antd';
 import dayjs from 'dayjs';
 import { LogCategory } from '../../../../../api/models'; // Adjust path accordingly
+import LogTag from '../../../../../components/DailyLog/LogTag';
 
 interface Props {
   data: LogCategory[];
@@ -57,17 +58,8 @@ const LogCategoryTable: React.FC<Props> = ({
       align: 'center' as const,
       width: 200,
       render: (_: string, record: LogCategory) => (
-        <div
-          style={{
-            padding: '4px 16px',
-            borderRadius: '16px',
-            color: '#fff',
-            backgroundColor: record.color,
-            cursor: 'pointer',
-          }}
-          onClick={() => onEdit(record)}
-        >
-          {record.name}
+        <div onClick={() => onEdit(record)}>
+          <LogTag item={record}></LogTag>
         </div>
       ),
     },

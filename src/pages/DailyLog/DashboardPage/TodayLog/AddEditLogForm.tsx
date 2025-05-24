@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Select, InputNumber, Button, Card, Input, Spin } from 'antd';
+import { Select, InputNumber, Button, Card, Input, Spin, Row, Col } from 'antd';
 import classNames from 'classnames';
 import styles from './style.module.css';
 import { LogCategoryRepository } from '../../../../api/repositories/logCategoryRepository';
 import { LogTypeRepository } from '../../../../api/repositories/logTypeRepository';
 import { LogCategory, LogType } from '../../../../api/models';
+import LogTag from '../../../../components/DailyLog/LogTag';
 
 const { Option } = Select;
 
@@ -59,65 +60,54 @@ const AddEditLogForm: React.FC<Props> = ({ newRow, onChange, onAdd }) => {
       onClick={(e) => e.stopPropagation()} // Prevent dropdown from closing when clicking inside
     >
       <div>
-        <Select
-          placeholder="Select Type"
-          className="mb-sm"
-          value={newRow.type || undefined}
-          onChange={(value) => onChange('type', value)}
-          showSearch
-          filterOption={(input, option) =>
-            option?.value != null &&
-            option.value.toString().toLowerCase().includes(input.toLowerCase())
-          }
-          style={{ width: '100%', marginBottom: 12 }}
-        >
-          {logTypes.map((lt) => (
-            <Option key={lt.id} value={lt.name}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div
-                  style={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    backgroundColor: lt.color,
-                    marginRight: 8,
-                  }}
-                />
-                {lt.name}
-              </div>
-            </Option>
-          ))}
-        </Select>
-
-        <Select
-          placeholder="Select Category"
-          className="mb-sm"
-          value={newRow.category || undefined}
-          onChange={(value) => onChange('category', value)}
-          showSearch
-          filterOption={(input, option) =>
-            option?.value != null &&
-            option.value.toString().toLowerCase().includes(input.toLowerCase())
-          }
-          style={{ width: '100%', marginBottom: 12 }}
-        >
-          {logCategories.map((lc) => (
-            <Option key={lc.id} value={lc.name}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div
-                  style={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    backgroundColor: lc.color,
-                    marginRight: 8,
-                  }}
-                />
-                {lc.name}
-              </div>
-            </Option>
-          ))}
-        </Select>
+        <Row gutter={[16, 16]}>
+          <Col span={12}>
+            <Select
+              placeholder="Select Type"
+              className="mb-sm"
+              value={newRow.type || undefined}
+              onChange={(value) => onChange('type', value)}
+              showSearch
+              filterOption={(input, option) =>
+                option?.value != null &&
+                option.value
+                  .toString()
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              style={{ width: '100%', marginBottom: 12 }}
+            >
+              {logTypes.map((lt) => (
+                <Option key={lt.id} value={lt.name}>
+                  <LogTag item={lt}></LogTag>
+                </Option>
+              ))}
+            </Select>
+          </Col>
+          <Col span={12}>
+            <Select
+              placeholder="Select Category"
+              className="mb-sm"
+              value={newRow.category || undefined}
+              onChange={(value) => onChange('category', value)}
+              showSearch
+              filterOption={(input, option) =>
+                option?.value != null &&
+                option.value
+                  .toString()
+                  .toLowerCase()
+                  .includes(input.toLowerCase())
+              }
+              style={{ width: '100%', padding: 0, marginBottom: 12 }}
+            >
+              {logCategories.map((lc) => (
+                <Option key={lc.id} value={lc.name}>
+                  <LogTag item={lc}></LogTag>
+                </Option>
+              ))}
+            </Select>
+          </Col>
+        </Row>
 
         <InputNumber
           min={1}

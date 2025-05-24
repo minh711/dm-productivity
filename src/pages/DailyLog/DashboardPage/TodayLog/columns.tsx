@@ -1,5 +1,6 @@
 import { TableColumnsType, Tooltip } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
+import LogTag from '../../../../components/DailyLog/LogTag';
 
 export const myColumns: TableColumnsType<any> = [
   {
@@ -37,6 +38,7 @@ export const myColumns: TableColumnsType<any> = [
         >
           {record.category}
         </div>
+        {/* <LogTag item={record.category}></LogTag> */}
       </Tooltip>
     ),
   },

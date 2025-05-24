@@ -22,6 +22,7 @@ interface DailyLogLayoutProps {
 
 const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const menuItems = [
     {
@@ -36,6 +37,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
           {t(routeTitles[DAILY_LOG_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(DAILY_LOG_PATH),
     },
     {
       key: LOG_TYPE_AND_CATEGORY_PATH,
@@ -50,6 +52,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
           {t(routeTitles[LOG_TYPE_AND_CATEGORY_PATH])}
         </DmLink>
       ),
+      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
     },
     {
       key: 'chart',
@@ -64,6 +67,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
           Biểu đồ
         </DmLink>
       ),
+      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
     },
     {
       key: 'calendar',
@@ -78,6 +82,7 @@ const DailyLogLayout: React.FC<DailyLogLayoutProps> = ({ children }) => {
           Lịch
         </DmLink>
       ),
+      onClick: () => navigate(LOG_TYPE_AND_CATEGORY_PATH),
     },
   ];
 

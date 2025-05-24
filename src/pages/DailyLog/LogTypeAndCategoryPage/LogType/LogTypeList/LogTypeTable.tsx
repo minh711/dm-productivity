@@ -2,6 +2,7 @@ import React from 'react';
 import { Table, Checkbox, CheckboxChangeEvent } from 'antd';
 import dayjs from 'dayjs';
 import { LogType } from '../../../../../api/models';
+import LogTag from '../../../../../components/DailyLog/LogTag';
 
 interface Props {
   data: LogType[];
@@ -57,17 +58,8 @@ const LogTypeTable: React.FC<Props> = ({
       align: 'center' as const,
       width: 200,
       render: (_: string, record: LogType) => (
-        <div
-          style={{
-            padding: '4px 16px',
-            borderRadius: '16px',
-            color: '#fff',
-            backgroundColor: record.color,
-            cursor: 'pointer',
-          }}
-          onClick={() => onEdit(record)}
-        >
-          {record.name}
+        <div onClick={() => onEdit(record)}>
+          <LogTag item={record}></LogTag>
         </div>
       ),
     },
